@@ -1,0 +1,472 @@
+[
+  {
+    "meta": {
+      "id": "GOAL_THREAD",
+      "label": "Goal Thread",
+      "logoUrl": "/stores/goalthread.webp",
+      "location": "Mumbai",
+      "websiteUrl": "https://www.goalthread.co.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 7.6,
+      "avgShipping": 7.4,
+      "avgQuality": 8.2,
+      "avgSupport": 7.3,
+      "avgValue": 9.3,
+      "recommendPercent": 77,
+      "reviewCount": 13
+    }
+  },
+  {
+    "meta": {
+      "id": "FULL_TIME_STORE",
+      "label": "Full Time Store",
+      "logoUrl": "/stores/full-time-store.avif",
+      "location": "Mumbai",
+      "websiteUrl": "https://fulltimestore.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8,
+      "avgShipping": 8.2,
+      "avgQuality": 9.2,
+      "avgSupport": 6.5,
+      "avgValue": 9.8,
+      "recommendPercent": 83,
+      "reviewCount": 6
+    }
+  },
+  {
+    "meta": {
+      "id": "THAYYIL_SPORTS",
+      "label": "Thayyil Sports",
+      "logoUrl": "/stores/thayyil-sports.png",
+      "location": "Tirur, Kerala",
+      "websiteUrl": "https://thayyilsports.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8.8,
+      "avgShipping": 6.5,
+      "avgQuality": 8,
+      "avgSupport": 7,
+      "avgValue": 9.5,
+      "recommendPercent": 100,
+      "reviewCount": 4
+    }
+  },
+  {
+    "meta": {
+      "id": "SHOPEZZY",
+      "label": "Shopezzy",
+      "logoUrl": "/stores/shopezzy.png",
+      "bg": "light",
+      "location": "Mumbai",
+      "websiteUrl": "https://theshopezzy.com/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8.7,
+      "avgShipping": 8.3,
+      "avgQuality": 9.3,
+      "avgSupport": 5,
+      "avgValue": 9,
+      "recommendPercent": 100,
+      "reviewCount": 3
+    }
+  },
+  {
+    "meta": {
+      "id": "STORE_1914",
+      "label": "Store 1914",
+      "logoUrl": "/stores/store1914.avif",
+      "bg": "light",
+      "location": "Kannur, Kerala",
+      "websiteUrl": "https://store1914.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 9,
+      "avgShipping": 9,
+      "avgQuality": 9,
+      "avgSupport": null,
+      "avgValue": 10,
+      "recommendPercent": 100,
+      "reviewCount": 1
+    }
+  },
+  {
+    "meta": {
+      "id": "FOOTBALL_FRENZY",
+      "label": "The Football Frenzy",
+      "logoUrl": "/stores/thefootballfrenzy.png",
+      "location": null,
+      "websiteUrl": "https://thefootballfrenzy.com/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 9,
+      "avgShipping": 9,
+      "avgQuality": 10,
+      "avgSupport": null,
+      "avgValue": 9,
+      "recommendPercent": 100,
+      "reviewCount": 1
+    }
+  },
+  {
+    "meta": {
+      "id": "GULLY_SPORTS",
+      "label": "Gully Sports",
+      "logoUrl": "/stores/gullysports.avif",
+      "bg": "dark",
+      "location": "Kannur, Kerala",
+      "websiteUrl": "https://gullysports.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "MSRETRO",
+      "label": "MS Retro",
+      "logoUrl": "/stores/msretro.avif",
+      "bg": "light",
+      "location": "Perinthalmanna, Kerala",
+      "websiteUrl": "https://msretro.com/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8,
+      "avgShipping": 7,
+      "avgQuality": 7,
+      "avgSupport": 8,
+      "avgValue": 8,
+      "recommendPercent": 100,
+      "reviewCount": 1
+    }
+  },
+  {
+    "meta": {
+      "id": "KITKREW",
+      "label": "KitKrew",
+      "logoUrl": "/stores/kitkrew.avif",
+      "location": null,
+      "websiteUrl": "https://www.kitkrew.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8,
+      "avgShipping": 9,
+      "avgQuality": 8,
+      "avgSupport": null,
+      "avgValue": 10,
+      "recommendPercent": 100,
+      "reviewCount": 1
+    }
+  },
+  {
+    "meta": {
+      "id": "HOUSE_OF_GOAT",
+      "label": "House of Goat",
+      "logoUrl": "/stores/houseofgoat.webp",
+      "location": null,
+      "websiteUrl": "https://houseofgoat.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "JERSEY_HUT",
+      "label": "Jersey Hut",
+      "logoUrl": "/stores/jerseyhut.avif",
+      "location": "Eranakulum, Kerala",
+      "websiteUrl": "https://jerseyhut.in/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "CAMPEON_SPORTS",
+      "label": "Campeon Sports",
+      "logoUrl": "/stores/camepeon-sports.avif",
+      "bg": "light",
+      "location": "Kerala",
+      "websiteUrl": "https://campeonsports.com/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "JAIHIND_SPORTS",
+      "label": "Jaihind Sports",
+      "logoUrl": "/stores/jaihindsports.png",
+      "bg": "dark",
+      "location": "Tanur, Kerala",
+      "websiteUrl": "https://www.jaihindsports.com/",
+      "description": null,
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "CHAMPIONS_KIT",
+      "label": "Champions Kit",
+      "logoUrl": "/stores/championskit.avif",
+      "bg": "light",
+      "location": "Bangalore",
+      "websiteUrl": "https://championskit.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "JERSEY_ARENA",
+      "label": "The Jersey Arena",
+      "logoUrl": "/stores/thejerseyarena.webp",
+      "bg": "light",
+      "location": null,
+      "websiteUrl": "https://thejerseyarena.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "JCCLUB",
+      "label": "JCClub",
+      "logoUrl": "/stores/jcclub.webp",
+      "location": "Kavanur, Kerala",
+      "websiteUrl": "https://jcclub.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": 9,
+      "avgShipping": 10,
+      "avgQuality": 9,
+      "avgSupport": 7,
+      "avgValue": 8,
+      "recommendPercent": 100,
+      "reviewCount": 1
+    }
+  },
+  {
+    "meta": {
+      "id": "ZEAL_EVINCE",
+      "label": "Zeal Evince",
+      "logoUrl": "/stores/zealevince.webp",
+      "location": "Mumbai",
+      "websiteUrl": "https://zealevince.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "ELITE_JERSEY",
+      "label": "Elite Jersey",
+      "logoUrl": "/stores/elitejersey.webp",
+      "bg": "dark",
+      "location": "Mumbai",
+      "websiteUrl": "https://elitejersey.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "FANAACS",
+      "label": "Fanaacs",
+      "logoUrl": "/stores/fanaacs.avif",
+      "location": "Kochi, Kerala",
+      "websiteUrl": "https://fanaacs.com/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "FOOTBALLMONK",
+      "label": "FootballMonk",
+      "logoUrl": "/stores/footballmonk.webp",
+      "location": null,
+      "websiteUrl": "https://footballmonk.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": 7.5,
+      "avgShipping": 5,
+      "avgQuality": 8.5,
+      "avgSupport": 5,
+      "avgValue": 8.5,
+      "recommendPercent": 50,
+      "reviewCount": 2
+    }
+  },
+  {
+    "meta": {
+      "id": "COPYCATZ",
+      "label": "Copycatz",
+      "logoUrl": "/stores/copycatz.webp",
+      "bg": "light",
+      "location": null,
+      "websiteUrl": "https://www.copycatz.in/",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "AUTH_THREADS",
+      "label": "Auth Threads",
+      "logoUrl": "/stores/auththreads.webp",
+      "location": null,
+      "websiteUrl": "https://chat.whatsapp.com/DpOdUkeKWMm2EW15WqkzuY",
+      "description": null,
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": null,
+      "avgShipping": null,
+      "avgQuality": null,
+      "avgSupport": null,
+      "avgValue": null,
+      "recommendPercent": null,
+      "reviewCount": 0
+    }
+  },
+  {
+    "meta": {
+      "id": "HALFTIME_KITS",
+      "label": "Halftime Kits",
+      "logoUrl": "/stores/halftimekits.jpg",
+      "location": null,
+      "websiteUrl": "https://www.instagram.com/halftimekits.co",
+      "description": "Request-based jersey sourcing\nExact piece confirmed before shipping | Weekly sourcing | Orders & DM's close Friday\nIndependently run | COD available",
+      "hasCatalog": false
+    },
+    "stats": {
+      "avgOverall": 9.9,
+      "avgShipping": 10,
+      "avgQuality": 9.7,
+      "avgSupport": 9.8,
+      "avgValue": 9.6,
+      "recommendPercent": 100,
+      "reviewCount": 7
+    }
+  }
+]
