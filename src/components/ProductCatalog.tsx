@@ -19,8 +19,8 @@ export function ProductCatalog({
   initialProducts,
   stores,
   defaultCategory = "all",
-  title = "THE CATALOGUE",
-  subtitle = "Compare 6,500+ authentic football shirts and live prices across 22+ verified stockists.",
+  title = "Every jersey, one catalog",
+  subtitle = "Live listings pulled from 22+ stores.",
 }: ProductCatalogProps) {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
@@ -42,22 +42,17 @@ export function ProductCatalog({
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showAllStores, setShowAllStores] = useState<boolean>(false);
 
-  // Sync if URL query params change
+  // Sync with URL params
   useEffect(() => {
-    if (urlCategory) {
-      setVersion(urlCategory.toUpperCase());
-    }
+    if (urlCategory) setVersion(urlCategory.toUpperCase());
   }, [urlCategory]);
 
   useEffect(() => {
-    if (urlStore) {
-      setSelectedStores([urlStore.toUpperCase()]);
-    }
+    if (urlStore) setSelectedStores([urlStore.toUpperCase()]);
   }, [urlStore]);
 
   const PAGE_SIZE = 32;
 
-  // Clean, ordered list of popular stores for the pills
   const priorityStoreOrder = [
     "GOAL THREAD",
     "FULL TIME STORE",
@@ -83,7 +78,6 @@ export function ProductCatalog({
     "JCCLUB",
   ];
 
-  // Discover all distinct store labels
   const allStoreLabels = useMemo(() => {
     const set = new Set<string>();
     initialProducts.forEach((p) => {
@@ -91,7 +85,6 @@ export function ProductCatalog({
     });
 
     const list = Array.from(set);
-    // Sort so priority stores come first, then others alphabetically
     list.sort((a, b) => {
       const idxA = priorityStoreOrder.indexOf(a);
       const idxB = priorityStoreOrder.indexOf(b);
@@ -108,7 +101,6 @@ export function ProductCatalog({
     ? allStoreLabels
     : allStoreLabels.slice(0, 14);
 
-  // Toggle store in multi-selection
   const toggleStore = (storeName: string) => {
     setPage(1);
     if (storeName === "ALL") {
@@ -126,7 +118,6 @@ export function ProductCatalog({
     });
   };
 
-  // Toggle size in multi-selection
   const toggleSize = (sizeVal: string) => {
     setPage(1);
     setSelectedSizes((prev) => {
@@ -138,11 +129,10 @@ export function ProductCatalog({
     });
   };
 
-  // Filter & sort logic
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
 
-    // 1. Search Query
+    // Search query
     if (query.trim() !== "") {
       const q = query.toLowerCase().trim();
       result = result.filter(
@@ -153,7 +143,7 @@ export function ProductCatalog({
       );
     }
 
-    // 2. Version Filter
+    // Version filter
     if (version !== "ALL") {
       if (version === "PLAYER") {
         result = result.filter((p) => p.category?.includes("PLAYER"));
@@ -174,7 +164,7 @@ export function ProductCatalog({
       }
     }
 
-    // 3. Multi-Store Filter
+    // Multi-Store filter
     if (selectedStores.length > 0) {
       result = result.filter((p) => {
         const pStoreNorm = p.store.toUpperCase().replace(/_/g, " ");
@@ -189,7 +179,7 @@ export function ProductCatalog({
       });
     }
 
-    // 4. Multi-Size Filter
+    // Multi-Size filter
     if (selectedSizes.length > 0) {
       result = result.filter(
         (p) =>
@@ -202,12 +192,12 @@ export function ProductCatalog({
       );
     }
 
-    // 5. In Stock Only
+    // In-Stock toggle
     if (inStockOnly) {
       result = result.filter((p) => p.inStock);
     }
 
-    // 6. Jerseys Only (filter out casual jackets or gear if requested)
+    // Jerseys-only toggle
     if (jerseysOnly) {
       result = result.filter((p) => {
         const cat = p.category?.toUpperCase() || "";
@@ -215,7 +205,7 @@ export function ProductCatalog({
       });
     }
 
-    // 7. Sort
+    // Sort
     switch (sort) {
       case "price-asc":
         result.sort((a, b) => {
@@ -289,35 +279,21 @@ export function ProductCatalog({
     sort !== "featured";
 
   return (
-    <section id="catalog" className="w-full bg-white text-black py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Editorial Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-neutral-200 pb-6 mb-8 gap-4">
-        <div>
-          <span className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 block mb-1">
-            DISCOVERY INDEX
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.14em] uppercase text-black">
-            {title}
-          </h2>
-          <p className="text-xs text-neutral-500 tracking-wider uppercase mt-1">
-            {subtitle}
-          </p>
-        </div>
-        <div className="flex items-center gap-4 text-xs tracking-[0.18em] uppercase text-neutral-500">
-          <span className="font-semibold text-black text-sm">
-            {filteredProducts.length.toLocaleString()}
-          </span>
-          <span>KITS FOUND</span>
-        </div>
-      </div>
+    <section id="catalog" className="w-full py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Header matching original KitScouts */}
+      <header className="mb-6">
+        <h2 className="display-title text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+          {title}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+      </header>
 
-      {/* EASY ACCESS FILTER CONSOLE (MATCHING USER SCREENSHOT) */}
-      <div className="rounded-xl border border-[#202534] bg-[#0c0f17] text-[#cbd5e1] p-4 sm:p-5 shadow-2xl mb-8 space-y-4">
-        {/* ROW 1: Search Input & Sort Dropdown */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          {/* Search Box */}
+      {/* FILTER CONSOLE MATCHING EXACT REFERENCE SCREENSHOT */}
+      <div className="sm:rounded-lg border border-border bg-card/60 p-4 mb-6 space-y-4">
+        {/* ROW 1: Search & Sort Combobox */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748b]" />
+            <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
             <input
               type="text"
               value={query}
@@ -326,47 +302,50 @@ export function ProductCatalog({
                 setPage(1);
               }}
               placeholder="Search jerseys, teams, tags..."
-              className="h-10 w-full rounded-md border border-[#23293a] bg-[#141824] pl-9 pr-9 text-xs sm:text-sm text-white placeholder-[#64748b] outline-none transition-colors focus:border-[#a3e635] focus:ring-1 focus:ring-[#a3e635]"
+              aria-label="Search products"
+              autoComplete="off"
+              className="h-9 w-full min-w-0 rounded-md border border-border bg-transparent pl-8 pr-8 py-1 text-sm shadow-xs transition-colors outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#64748b] hover:text-white"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="size-4" />
               </button>
             )}
           </div>
 
-          {/* Sort Dropdown */}
-          <div className="relative sm:w-56 shrink-0">
-            <select
-              value={sort}
-              onChange={(e) => {
-                setSort(e.target.value);
-                setPage(1);
-              }}
-              className="h-10 w-full appearance-none rounded-md border border-[#23293a] bg-[#141824] px-3.5 pr-8 text-xs text-white outline-none transition-colors focus:border-[#a3e635] cursor-pointer"
-            >
-              <option value="featured">Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="discount">Biggest Markdowns</option>
-              <option value="newest">Newest Arrivals</option>
-            </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#64748b]" />
+          <div className="flex items-center gap-3">
+            <div className="relative w-full sm:w-52">
+              <select
+                value={sort}
+                onChange={(e) => {
+                  setSort(e.target.value);
+                  setPage(1);
+                }}
+                className="h-9 w-full appearance-none rounded-md border border-border bg-card px-2.5 pr-8 text-sm font-medium text-foreground outline-none transition-colors focus:border-primary cursor-pointer"
+              >
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="discount">Biggest Markdowns</option>
+                <option value="newest">Newest Arrivals</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            </div>
           </div>
         </div>
 
-        {/* ROW 2: Version Pills & Toggles */}
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
+        {/* ROW 2: Version Pill Tablist & Switches */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
           {/* VERSION Pills */}
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#64748b]">
-              VERSION
+            <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+              Version
             </span>
-            <div className="inline-flex items-center rounded-full border border-[#23293a] bg-[#141824] p-0.5">
+            <div className="inline-flex w-fit items-center rounded-full border border-border bg-transparent p-0.5">
               {["ALL", "PLAYER", "FAN", "RETRO"].map((v) => {
                 const isActive = version === v;
                 return (
@@ -377,10 +356,10 @@ export function ProductCatalog({
                       setVersion(v);
                       setPage(1);
                     }}
-                    className={`rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider transition-all ${
+                    className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
                       isActive
-                        ? "border border-[#a3e635] bg-[#a3e635]/15 text-[#a3e635] shadow-[0_0_12px_rgba(163,230,53,0.3)]"
-                        : "border border-transparent text-[#8e98ab] hover:text-white"
+                        ? "border border-primary bg-primary/15 text-primary"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {v}
@@ -391,7 +370,7 @@ export function ProductCatalog({
           </div>
 
           {/* Toggle: JERSEYS ONLY */}
-          <label className="flex items-center gap-2.5 cursor-pointer select-none">
+          <div className="flex items-center gap-2 select-none">
             <button
               type="button"
               role="switch"
@@ -400,23 +379,23 @@ export function ProductCatalog({
                 setJerseysOnly(!jerseysOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
-                jerseysOnly ? "bg-[#a3e635]" : "bg-[#23293a]"
+              className={`relative inline-flex h-[18.4px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
+                jerseysOnly ? "bg-primary" : "bg-muted"
               }`}
             >
               <span
-                className={`inline-block h-3.5 w-3.5 rounded-full bg-[#0c0f17] transition-transform ${
-                  jerseysOnly ? "translate-x-4.5" : "translate-x-1"
+                className={`pointer-events-none block size-4 rounded-full bg-background transition-transform ${
+                  jerseysOnly ? "translate-x-[calc(100%-2px)]" : "translate-x-0"
                 }`}
               />
             </button>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#cbd5e1]">
-              JERSEYS ONLY
+            <span className="text-xs uppercase tracking-wider font-semibold text-foreground">
+              Jerseys only
             </span>
-          </label>
+          </div>
 
           {/* Toggle: IN STOCK ONLY */}
-          <label className="flex items-center gap-2.5 cursor-pointer select-none">
+          <div className="flex items-center gap-2 select-none">
             <button
               type="button"
               role="switch"
@@ -425,50 +404,47 @@ export function ProductCatalog({
                 setInStockOnly(!inStockOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
-                inStockOnly ? "bg-[#a3e635]" : "bg-[#23293a]"
+              className={`relative inline-flex h-[18.4px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
+                inStockOnly ? "bg-primary" : "bg-muted"
               }`}
             >
               <span
-                className={`inline-block h-3.5 w-3.5 rounded-full bg-[#0c0f17] transition-transform ${
-                  inStockOnly ? "translate-x-4.5" : "translate-x-1"
+                className={`pointer-events-none block size-4 rounded-full bg-background transition-transform ${
+                  inStockOnly ? "translate-x-[calc(100%-2px)]" : "translate-x-0"
                 }`}
               />
             </button>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#cbd5e1]">
-              IN STOCK ONLY
+            <span className="text-xs uppercase tracking-wider font-semibold text-foreground">
+              In stock only
             </span>
-          </label>
+          </div>
 
-          {/* Reset Filters Shortcut */}
           {hasActiveCustomFilters && (
             <button
               type="button"
               onClick={resetAllFilters}
-              className="ml-auto inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#8e98ab] hover:text-[#a3e635] transition-colors"
+              className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors"
             >
-              <RotateCcw className="w-3 h-3" />
-              <span>RESET FILTERS</span>
+              <RotateCcw className="size-3" />
+              <span>Reset</span>
             </button>
           )}
         </div>
 
-        {/* ROW 3: ALL STORES PILLS (DIRECT ONE-CLICK ACCESS) */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-[#1d2230]">
-          {/* ALL STORES PILL */}
+        {/* ROW 3: ALL STORES PILLS */}
+        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-border/50">
           <button
             type="button"
             onClick={() => toggleStore("ALL")}
-            className={`rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wider transition-all ${
+            className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
               selectedStores.length === 0
-                ? "border-[#a3e635] bg-[#a3e635]/15 text-[#a3e635] shadow-[0_0_12px_rgba(163,230,53,0.25)]"
-                : "border-[#23293a] bg-[#141824] text-[#8e98ab] hover:border-[#3b4359] hover:text-white"
+                ? "border-primary bg-primary/15 text-primary"
+                : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
             }`}
           >
-            ALL STORES
+            All stores
           </button>
 
-          {/* INDIVIDUAL STORE PILLS */}
           {visibleStores.map((st) => {
             const isSelected = selectedStores.includes(st);
             return (
@@ -476,10 +452,10 @@ export function ProductCatalog({
                 key={st}
                 type="button"
                 onClick={() => toggleStore(st)}
-                className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-wider transition-all ${
+                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   isSelected
-                    ? "border-[#a3e635] bg-[#a3e635]/15 text-[#a3e635] shadow-[0_0_12px_rgba(163,230,53,0.3)] font-bold"
-                    : "border-[#23293a] bg-[#141824] text-[#8e98ab] hover:border-[#3b4359] hover:text-white"
+                    ? "border-primary bg-primary/15 text-primary font-bold"
+                    : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                 }`}
               >
                 {st}
@@ -487,24 +463,23 @@ export function ProductCatalog({
             );
           })}
 
-          {/* SHOW MORE / LESS STORES TOGGLE */}
           {allStoreLabels.length > 14 && (
             <button
               type="button"
               onClick={() => setShowAllStores(!showAllStores)}
-              className="rounded-full border border-dashed border-[#343c50] bg-transparent px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[#a3e635] hover:bg-[#a3e635]/10 transition-colors"
+              className="rounded-full border border-dashed border-border px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary hover:bg-primary/10 transition-colors"
             >
-              {showAllStores ? "− LESS STORES" : `+ ${allStoreLabels.length - 14} MORE STORES`}
+              {showAllStores ? "− Fewer stores" : `+ ${allStoreLabels.length - 14} more stores`}
             </button>
           )}
         </div>
 
-        {/* ROW 4: SIZES PILLS */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-[#1d2230]">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#64748b] mr-2">
-            <span>SIZE</span>
-            <Info className="w-3.5 h-3.5 text-[#64748b]" />
-          </div>
+        {/* ROW 4: SIZE FILTER PILLS */}
+        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-border/50">
+          <span className="flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground font-semibold mr-1">
+            Size
+            <Info className="size-3.5" />
+          </span>
 
           {["S", "M", "L", "XL", "XXL", "3XL"].map((sz) => {
             const isSizeActive = selectedSizes.includes(sz);
@@ -513,10 +488,10 @@ export function ProductCatalog({
                 key={sz}
                 type="button"
                 onClick={() => toggleSize(sz)}
-                className={`grid min-w-[34px] h-[28px] place-items-center rounded-full border px-2.5 text-[11px] font-bold uppercase transition-all ${
+                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
                   isSizeActive
-                    ? "border-[#a3e635] bg-[#a3e635]/15 text-[#a3e635] shadow-[0_0_12px_rgba(163,230,53,0.3)]"
-                    : "border-[#23293a] bg-[#141824] text-[#8e98ab] hover:border-[#3b4359] hover:text-white"
+                    ? "border-primary bg-primary/15 text-primary"
+                    : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                 }`}
               >
                 {sz}
@@ -528,29 +503,22 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setSelectedSizes([])}
-              className="text-[10px] text-[#64748b] hover:text-white underline ml-2 uppercase tracking-wider"
+              className="text-xs text-muted-foreground hover:text-foreground underline ml-2 uppercase tracking-wider"
             >
-              CLEAR SIZES
+              Clear
             </button>
           )}
         </div>
       </div>
 
       {/* Product Results Count Banner */}
-      <div className="flex items-center justify-between mb-6 pb-2 border-b border-neutral-100 text-xs text-neutral-500 uppercase tracking-wider">
-        <span>
-          Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} matching shirts
-        </span>
-        {selectedStores.length > 0 && (
-          <span className="text-black font-medium">
-            Filtering by {selectedStores.length} {selectedStores.length === 1 ? "store" : "stores"}
-          </span>
-        )}
-      </div>
+      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
+        {filteredProducts.length.toLocaleString()} kits found
+      </p>
 
-      {/* Product Grid: 4 columns desktop, 3 columns tablet, 2 columns mobile */}
+      {/* Product Grid: 2 columns on mobile, 3 on tablet, 4 on desktop */}
       {displayedProducts.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {displayedProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -560,36 +528,36 @@ export function ProductCatalog({
           ))}
         </div>
       ) : (
-        <div className="py-24 text-center border-t border-neutral-100">
-          <p className="text-sm uppercase tracking-[0.2em] text-neutral-400 mb-4">
-            NO PIECES MATCH YOUR CURRENT FILTER CRITERIA
+        <div className="py-20 text-center border border-border rounded-lg bg-card/40">
+          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3 font-semibold">
+            No kits found matching your search and filter criteria
           </p>
           <button
             onClick={resetAllFilters}
-            className="text-xs font-semibold tracking-[0.2em] uppercase text-black underline hover:opacity-60"
+            className="text-xs font-semibold tracking-wider uppercase text-primary underline hover:opacity-80"
           >
-            RESET ALL FILTERS AND RESTORE COMPLETE CATALOGUE
+            Clear filters and reset catalog
           </button>
         </div>
       )}
 
-      {/* Load More Action Button */}
+      {/* Load More Button */}
       {hasMore && (
-        <div className="mt-16 text-center pt-8 border-t border-neutral-100">
-          <div className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 mb-4">
-            SHOWING {displayedProducts.length} OF {filteredProducts.length.toLocaleString()} KITS
-          </div>
+        <div className="mt-12 text-center pt-6 border-t border-border">
+          <p className="text-xs tracking-wider uppercase text-muted-foreground mb-4 font-semibold">
+            Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} kits
+          </p>
           <button
             type="button"
             onClick={() => setPage((prev) => prev + 1)}
-            className="px-10 py-4 bg-white border border-black text-black hover:bg-black hover:text-white transition-colors text-xs font-medium tracking-[0.22em] uppercase"
+            className="rounded-md border border-border bg-secondary hover:bg-secondary/80 px-8 py-3 text-xs font-semibold uppercase tracking-wider text-foreground hover:border-primary/50 transition-colors"
           >
-            LOAD MORE PIECES
+            Load More Kits
           </button>
         </div>
       )}
 
-      {/* Product Detail Modal */}
+      {/* Product Detail Modal with Comparison */}
       <ProductDetailModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}

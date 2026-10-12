@@ -1,20 +1,36 @@
 import type { Metadata, Viewport } from "next";
+import { Barlow_Condensed, Archivo } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-barlow-condensed",
+  display: "swap",
+});
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#0b0d13",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
 export const metadata: Metadata = {
-  title: "KitScouts — The Football Collection | Luxury Jersey Discovery",
+  title: "KitScout — Compare Football Jersey Prices & Stock",
   description:
-    "An editorial football jersey discovery index. Compare authentic player editions, fan cuts, and rare archival retros across India's premier independent stockists.",
+    "Compare football jersey prices and stock across 22+ stores in India. Player versions, fan editions, retro shirts, and clearance markdowns in one catalog.",
   keywords: [
     "football jerseys",
     "football kits",
@@ -28,11 +44,13 @@ export const metadata: Metadata = {
     "Thayyil Sports",
     "Shopezzy",
     "Store 1914",
+    "The Football Frenzy",
     "MS Retro",
     "KitKrew",
     "House of Goat",
+    "Jaihind Sports",
   ],
-  authors: [{ name: "KitScouts Editorial" }],
+  authors: [{ name: "KitScouts" }],
 };
 
 export default function RootLayout({
@@ -41,8 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="min-h-screen flex flex-col font-sans bg-white text-neutral-900 selection:bg-black selection:text-white">
+    <html
+      lang="en"
+      className={`dark h-full antialiased ${barlowCondensed.variable} ${archivo.variable}`}
+    >
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
         <FavoritesProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

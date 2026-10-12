@@ -6,36 +6,40 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        background: "#ffffff",
-        foreground: "#111111",
-        cream: "#fbfbfa",
-        canvas: "#f7f7f5",
-        subtle: "#e8e8e6",
-        border: "#e5e5e5",
-        "border-subtle": "#f0f0f0",
-        muted: "#737373",
-        "muted-dark": "#404040",
-        "muted-light": "#a3a3a3",
+        background: "#0b0d13",
+        foreground: "#f3f5f8",
+        card: {
+          DEFAULT: "#15181f",
+          foreground: "#f3f5f8",
+        },
+        primary: {
+          DEFAULT: "#aaff22", // Electric neon lime
+          foreground: "#0d1406",
+        },
+        secondary: {
+          DEFAULT: "#23262e",
+          foreground: "#f3f5f8",
+        },
+        muted: {
+          DEFAULT: "#1e2229",
+          foreground: "#979fab",
+        },
+        border: "#2c3039",
+        input: "#1e2330",
+        sale: "#ff8443", // Distinct discount color
       },
       fontFamily: {
-        sans: [
-          "-apple-system",
-          "BlinkMacSystemFont",
-          '"Segoe UI"',
-          "Roboto",
-          '"Helvetica Neue"',
-          "Arial",
-          "sans-serif",
-        ],
-        serif: ['"Playfair Display"', "Georgia", "serif"],
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        display: ["var(--font-barlow-condensed)", "sans-serif"],
+        condensed: ["var(--font-barlow-condensed)", "sans-serif"],
       },
       letterSpacing: {
-        editorial: "0.22em",
-        campaign: "0.18em",
-        caps: "0.12em",
+        widest: "0.15em",
+        tighter: "-0.04em",
       },
     },
   },

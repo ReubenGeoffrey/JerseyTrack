@@ -14,42 +14,42 @@ export default function StoresPage() {
   const stores = getAllStores();
 
   return (
-    <div className="pt-24 sm:pt-28 pb-20 bg-white min-h-screen">
+    <div className="pt-24 sm:pt-28 pb-20 bg-background text-foreground min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-neutral-400 hover:text-black mb-8 transition-colors"
+          className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-muted-foreground hover:text-primary mb-8 transition-colors font-semibold"
         >
-          <ArrowLeft className="w-3 h-3" />
-          <span>RETURN TO HOMEPAGE</span>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Return to Browse</span>
         </Link>
 
-        {/* Editorial Heading */}
-        <div className="border-b border-neutral-200 pb-8 mb-8">
-          <div className="flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-neutral-400 mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 text-neutral-600" />
-            <span>VERIFIED RETAIL INDEX</span>
+        {/* Heading */}
+        <div className="border-b border-border pb-8 mb-8">
+          <div className="flex items-center gap-2 text-xs tracking-wider uppercase text-primary font-semibold mb-2">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Verified Retailer Directory</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-light tracking-[0.14em] uppercase text-black mb-3">
+          <h1 className="display-title text-4xl sm:text-6xl font-black tracking-tight uppercase text-foreground mb-3">
             STORE DIRECTORY & REVIEWS
           </h1>
-          <p className="text-xs sm:text-sm text-neutral-500 tracking-wider max-w-2xl leading-relaxed">
+          <p className="text-sm text-muted-foreground tracking-wide max-w-2xl leading-relaxed">
             Community ratings, fulfillment speed, and product authenticity audits for India&apos;s leading football jersey stockists. All listings are monitored continuously.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-6 text-[11px] tracking-[0.18em] uppercase text-neutral-600">
+          <div className="mt-6 flex flex-wrap gap-6 text-xs tracking-wider uppercase text-muted-foreground font-semibold">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-black" />
-              <span>{stores.length} MONITORED STORES</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+              <span>{stores.length} Monitored Stores</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-black" />
-              <span>DIRECT CHECKOUT DISPATCH</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+              <span>Direct Checkout Dispatch</span>
             </div>
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-3.5 h-3.5 text-black" />
-              <span>INDEPENDENT REVIEWS</span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+              <span>Independent Ratings</span>
             </div>
           </div>
         </div>

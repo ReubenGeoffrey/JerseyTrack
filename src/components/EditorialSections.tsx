@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Product } from "@/types";
 import { Heart, ArrowUpRight } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -24,224 +23,160 @@ export function EditorialSections({
   const { isFavorite, toggleFavorite } = useFavorites();
 
   return (
-    <div className="w-full bg-white text-black py-12 divide-y divide-neutral-200">
+    <div className="w-full bg-background text-foreground py-8 divide-y divide-border/60">
       {/* 01 — THE CLUB COLLECTION */}
-      <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="text-[11px] font-medium tracking-[0.25em] text-neutral-400 uppercase mb-2">
-              01 — THE SELECTION
+            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
+              01 — Curated Selection
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.12em] uppercase">
-              THE CLUB COLLECTION
+            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+              The Club Collection
             </h2>
           </div>
-          <div className="flex items-center gap-6">
-            <p className="text-xs text-neutral-500 max-w-xs tracking-wider uppercase hidden sm:block">
-              European elite, domestic giants & modern concept silhouettes.
-            </p>
-            <Link
-              href="/?category=player#catalog"
-              className="text-xs font-medium tracking-[0.18em] uppercase border-b border-black pb-1 hover:text-neutral-500 transition-colors"
-            >
-              VIEW ALL CLUBS →
-            </Link>
-          </div>
+          <Link
+            href="/?category=player#catalog"
+            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+          >
+            <span>View All Club Kits</span>
+            <ArrowUpRight className="size-4" />
+          </Link>
         </div>
 
-        {/* Asymmetrical Layout: 1 Featured Large + 3 Side Items */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-          {collections.clubs[0] && (
-            <div className="lg:col-span-6 group relative bg-neutral-50 flex flex-col justify-between">
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100">
-                <img
-                  src={collections.clubs[0].imageUrl}
-                  alt={collections.clubs[0].name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleFavorite(collections.clubs[0]);
-                  }}
-                  className="absolute top-4 right-4 z-10 p-2.5 bg-white/90 backdrop-blur-sm rounded-none border border-neutral-200/60 hover:bg-black hover:text-white transition-colors"
-                  aria-label="Save item"
-                >
-                  <Heart
-                    className={`w-4 h-4 ${
-                      isFavorite(collections.clubs[0].id)
-                        ? "fill-current text-black group-hover:text-white"
-                        : "text-neutral-600"
-                    }`}
-                  />
-                </button>
-                <div className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] bg-black text-white px-2 py-1">
-                  FEATURED PIECE
-                </div>
-              </div>
-              <div className="p-6 flex flex-col justify-between gap-3 bg-white border-t border-neutral-100">
-                <div className="flex items-center justify-between text-[11px] tracking-[0.16em] uppercase text-neutral-500">
-                  <span>{collections.clubs[0].store}</span>
-                  <span>{collections.clubs[0].category.replace("_", " ")}</span>
-                </div>
-                <h3 className="text-base sm:text-lg font-light tracking-wide uppercase line-clamp-1">
-                  {collections.clubs[0].name}
-                </h3>
-                <div className="flex items-center justify-between pt-2">
-                  <span className="text-base font-medium tracking-tight">
-                    ₹{collections.clubs[0].discountedPrice ?? collections.clubs[0].price}
-                  </span>
-                  <a
-                    href={collections.clubs[0].productUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.16em] text-black hover:underline"
-                  >
-                    <span>ACQUIRE AT STORE</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Side 3 Club Items */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-            {collections.clubs.slice(1, 5).map((product) => (
-              <div
-                key={product.id}
-                className="group flex flex-col bg-neutral-50"
-              >
-                <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFavorite(product);
-                    }}
-                    className="absolute top-3 right-3 z-10 p-2 bg-white/90 backdrop-blur-sm border border-neutral-200/60 hover:bg-black hover:text-white transition-colors"
-                    aria-label="Save item"
-                  >
-                    <Heart
-                      className={`w-3.5 h-3.5 ${
-                        isFavorite(product.id)
-                          ? "fill-current text-black hover:text-white"
-                          : "text-neutral-500"
-                      }`}
-                    />
-                  </button>
-                </div>
-                <div className="p-4 flex flex-col gap-1.5 bg-white border-t border-neutral-100 flex-1">
-                  <div className="text-[10px] tracking-[0.18em] uppercase text-neutral-400">
-                    {product.store}
-                  </div>
-                  <h4 className="text-xs font-light tracking-wider uppercase line-clamp-2 min-h-[2rem]">
-                    {product.name}
-                  </h4>
-                  <div className="mt-auto pt-2 flex items-center justify-between text-xs">
-                    <span className="font-medium">
-                      ₹{product.discountedPrice ?? product.price}
-                    </span>
-                    <a
-                      href={product.productUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] uppercase tracking-[0.16em] text-neutral-600 hover:text-black flex items-center gap-0.5"
-                    >
-                      <span>VIEW</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 02 — ARCHIVE / RETRO */}
-      <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <div className="text-[11px] font-medium tracking-[0.25em] text-neutral-400 uppercase mb-2">
-              02 — THE VAULT
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.12em] uppercase">
-              ARCHIVE / RETRO
-            </h2>
-          </div>
-          <div className="flex items-center gap-6">
-            <p className="text-xs text-neutral-500 max-w-xs tracking-wider uppercase hidden sm:block">
-              Vintage aesthetics, historic campaigns & collectible heritage.
-            </p>
-            <Link
-              href="/?category=retro#catalog"
-              className="text-xs font-medium tracking-[0.18em] uppercase border-b border-black pb-1 hover:text-neutral-500 transition-colors"
-            >
-              EXPLORE ARCHIVE →
-            </Link>
-          </div>
-        </div>
-
-        {/* 4 Column Editorial Display */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-          {collections.archive.slice(0, 4).map((product) => (
+        {/* 4 Cards Grid */}
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {collections.clubs.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col bg-white border border-neutral-100"
+              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
             >
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-50">
+              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleFavorite(product);
-                  }}
-                  className="absolute top-3 right-3 z-10 p-2 bg-white/90 backdrop-blur-sm border border-neutral-200/60 hover:bg-black hover:text-white transition-colors"
-                  aria-label="Save item"
+                  type="button"
+                  onClick={() => toggleFavorite(product)}
+                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`w-3.5 h-3.5 ${
+                    className={`size-4 ${
                       isFavorite(product.id)
-                        ? "fill-current text-black hover:text-white"
-                        : "text-neutral-500"
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
                     }`}
                   />
                 </button>
-                <div className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.2em] bg-white/90 px-1.5 py-0.5 border border-neutral-200">
-                  RETRO EDITION
-                </div>
               </div>
-              <div className="p-3.5 sm:p-4 flex flex-col gap-1.5 flex-1">
-                <span className="text-[10px] tracking-[0.18em] uppercase text-neutral-400">
-                  {product.store}
-                </span>
-                <h4 className="text-xs font-light tracking-wider uppercase line-clamp-2 min-h-[2rem]">
+              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
+                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
+                    {product.store.replace(/_/g, " ")}
+                  </span>
+                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
+                    {product.category.replace(/_/g, " ")}
+                  </span>
+                </div>
+                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
                   {product.name}
-                </h4>
-                <div className="mt-auto pt-2 flex items-center justify-between text-xs">
-                  <span className="font-medium">
+                </h3>
+                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+                  <span className="font-display text-xl font-bold leading-none text-foreground">
                     ₹{product.discountedPrice ?? product.price}
                   </span>
                   <a
                     href={product.productUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] uppercase tracking-[0.16em] text-neutral-500 hover:text-black flex items-center gap-0.5"
+                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
                   >
-                    <span>DETAILS</span>
-                    <ArrowUpRight className="w-3 h-3" />
+                    <span>View</span>
+                    <ArrowUpRight className="size-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 02 — ARCHIVE / RETRO */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
+              02 — The Historic Vault
+            </div>
+            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+              Archive & Retro Classics
+            </h2>
+          </div>
+          <Link
+            href="/?category=retro#catalog"
+            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+          >
+            <span>Explore Vintage Kits</span>
+            <ArrowUpRight className="size-4" />
+          </Link>
+        </div>
+
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {collections.archive.slice(0, 4).map((product) => (
+            <div
+              key={product.id}
+              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
+            >
+              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(product)}
+                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  aria-label="Add to favorites"
+                >
+                  <Heart
+                    className={`size-4 ${
+                      isFavorite(product.id)
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                </button>
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
+                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
+                    {product.store.replace(/_/g, " ")}
+                  </span>
+                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
+                    RETRO
+                  </span>
+                </div>
+                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+                  <span className="font-display text-xl font-bold leading-none text-foreground">
+                    ₹{product.discountedPrice ?? product.price}
+                  </span>
+                  <a
+                    href={product.productUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
+                  >
+                    <span>View</span>
+                    <ArrowUpRight className="size-3" />
                   </a>
                 </div>
               </div>
@@ -251,79 +186,77 @@ export function EditorialSections({
       </section>
 
       {/* 03 — INTERNATIONAL */}
-      <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="text-[11px] font-medium tracking-[0.25em] text-neutral-400 uppercase mb-2">
-              03 — GLOBAL GLORY
+            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
+              03 — Global Tournaments
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.12em] uppercase">
-              INTERNATIONAL
+            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+              International Federations
             </h2>
           </div>
-          <div className="flex items-center gap-6">
-            <p className="text-xs text-neutral-500 max-w-xs tracking-wider uppercase hidden sm:block">
-              World cups, continental tourneys & federation colours.
-            </p>
-            <Link
-              href="/?category=international#catalog"
-              className="text-xs font-medium tracking-[0.18em] uppercase border-b border-black pb-1 hover:text-neutral-500 transition-colors"
-            >
-              VIEW FEDERATIONS →
-            </Link>
-          </div>
+          <Link
+            href="/?category=international#catalog"
+            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+          >
+            <span>View All National Teams</span>
+            <ArrowUpRight className="size-4" />
+          </Link>
         </div>
 
-        {/* Editorial Split Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {collections.international.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col bg-white border border-neutral-100"
+              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
             >
-              <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-50">
+              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleFavorite(product);
-                  }}
-                  className="absolute top-3 right-3 z-10 p-2 bg-white/90 backdrop-blur-sm border border-neutral-200/60 hover:bg-black hover:text-white transition-colors"
-                  aria-label="Save item"
+                  type="button"
+                  onClick={() => toggleFavorite(product)}
+                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`w-3.5 h-3.5 ${
+                    className={`size-4 ${
                       isFavorite(product.id)
-                        ? "fill-current text-black hover:text-white"
-                        : "text-neutral-500"
+                        ? "fill-primary text-primary"
+                        : "text-muted-foreground"
                     }`}
                   />
                 </button>
               </div>
-              <div className="p-3.5 sm:p-4 flex flex-col gap-1.5 flex-1">
-                <span className="text-[10px] tracking-[0.18em] uppercase text-neutral-400">
-                  {product.store}
-                </span>
-                <h4 className="text-xs font-light tracking-wider uppercase line-clamp-2 min-h-[2rem]">
+              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
+                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
+                    {product.store.replace(/_/g, " ")}
+                  </span>
+                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
+                    NATIONAL
+                  </span>
+                </div>
+                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
                   {product.name}
-                </h4>
-                <div className="mt-auto pt-2 flex items-center justify-between text-xs">
-                  <span className="font-medium">
+                </h3>
+                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+                  <span className="font-display text-xl font-bold leading-none text-foreground">
                     ₹{product.discountedPrice ?? product.price}
                   </span>
                   <a
                     href={product.productUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] uppercase tracking-[0.16em] text-neutral-500 hover:text-black flex items-center gap-0.5"
+                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
                   >
-                    <span>BUY</span>
-                    <ArrowUpRight className="w-3 h-3" />
+                    <span>View</span>
+                    <ArrowUpRight className="size-3" />
                   </a>
                 </div>
               </div>
@@ -333,107 +266,89 @@ export function EditorialSections({
       </section>
 
       {/* 04 — THE LAST CHANCE (Clearance) */}
-      <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto bg-neutral-900 text-white my-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="text-[11px] font-medium tracking-[0.25em] text-neutral-400 uppercase mb-2">
-              04 — ARCHIVAL CLEARANCE
+            <div className="text-xs font-semibold tracking-wider text-sale uppercase mb-1">
+              04 — Markdown Deals
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.12em] uppercase text-white">
-              THE LAST CHANCE
+            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+              The Last Chance Clearance
             </h2>
           </div>
-          <div className="flex items-center gap-6">
-            <p className="text-xs text-neutral-400 max-w-xs tracking-wider uppercase hidden sm:block">
-              Verified seasonal markdowns starting from ₹249. Limited quantity.
-            </p>
-            <Link
-              href="/clearance"
-              className="text-xs font-medium tracking-[0.18em] uppercase border-b border-white pb-1 hover:text-neutral-400 transition-colors"
-            >
-              VIEW FULL CLEARANCE (180+ KITS) →
-            </Link>
-          </div>
+          <Link
+            href="/clearance"
+            className="text-xs font-bold uppercase tracking-wider text-sale hover:underline flex items-center gap-1 w-fit"
+          >
+            <span>View All Clearance Deals</span>
+            <ArrowUpRight className="size-4" />
+          </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-          {collections.clearance.slice(0, 4).map((product) => {
-            const hasDiscount =
-              product.discountedPrice && product.discountedPrice < product.price;
-            const savings = hasDiscount
-              ? Math.round(
-                  ((product.price - (product.discountedPrice ?? 0)) /
-                    product.price) *
-                    100
-                )
-              : null;
-
-            return (
-              <div
-                key={product.id}
-                className="group flex flex-col bg-neutral-950 border border-neutral-800"
-              >
-                <div className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-900">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                    loading="lazy"
+        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {collections.clearance.slice(0, 4).map((product) => (
+            <div
+              key={product.id}
+              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-sale/60"
+            >
+              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+                <img
+                  src={product.imageUrl}
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(product)}
+                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-sale/60 hover:bg-background/90 absolute top-2 right-2"
+                  aria-label="Add to favorites"
+                >
+                  <Heart
+                    className={`size-4 ${
+                      isFavorite(product.id)
+                        ? "fill-sale text-sale"
+                        : "text-muted-foreground"
+                    }`}
                   />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      toggleFavorite(product);
-                    }}
-                    className="absolute top-3 right-3 z-10 p-2 bg-black/80 backdrop-blur-sm border border-neutral-700 hover:bg-white hover:text-black transition-colors"
-                    aria-label="Save item"
-                  >
-                    <Heart
-                      className={`w-3.5 h-3.5 ${
-                        isFavorite(product.id)
-                          ? "fill-current text-white hover:text-black"
-                          : "text-neutral-400"
-                      }`}
-                    />
-                  </button>
-                  {savings && (
-                    <div className="absolute top-3 left-3 text-[10px] tracking-[0.15em] uppercase bg-white text-black font-semibold px-2 py-0.5">
-                      -{savings}% OFF
-                    </div>
-                  )}
-                </div>
-                <div className="p-3.5 sm:p-4 flex flex-col gap-1.5 flex-1 bg-neutral-950">
-                  <span className="text-[10px] tracking-[0.18em] uppercase text-neutral-400">
-                    {product.store}
+                </button>
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
+                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
+                    {product.store.replace(/_/g, " ")}
                   </span>
-                  <h4 className="text-xs font-light tracking-wider uppercase text-neutral-200 line-clamp-2 min-h-[2rem]">
-                    {product.name}
-                  </h4>
-                  <div className="mt-auto pt-2 flex items-baseline justify-between text-xs">
-                    <div className="flex items-baseline gap-2">
-                      <span className="font-medium text-white">
-                        ₹{product.discountedPrice ?? product.price}
+                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-sale/15 text-sale">
+                    CLEARANCE
+                  </span>
+                </div>
+                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-sale transition-colors">
+                  {product.name}
+                </h3>
+                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-display text-xl font-bold leading-none text-sale">
+                      ₹{product.discountedPrice ?? product.price}
+                    </span>
+                    {product.discountedPrice && (
+                      <span className="text-xs text-muted-foreground line-through">
+                        ₹{product.price}
                       </span>
-                      {hasDiscount && (
-                        <span className="text-[11px] text-neutral-400 line-through">
-                          ₹{product.price}
-                        </span>
-                      )}
-                    </div>
-                    <a
-                      href={product.productUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] uppercase tracking-[0.16em] text-neutral-400 hover:text-white flex items-center gap-0.5"
-                    >
-                      <span>SHOP</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
+                    )}
                   </div>
+                  <a
+                    href={product.productUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-sale flex items-center gap-0.5"
+                  >
+                    <span>View</span>
+                    <ArrowUpRight className="size-3" />
+                  </a>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
     </div>

@@ -1,87 +1,97 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles } from "lucide-react";
 
 export function HeroCampaign() {
   return (
-    <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-24 pb-12 px-4 sm:px-8 bg-[#0a0a0a] text-white overflow-hidden">
-      {/* Background Editorial Visual */}
+    <section className="relative w-full min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-between pt-24 pb-12 px-4 sm:px-8 bg-background text-foreground overflow-hidden border-b border-border">
+      {/* Background Graphic Visual */}
       <div className="absolute inset-0 z-0">
         <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat opacity-45 scale-[1.02] transition-transform duration-1000 ease-out"
+          className="w-full h-full bg-cover bg-center bg-no-repeat opacity-35 scale-[1.02]"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2600&auto=format&fit=crop')`,
             backgroundPosition: "center 30%",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/80" />
       </div>
 
       {/* Top Tagline */}
-      <div className="relative z-10 pt-4 flex items-center justify-between border-b border-white/15 pb-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-neutral-400">
-        <span>EDITORIAL ISSUE 2025 — V.02</span>
-        <span className="hidden sm:inline">CROSS-STORE PRICE COMPARISON INDEX</span>
-        <span>22+ STORES LIVE</span>
+      <div className="relative z-10 pt-4 flex items-center justify-between border-b border-border/60 pb-3 text-xs tracking-wider uppercase text-muted-foreground font-semibold">
+        <div className="flex items-center gap-2">
+          <span className="size-2 rounded-full bg-primary animate-pulse" />
+          <span>Live Catalog Synchronized</span>
+        </div>
+        <span className="hidden sm:inline">22+ Indian Football Stores</span>
+        <span>Every Jersey, One Catalog</span>
       </div>
 
-      {/* Center Campaign Title & Typography */}
-      <div className="relative z-10 my-auto py-16 sm:py-24 max-w-5xl">
-        <span className="inline-block text-[11px] sm:text-xs tracking-[0.3em] uppercase text-neutral-400 mb-4">
-          CURATED ARCHIVE & ALL-STORE DISCOVERY
-        </span>
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.14em] uppercase text-white leading-[1.05] sm:leading-[1] mb-6">
-          THE FOOTBALL
+      {/* Center Campaign Title with Barlow Condensed */}
+      <div className="relative z-10 my-auto py-12 sm:py-20 max-w-4xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+          <Sparkles className="size-3.5" />
+          <span>Compare Live Prices & Stock</span>
+        </div>
+
+        <h1 className="display-title text-5xl sm:text-7xl md:text-8xl font-black text-foreground tracking-tight leading-[0.95] mb-4">
+          EVERY JERSEY,
           <br />
-          <span className="font-normal">COLLECTION</span>
+          <span className="text-primary">ONE CATALOG.</span>
         </h1>
-        <p className="text-sm sm:text-base md:text-lg text-neutral-300 font-light tracking-wide max-w-xl leading-relaxed mb-10">
-          Iconic shirts. Timeless colours. Your next favourite kit.
-          <span className="block text-neutral-400 text-xs sm:text-sm mt-1">
-            Compare live prices, sizes, and verified inventory across India&apos;s premier independent football retailers.
-          </span>
+
+        <p className="text-base sm:text-lg text-muted-foreground font-normal max-w-xl leading-relaxed mb-8">
+          Compare football jersey prices and stock across 22+ stores in India.
+          Player versions, fan editions, retro shirts, and clearance markdowns in one place.
         </p>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+        <div className="flex flex-wrap items-center gap-4">
           <Link
             href="/#catalog"
-            className="inline-flex items-center gap-3 text-xs tracking-[0.22em] uppercase font-medium text-white hover:text-neutral-300 transition-colors group border-b border-white/60 pb-1.5 w-fit"
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-primary-foreground hover:brightness-110 transition-all shadow-lg hover:shadow-primary/20"
           >
-            <span>EXPLORE THE COLLECTION</span>
-            <span className="group-hover:translate-x-1.5 transition-transform">→</span>
+            <span>Explore The Collection</span>
+            <span>→</span>
           </Link>
           <Link
-            href="/stores"
-            className="inline-flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-neutral-400 hover:text-white transition-colors pb-1.5 w-fit"
+            href="/clearance"
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary hover:bg-secondary/80 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-foreground hover:border-primary/50 transition-colors"
           >
-            <span>BROWSE 22+ STORES DIRECTORY</span>
+            <span>Clearance Markdowns</span>
           </Link>
         </div>
       </div>
 
       {/* Bottom Campaign Metadata Ticker */}
-      <div className="relative z-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-neutral-400">
+      <div className="relative z-10 pt-4 border-t border-border/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs tracking-wider uppercase text-muted-foreground">
         <div className="flex items-center gap-8">
           <div>
-            <span className="text-white block font-medium text-xs">6,500+</span>
-            <span>INDEXED KITS</span>
+            <span className="font-display text-lg font-bold text-foreground block leading-tight">
+              6,500+
+            </span>
+            <span className="text-[11px] text-muted-foreground font-semibold">Kits Indexed</span>
           </div>
           <div>
-            <span className="text-white block font-medium text-xs">22+</span>
-            <span>VERIFIED BOUTIQUES</span>
+            <span className="font-display text-lg font-bold text-primary block leading-tight">
+              22+
+            </span>
+            <span className="text-[11px] text-muted-foreground font-semibold">Verified Stores</span>
           </div>
           <div>
-            <span className="text-white block font-medium text-xs">MULTI-STORE</span>
-            <span>PRICE COMPARISON</span>
+            <span className="font-display text-lg font-bold text-foreground block leading-tight">
+              ₹220+
+            </span>
+            <span className="text-[11px] text-muted-foreground font-semibold">Starting Price</span>
           </div>
         </div>
 
         <Link
           href="/#catalog"
-          className="flex items-center gap-2 text-neutral-300 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-primary hover:underline text-xs font-semibold"
           aria-label="Scroll to collection"
         >
-          <span>DISCOVER BELOW</span>
-          <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
+          <span>Jump to Catalog</span>
+          <ArrowDown className="size-3.5 animate-bounce" />
         </Link>
       </div>
     </section>

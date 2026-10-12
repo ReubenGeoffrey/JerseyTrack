@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Product } from "@/types";
-import { Heart, ArrowUpRight } from "lucide-react";
+import { Heart, Scale } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
 
 interface ProductCardProps {
@@ -18,98 +18,87 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
     product.discountedPrice !== null &&
     product.discountedPrice < product.price;
 
-  const discountPercent = hasDiscount
-    ? Math.round(
-        ((product.price - (product.discountedPrice ?? 0)) / product.price) * 100
-      )
-    : null;
+  const editionLabel = product.category
+    ? product.category.replace(/_/g, " ")
+    : "FAN VERSION";
 
   return (
-    <div className="group relative flex flex-col bg-white transition-opacity duration-300">
+    <div
+      onClick={() => onOpenDetails?.(product)}
+      className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-200 hover:border-primary/60 cursor-pointer shadow-sm hover:shadow-md"
+    >
       {/* Product Image Box */}
-      <div
-        onClick={() => onOpenDetails?.(product)}
-        className="relative aspect-[3/4] w-full overflow-hidden bg-neutral-100 cursor-pointer"
-      >
+      <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
         <img
           src={product.imageUrl}
           alt={product.name}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
-        {/* Favorite Discreet Icon */}
+        {/* Favorite Button */}
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             toggleFavorite(product);
           }}
-          className="absolute top-2.5 right-2.5 z-10 p-2 rounded-none bg-white/85 backdrop-blur-sm border border-neutral-200/50 hover:bg-black hover:text-white transition-colors"
-          aria-label={favorite ? "Remove from wishlist" : "Save to wishlist"}
+          className="grid size-8 sm:size-9 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2 z-10"
+          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         >
           <Heart
-            className={`w-3.5 h-3.5 transition-colors ${
+            className={`size-4 transition-colors ${
               favorite
-                ? "fill-current text-black group-hover:text-white"
-                : "text-neutral-500 hover:text-black"
+                ? "fill-primary text-primary"
+                : "text-muted-foreground hover:text-primary"
             }`}
           />
         </button>
 
-        {/* Verified Discount Tag */}
-        {hasDiscount && discountPercent && (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-black text-white text-[9px] font-medium tracking-[0.15em] uppercase px-1.5 py-0.5">
-            -{discountPercent}%
-          </div>
-        )}
-
-        {/* Category Badge if Retro or Player */}
-        {!hasDiscount && product.category?.includes("PLAYER") && (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-neutral-900/80 backdrop-blur-sm text-white text-[8px] tracking-[0.2em] uppercase px-1.5 py-0.5">
-            PLAYER
-          </div>
-        )}
-        {!hasDiscount && product.category?.includes("RETRO") && (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-neutral-900/80 backdrop-blur-sm text-white text-[8px] tracking-[0.2em] uppercase px-1.5 py-0.5">
-            RETRO
-          </div>
-        )}
-
-        {/* Discreet Quick View Overlay on Desktop Hover */}
-        <div className="absolute inset-x-0 bottom-0 py-2.5 px-3 bg-white/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-black border-t border-neutral-100 hidden sm:flex">
-          <span>INSPECT & COMPARE PRICES</span>
-          <ArrowUpRight className="w-3 h-3 text-neutral-500" />
+        {/* Quick Compare Badge */}
+        <div className="absolute bottom-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity bg-background/90 backdrop-blur text-[10px] font-bold uppercase tracking-wider text-primary border border-primary/40 px-2 py-0.5 rounded flex items-center gap-1">
+          <Scale className="w-3 h-3" />
+          <span>Compare Prices</span>
         </div>
       </div>
 
-      {/* Metadata Below Image */}
-      <div className="pt-3 pb-1 flex flex-col flex-1">
-        <div className="flex items-center justify-between text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-neutral-400 mb-1">
-          <span>{product.store}</span>
-          <span className={product.inStock ? "text-neutral-500" : "text-neutral-400"}>
-            {product.inStock ? "IN STOCK" : "RESERVED"}
+      {/* Product Details Area */}
+      <div className="flex flex-1 flex-col gap-2 p-2 sm:p-4">
+        {/* Store & Edition Tags */}
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[0.68rem] uppercase tracking-wider">
+          <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[130px]">
+            {product.store.replace(/_/g, " ")}
+          </span>
+          <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
+            {editionLabel}
           </span>
         </div>
 
-        <h3
-          onClick={() => onOpenDetails?.(product)}
-          className="text-[11px] sm:text-xs font-normal tracking-wide uppercase text-neutral-900 line-clamp-1 hover:text-neutral-500 transition-colors cursor-pointer"
-          title={product.name}
-        >
+        {/* Product Title */}
+        <h3 className="line-clamp-2 text-sm sm:text-base font-semibold text-card-foreground group-hover:text-primary transition-colors leading-snug">
           {product.name}
         </h3>
 
-        {/* Pricing */}
-        <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-xs sm:text-sm font-medium tracking-tight text-black">
-            ₹{product.discountedPrice ?? product.price}
-          </span>
-          {hasDiscount && (
-            <span className="text-[10px] sm:text-xs text-neutral-400 line-through tracking-normal">
-              ₹{product.price}
+        {/* Pricing Area */}
+        <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+          <div className="flex items-baseline gap-2">
+            <span
+              className={`font-display text-xl sm:text-2xl font-bold leading-none ${
+                hasDiscount ? "text-sale" : "text-foreground"
+              }`}
+            >
+              ₹{product.discountedPrice ?? product.price}
             </span>
-          )}
+            {hasDiscount && (
+              <span className="text-xs sm:text-sm text-muted-foreground line-through leading-none">
+                ₹{product.price}
+              </span>
+            )}
+          </div>
+
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            {product.inStock ? "In stock" : "Sold out"}
+          </span>
         </div>
       </div>
     </div>
