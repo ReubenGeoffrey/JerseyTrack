@@ -134,7 +134,7 @@ export function Footer() {
               <SpidermanThemeButton variant="compact" />
 
               <a
-                href="https://github.com/reubengeoffrey/JerseyTrack"
+                href="https://github.com/ReubenGeoffrey/JerseyTrack"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-border/80 bg-background/80 hover:border-primary text-xs font-mono text-muted-foreground hover:text-white transition-all shadow-spider-glow min-h-[44px] touch-manipulation active:scale-95"
@@ -166,7 +166,7 @@ export function Footer() {
               Wishlist
             </Link>
             <a
-              href="https://github.com/reubengeoffrey/JerseyTrack"
+              href="https://github.com/ReubenGeoffrey/JerseyTrack"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors min-h-[36px] inline-flex items-center gap-1.5"

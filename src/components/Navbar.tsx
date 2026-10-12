@@ -122,7 +122,7 @@ export function Navbar({ onSearchClick }: NavbarProps) {
 
             {/* GitHub Link */}
             <a
-              href="https://github.com/reubengeoffrey/JerseyTrack"
+              href="https://github.com/ReubenGeoffrey/JerseyTrack"
               target="_blank"
               rel="noopener noreferrer"
               className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-primary transition-colors p-2 rounded-md hover:bg-secondary/60 active:scale-95 touch-manipulation"
@@ -193,7 +193,7 @@ export function Navbar({ onSearchClick }: NavbarProps) {
 
             {/* Mobile GitHub Button */}
             <a
-              href="https://github.com/reubengeoffrey/JerseyTrack"
+              href="https://github.com/ReubenGeoffrey/JerseyTrack"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
