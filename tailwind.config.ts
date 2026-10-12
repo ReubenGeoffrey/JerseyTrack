@@ -10,35 +10,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0b0d13",
-        foreground: "#f3f5f8",
+        background: "#ffffff",
+        foreground: "#0a0a0a",
         card: {
-          DEFAULT: "#15181f",
-          foreground: "#f3f5f8",
+          DEFAULT: "#ffffff",
+          foreground: "#0a0a0a",
         },
         primary: {
-          DEFAULT: "#aaff22", // Electric neon lime
-          foreground: "#0d1406",
+          DEFAULT: "#000000", // Zara bold black
+          foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#23262e",
-          foreground: "#f3f5f8",
+          DEFAULT: "#f5f5f5",
+          foreground: "#111111",
         },
         muted: {
-          DEFAULT: "#1e2229",
-          foreground: "#979fab",
+          DEFAULT: "#fafafa",
+          foreground: "#737373",
         },
-        border: "#2c3039",
-        input: "#1e2330",
-        sale: "#ff8443", // Distinct discount color
+        border: "#e5e5e5",
+        input: "#ffffff",
+        sale: "#b91c1c", // High-fashion refined crimson
       },
       fontFamily: {
-        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
-        display: ["var(--font-barlow-condensed)", "sans-serif"],
-        condensed: ["var(--font-barlow-condensed)", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        serif: ["var(--font-bodoni)", "Didot", "Bodoni MT", "serif"],
+        display: ["var(--font-bodoni)", "Didot", "Bodoni MT", "serif"],
       },
       letterSpacing: {
-        widest: "0.15em",
+        widest: "0.25em",
+        wider: "0.15em",
+        tight: "-0.02em",
         tighter: "-0.04em",
       },
     },

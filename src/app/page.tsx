@@ -10,7 +10,7 @@ export default function HomePage() {
   const collections = getEditorialCollections();
 
   return (
-    <div className="w-full flex flex-col bg-background text-foreground">
+    <div className="w-full flex flex-col bg-white text-black">
       {/* 1. Full-Screen Zara-Inspired Campaign Hero */}
       <HeroCampaign />
 
@@ -29,8 +29,8 @@ export default function HomePage() {
           initialProducts={products}
           stores={stores}
           defaultCategory="all"
-          title="THE COMPLETE CATALOGUE"
-          subtitle="Compare 6,500+ authentic football shirts and live prices across 22+ verified stockists."
+          title="The Complete Collection"
+          subtitle="Discover 6,500+ authentic football shirts and compare live prices across 22+ boutiques."
         />
       </Suspense>
     </div>

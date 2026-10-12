@@ -19,8 +19,8 @@ export function ProductCatalog({
   initialProducts,
   stores,
   defaultCategory = "all",
-  title = "Every jersey, one catalog",
-  subtitle = "Live listings pulled from 22+ stores.",
+  title = "The Complete Catalogue",
+  subtitle = "6,500+ authentic football shirts curated across 22+ verified boutiques.",
 }: ProductCatalogProps) {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
@@ -58,48 +58,50 @@ export function ProductCatalog({
     "FULL TIME STORE",
     "THAYYIL SPORTS",
     "SHOPEZZY",
+    "THE THIRD",
+    "MS RETRO",
+    "SANSIRO SPORTS",
+    "FOOTBALL MONK",
     "STORE 1914",
     "THE FOOTBALL FRENZY",
     "GULLY SPORTS",
-    "MS RETRO",
     "KITKREW",
     "HOUSE OF GOAT",
     "JERSEY HUT",
     "CAMPEON SPORTS",
     "JAIHIND SPORTS",
-    "THE THIRD STORE",
-    "FOOTBALLMONK",
-    "CHAMPIONS KIT",
     "RAGEFITS",
-    "FANAACS",
-    "ZEAL EVINCE",
-    "SANSIRO SPORTS",
-    "COPYCATZ",
-    "JCCLUB",
+    "TOP FOOTBALL",
+    "ZEALEVINCE",
   ];
 
+  // Distinct stores list
   const allStoreLabels = useMemo(() => {
-    const set = new Set<string>();
-    initialProducts.forEach((p) => {
-      if (p.store) set.add(p.store.toUpperCase().replace(/_/g, " "));
-    });
+    const fromStores = stores
+      .filter((s: any) => s.status === "ACTIVE" || (s.stats?.productCount && s.stats.productCount > 0))
+      .map((s) => s.meta.label.toUpperCase());
 
-    const list = Array.from(set);
-    list.sort((a, b) => {
-      const idxA = priorityStoreOrder.indexOf(a);
-      const idxB = priorityStoreOrder.indexOf(b);
+    const fromProducts = Array.from(
+      new Set(initialProducts.map((p) => p.store.toUpperCase().replace(/_/g, " ")))
+    );
+
+    const merged = Array.from(new Set([...fromStores, ...fromProducts]));
+
+    return merged.sort((a, b) => {
+      const idxA = priorityStoreOrder.findIndex(
+        (p) => a.includes(p) || p.includes(a)
+      );
+      const idxB = priorityStoreOrder.findIndex(
+        (p) => b.includes(p) || p.includes(b)
+      );
       if (idxA !== -1 && idxB !== -1) return idxA - idxB;
       if (idxA !== -1) return -1;
       if (idxB !== -1) return 1;
       return a.localeCompare(b);
     });
+  }, [stores, initialProducts]);
 
-    return list;
-  }, [initialProducts]);
-
-  const visibleStores = showAllStores
-    ? allStoreLabels
-    : allStoreLabels.slice(0, 14);
+  const visibleStores = showAllStores ? allStoreLabels : allStoreLabels.slice(0, 14);
 
   const toggleStore = (storeName: string) => {
     setPage(1);
@@ -107,28 +109,21 @@ export function ProductCatalog({
       setSelectedStores([]);
       return;
     }
-
-    const norm = storeName.toUpperCase();
-    setSelectedStores((prev) => {
-      if (prev.includes(norm)) {
-        return prev.filter((s) => s !== norm);
-      } else {
-        return [...prev, norm];
-      }
-    });
+    setSelectedStores((prev) =>
+      prev.includes(storeName)
+        ? prev.filter((s) => s !== storeName)
+        : [...prev, storeName]
+    );
   };
 
-  const toggleSize = (sizeVal: string) => {
+  const toggleSize = (size: string) => {
     setPage(1);
-    setSelectedSizes((prev) => {
-      if (prev.includes(sizeVal)) {
-        return prev.filter((s) => s !== sizeVal);
-      } else {
-        return [...prev, sizeVal];
-      }
-    });
+    setSelectedSizes((prev) =>
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+    );
   };
 
+  // Filtered and sorted products
   const filteredProducts = useMemo(() => {
     let result = [...initialProducts];
 
@@ -139,29 +134,31 @@ export function ProductCatalog({
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.store.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q)) ||
           (p.tags && p.tags.some((t) => t.toLowerCase().includes(q)))
       );
     }
 
     // Version filter
     if (version !== "ALL") {
-      if (version === "PLAYER") {
-        result = result.filter((p) => p.category?.includes("PLAYER"));
-      } else if (version === "FAN") {
-        result = result.filter((p) => p.category?.includes("FAN"));
-      } else if (version === "RETRO") {
-        result = result.filter(
-          (p) =>
-            p.category?.includes("RETRO") ||
-            (p.tags && p.tags.some((t) => t.toLowerCase().includes("retro")))
-        );
-      } else if (version === "CLEARANCE") {
-        result = result.filter(
-          (p) =>
-            p.category?.includes("CLEARANCE") ||
-            (p.discountedPrice !== null && p.discountedPrice < p.price)
-        );
-      }
+      result = result.filter((p) => {
+        const cat = (p.category || "").toUpperCase();
+        const name = p.name.toUpperCase();
+        if (version === "PLAYER") {
+          return cat.includes("PLAYER") || name.includes("PLAYER");
+        }
+        if (version === "FAN") {
+          return (
+            cat.includes("FAN") ||
+            name.includes("FAN") ||
+            (!cat.includes("PLAYER") && !cat.includes("RETRO"))
+          );
+        }
+        if (version === "RETRO") {
+          return cat.includes("RETRO") || name.includes("RETRO");
+        }
+        return true;
+      });
     }
 
     // Multi-Store filter
@@ -279,21 +276,24 @@ export function ProductCatalog({
     sort !== "featured";
 
   return (
-    <section id="catalog" className="w-full py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Header matching original KitScouts */}
-      <header className="mb-6">
-        <h2 className="display-title text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+    <section id="catalog" className="w-full py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white text-black">
+      {/* Header with Zara Editorial Typography */}
+      <header className="mb-8">
+        <span className="text-[10px] uppercase tracking-[0.28em] text-neutral-400 font-medium block mb-2">
+          LIVE INDEX · 22+ MONITORED STORES
+        </span>
+        <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
           {title}
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-neutral-500 font-normal">{subtitle}</p>
       </header>
 
-      {/* FILTER CONSOLE MATCHING EXACT REFERENCE SCREENSHOT */}
-      <div className="sm:rounded-lg border border-border bg-card/60 p-4 mb-6 space-y-4">
+      {/* ZARA MINIMALIST EASY-ACCESS FILTER CONSOLE */}
+      <div className="border-y border-neutral-200 py-6 mb-8 space-y-5 bg-white">
         {/* ROW 1: Search & Sort Combobox */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-neutral-400 stroke-[1.5]" />
             <input
               type="text"
               value={query}
@@ -301,68 +301,73 @@ export function ProductCatalog({
                 setQuery(e.target.value);
                 setPage(1);
               }}
-              placeholder="Search jerseys, teams, tags..."
+              placeholder="SEARCH SHIRTS, CLUBS, SEASONS, BOUTIQUES..."
               aria-label="Search products"
               autoComplete="off"
-              className="h-9 w-full min-w-0 rounded-md border border-border bg-transparent pl-8 pr-8 py-1 text-sm shadow-xs transition-colors outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground"
+              className="h-10 w-full min-w-0 border border-neutral-200 bg-white pl-9 pr-9 py-2 text-xs tracking-wider uppercase text-black outline-none focus:border-black placeholder:text-neutral-400 transition-colors"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black"
                 aria-label="Clear search"
               >
-                <X className="size-4" />
+                <X className="size-3.5" />
               </button>
             )}
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="relative w-full sm:w-52">
+            <div className="relative w-full sm:w-56">
               <select
                 value={sort}
                 onChange={(e) => {
                   setSort(e.target.value);
                   setPage(1);
                 }}
-                className="h-9 w-full appearance-none rounded-md border border-border bg-card px-2.5 pr-8 text-sm font-medium text-foreground outline-none transition-colors focus:border-primary cursor-pointer"
+                className="h-10 w-full appearance-none border border-neutral-200 bg-white px-3 pr-8 text-[11px] font-medium tracking-[0.18em] uppercase text-black outline-none focus:border-black cursor-pointer transition-colors"
               >
-                <option value="featured">Featured</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="discount">Biggest Markdowns</option>
-                <option value="newest">Newest Arrivals</option>
+                <option value="featured">ORDER: FEATURED</option>
+                <option value="price-asc">PRICE: LOW TO HIGH</option>
+                <option value="price-desc">PRICE: HIGH TO LOW</option>
+                <option value="discount">BIGGEST MARKDOWNS</option>
+                <option value="newest">NEWEST ARRIVALS</option>
               </select>
-              <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-neutral-400 stroke-[1.5]" />
             </div>
           </div>
         </div>
 
-        {/* ROW 2: Version Pill Tablist & Switches */}
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
+        {/* ROW 2: Version Pills & Minimalist Switches */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
           {/* VERSION Pills */}
           <div className="flex items-center gap-2">
-            <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
-              Version
+            <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+              Edition:
             </span>
-            <div className="inline-flex w-fit items-center rounded-full border border-border bg-transparent p-0.5">
-              {["ALL", "PLAYER", "FAN", "RETRO"].map((v) => {
-                const isActive = version === v;
+            <div className="inline-flex w-fit items-center gap-1">
+              {[
+                { key: "ALL", label: "ALL" },
+                { key: "PLAYER", label: "PLAYER ISSUE" },
+                { key: "FAN", label: "FAN VERSION" },
+                { key: "RETRO", label: "ARCHIVE RETRO" },
+              ].map(({ key, label }) => {
+                const isActive = version === key;
                 return (
                   <button
-                    key={v}
+                    key={key}
                     type="button"
                     onClick={() => {
-                      setVersion(v);
+                      setVersion(key);
                       setPage(1);
                     }}
-                    className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                    className={`px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
                       isActive
-                        ? "border border-primary bg-primary/15 text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "bg-black text-white"
+                        : "border border-neutral-200 text-neutral-600 hover:border-black hover:text-black"
                     }`}
                   >
-                    {v}
+                    {label}
                   </button>
                 );
               })}
@@ -379,17 +384,17 @@ export function ProductCatalog({
                 setJerseysOnly(!jerseysOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-[18.4px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                jerseysOnly ? "bg-primary" : "bg-muted"
+              className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
+                jerseysOnly ? "bg-black" : "bg-neutral-200"
               }`}
             >
               <span
-                className={`pointer-events-none block size-4 rounded-full bg-background transition-transform ${
-                  jerseysOnly ? "translate-x-[calc(100%-2px)]" : "translate-x-0"
+                className={`pointer-events-none block size-3.5 rounded-full bg-white transition-transform ${
+                  jerseysOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-xs uppercase tracking-wider font-semibold text-foreground">
+            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-neutral-800">
               Jerseys only
             </span>
           </div>
@@ -404,17 +409,17 @@ export function ProductCatalog({
                 setInStockOnly(!inStockOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-[18.4px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                inStockOnly ? "bg-primary" : "bg-muted"
+              className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
+                inStockOnly ? "bg-black" : "bg-neutral-200"
               }`}
             >
               <span
-                className={`pointer-events-none block size-4 rounded-full bg-background transition-transform ${
-                  inStockOnly ? "translate-x-[calc(100%-2px)]" : "translate-x-0"
+                className={`pointer-events-none block size-3.5 rounded-full bg-white transition-transform ${
+                  inStockOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-xs uppercase tracking-wider font-semibold text-foreground">
+            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-neutral-800">
               In stock only
             </span>
           </div>
@@ -423,26 +428,29 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={resetAllFilters}
-              className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors"
+              className="ml-auto inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
             >
-              <RotateCcw className="size-3" />
+              <RotateCcw className="size-3 stroke-[1.5]" />
               <span>Reset</span>
             </button>
           )}
         </div>
 
         {/* ROW 3: ALL STORES PILLS */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-border/50">
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-neutral-100">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium mr-1">
+            Boutiques:
+          </span>
           <button
             type="button"
             onClick={() => toggleStore("ALL")}
-            className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
+            className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-colors ${
               selectedStores.length === 0
-                ? "border-primary bg-primary/15 text-primary"
-                : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                ? "bg-black text-white font-medium"
+                : "border border-neutral-200 bg-white text-neutral-600 hover:border-black hover:text-black"
             }`}
           >
-            All stores
+            All Stores
           </button>
 
           {visibleStores.map((st) => {
@@ -452,10 +460,10 @@ export function ProductCatalog({
                 key={st}
                 type="button"
                 onClick={() => toggleStore(st)}
-                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-colors ${
                   isSelected
-                    ? "border-primary bg-primary/15 text-primary font-bold"
-                    : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                    ? "bg-black text-white font-medium"
+                    : "border border-neutral-200 bg-white text-neutral-600 hover:border-black hover:text-black"
                 }`}
               >
                 {st}
@@ -467,18 +475,18 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setShowAllStores(!showAllStores)}
-              className="rounded-full border border-dashed border-border px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary hover:bg-primary/10 transition-colors"
+              className="px-3 py-1 text-[11px] uppercase tracking-[0.16em] border border-dashed border-neutral-300 text-neutral-800 hover:border-black transition-colors"
             >
-              {showAllStores ? "− Fewer stores" : `+ ${allStoreLabels.length - 14} more stores`}
+              {showAllStores ? "− Fewer stores" : `+ ${allStoreLabels.length - 14} more boutiques`}
             </button>
           )}
         </div>
 
         {/* ROW 4: SIZE FILTER PILLS */}
-        <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-border/50">
-          <span className="flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground font-semibold mr-1">
-            Size
-            <Info className="size-3.5" />
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-neutral-100">
+          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium mr-2">
+            Size:
+            <Info className="size-3 stroke-[1.5]" />
           </span>
 
           {["S", "M", "L", "XL", "XXL", "3XL"].map((sz) => {
@@ -488,10 +496,10 @@ export function ProductCatalog({
                 key={sz}
                 type="button"
                 onClick={() => toggleSize(sz)}
-                className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ${
+                className={`size-7 grid place-items-center text-[11px] font-medium uppercase transition-colors ${
                   isSizeActive
-                    ? "border-primary bg-primary/15 text-primary"
-                    : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                    ? "bg-black text-white"
+                    : "border border-neutral-200 text-neutral-600 hover:border-black hover:text-black"
                 }`}
               >
                 {sz}
@@ -503,22 +511,22 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setSelectedSizes([])}
-              className="text-xs text-muted-foreground hover:text-foreground underline ml-2 uppercase tracking-wider"
+              className="text-[10px] text-neutral-400 hover:text-black underline ml-2 uppercase tracking-widest"
             >
-              Clear
+              Clear sizes
             </button>
           )}
         </div>
       </div>
 
       {/* Product Results Count Banner */}
-      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
-        {filteredProducts.length.toLocaleString()} kits found
+      <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-400 mb-6 font-medium">
+        {filteredProducts.length.toLocaleString()} SHIRTS FOUND ACROSS BOUTIQUES
       </p>
 
       {/* Product Grid: 2 columns on mobile, 3 on tablet, 4 on desktop */}
       {displayedProducts.length > 0 ? (
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {displayedProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -528,31 +536,31 @@ export function ProductCatalog({
           ))}
         </div>
       ) : (
-        <div className="py-20 text-center border border-border rounded-lg bg-card/40">
-          <p className="text-sm uppercase tracking-wider text-muted-foreground mb-3 font-semibold">
-            No kits found matching your search and filter criteria
+        <div className="py-24 text-center border border-neutral-200 bg-neutral-50/50">
+          <p className="text-xs uppercase tracking-[0.22em] text-neutral-500 mb-3 font-medium">
+            No shirts found matching your search and filter criteria
           </p>
           <button
             onClick={resetAllFilters}
-            className="text-xs font-semibold tracking-wider uppercase text-primary underline hover:opacity-80"
+            className="text-[11px] font-medium tracking-[0.2em] uppercase text-black underline hover:opacity-60"
           >
-            Clear filters and reset catalog
+            Clear filters and reset catalogue
           </button>
         </div>
       )}
 
       {/* Load More Button */}
       {hasMore && (
-        <div className="mt-12 text-center pt-6 border-t border-border">
-          <p className="text-xs tracking-wider uppercase text-muted-foreground mb-4 font-semibold">
-            Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} kits
+        <div className="mt-16 text-center pt-8 border-t border-neutral-200">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 mb-4 font-medium">
+            Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} shirts
           </p>
           <button
             type="button"
             onClick={() => setPage((prev) => prev + 1)}
-            className="rounded-md border border-border bg-secondary hover:bg-secondary/80 px-8 py-3 text-xs font-semibold uppercase tracking-wider text-foreground hover:border-primary/50 transition-colors"
+            className="px-10 py-4 bg-black text-white hover:bg-neutral-800 text-[11px] font-medium uppercase tracking-[0.25em] transition-colors"
           >
-            Load More Kits
+            Load More Shirts
           </button>
         </div>
       )}

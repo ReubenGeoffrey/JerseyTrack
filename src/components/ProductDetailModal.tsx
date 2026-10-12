@@ -73,51 +73,52 @@ export function ProductDetailModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-6 bg-black/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-6 bg-black/60 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-5xl max-h-[100vh] sm:max-h-[92vh] rounded-lg border border-border bg-card text-foreground overflow-y-auto sm:overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl"
+        className="relative w-full max-w-5xl max-h-[100vh] sm:max-h-[92vh] border border-neutral-200 bg-white text-black overflow-y-auto sm:overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl"
       >
-        {/* Close Button */}
+        {/* Minimalist Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 p-2 rounded-md border border-border bg-background/80 text-foreground hover:border-primary/60 hover:text-primary transition-colors"
+          className="absolute top-4 right-4 z-30 size-9 grid place-items-center bg-white/80 hover:bg-white text-black border border-neutral-200 transition-colors"
           aria-label="Close product view"
         >
-          <X className="size-5 stroke-[2]" />
+          <X className="size-4 stroke-[1.5]" />
         </button>
 
         {/* Left Column: Image Box */}
-        <div className="md:col-span-6 bg-muted relative min-h-[350px] sm:min-h-[480px] md:min-h-[640px] flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-border">
+        <div className="md:col-span-6 bg-neutral-50 relative min-h-[350px] sm:min-h-[480px] md:min-h-[640px] flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-neutral-200">
           <img
             src={product.imageUrl}
             alt={product.name}
             className="w-full h-full object-contain md:object-cover max-h-[75vh]"
           />
           {hasDiscount && (
-            <div className="absolute top-4 left-4 bg-sale text-foreground text-xs font-bold tracking-wider uppercase px-2.5 py-1 rounded">
+            <div className="absolute top-4 left-4 bg-black text-white text-[10px] font-medium tracking-[0.2em] uppercase px-3 py-1">
               SALE
             </div>
           )}
           {comparisonOffers.length > 1 && (
-            <div className="absolute bottom-4 left-4 bg-background/90 backdrop-blur border border-primary/50 text-primary text-xs font-bold tracking-wider uppercase px-3 py-1 rounded flex items-center gap-1.5 shadow-md">
-              <Scale className="size-3.5" />
-              <span>Available in {comparisonOffers.length} stores</span>
+            <div className="absolute bottom-4 left-4 bg-white/95 border border-neutral-200 text-black text-[10px] font-medium tracking-[0.2em] uppercase px-3 py-1 flex items-center gap-1.5 shadow-xs">
+              <Scale className="size-3 stroke-[1.5]" />
+              <span>Available in {comparisonOffers.length} boutiques</span>
             </div>
           )}
         </div>
 
-        {/* Right Column: Metadata & Comparison */}
-        <div className="md:col-span-6 p-5 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[92vh]">
+        {/* Right Column: Metadata & Price Comparison */}
+        <div className="md:col-span-6 p-6 sm:p-10 flex flex-col justify-between overflow-y-auto max-h-[92vh]">
           <div>
-            {/* Store & Edition Badge */}
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider mb-2">
-              <span className="rounded-xs bg-secondary px-2 py-0.5 text-secondary-foreground">
+            {/* Store & Edition Header */}
+            <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-neutral-400 mb-2">
+              <span className="text-neutral-500">
                 {product.store.replace(/_/g, " ")}
               </span>
-              <span className="rounded-xs px-2 py-0.5 bg-primary/12 text-primary">
+              <span>·</span>
+              <span className="text-black">
                 {product.category?.replace(/_/g, " ") || "JERSEY"}
               </span>
             </div>
@@ -125,48 +126,48 @@ export function ProductDetailModal({
             {/* Product Title */}
             <h2
               id="modal-title"
-              className="display-title text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-tight mb-3"
+              className="display-title text-2xl sm:text-3xl font-normal tracking-[0.04em] text-black leading-tight mb-4"
             >
               {product.name}
             </h2>
 
             {/* Pricing */}
-            <div className="flex items-baseline gap-3 mb-6">
+            <div className="flex items-baseline gap-3 mb-6 pb-6 border-b border-neutral-200">
               <span
-                className={`font-display text-3xl sm:text-4xl font-bold leading-none ${
-                  hasDiscount ? "text-sale" : "text-foreground"
+                className={`text-2xl font-semibold leading-none ${
+                  hasDiscount ? "text-sale" : "text-black"
                 }`}
               >
                 ₹{product.discountedPrice ?? product.price}
               </span>
               {hasDiscount && (
-                <span className="text-base text-muted-foreground line-through">
+                <span className="text-sm text-neutral-400 line-through">
                   ₹{product.price}
                 </span>
               )}
-              <span className="text-xs uppercase tracking-wider font-semibold text-muted-foreground ml-auto">
-                {product.inStock ? "In stock" : "Out of stock"}
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-neutral-400 ml-auto">
+                {product.inStock ? "IN STOCK" : "SOLD OUT"}
               </span>
             </div>
 
             {/* CROSS-STORE PRICE COMPARISON PANEL */}
             {comparisonOffers.length > 1 && (
-              <div className="mb-6 rounded-lg border border-border bg-secondary/30 p-4">
-                <div className="flex items-center justify-between border-b border-border/80 pb-2 mb-3">
+              <div className="mb-6 border border-neutral-200 bg-neutral-50/50 p-4">
+                <div className="flex items-center justify-between border-b border-neutral-200 pb-2 mb-3">
                   <div className="flex items-center gap-1.5">
-                    <Scale className="size-4 text-primary" />
-                    <span className="text-xs font-bold tracking-wider uppercase text-foreground">
-                      Compare Across Stores ({comparisonOffers.length})
+                    <Scale className="size-3.5 stroke-[1.5] text-black" />
+                    <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-black">
+                      Compare Prices ({comparisonOffers.length} Stores)
                     </span>
                   </div>
                   {bestOffer && (
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black">
                       Lowest: ₹{bestOffer.effectivePrice}
                     </span>
                   )}
                 </div>
 
-                <div className="divide-y divide-border/60 max-h-48 overflow-y-auto">
+                <div className="divide-y divide-neutral-200/80 max-h-48 overflow-y-auto">
                   {comparisonOffers.map((offer) => (
                     <div
                       key={offer.storeId}
@@ -174,16 +175,16 @@ export function ProductDetailModal({
                     >
                       <div className="flex flex-col">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-foreground text-xs uppercase">
+                          <span className="font-medium text-black text-xs uppercase tracking-wide">
                             {offer.storeName}
                           </span>
                           {offer.isLowestPrice && (
-                            <span className="text-[10px] font-bold uppercase bg-primary/20 text-primary px-1.5 py-0.2 rounded">
+                            <span className="text-[9px] font-medium uppercase bg-black text-white px-1.5 py-0.2">
                               Best price
                             </span>
                           )}
                         </div>
-                        <span className="text-[11px] text-muted-foreground">
+                        <span className="text-[10px] text-neutral-500 uppercase tracking-wider">
                           {offer.inStock ? "In stock" : "Check store"}
                           {offer.sizes.length > 0 && ` · Sizes: ${offer.sizes.slice(0, 3).join(", ")}`}
                         </span>
@@ -191,11 +192,11 @@ export function ProductDetailModal({
 
                       <div className="flex items-center gap-3">
                         <div className="text-right">
-                          <span className="font-display text-base font-bold text-foreground">
+                          <span className="text-xs font-semibold text-black">
                             ₹{offer.effectivePrice}
                           </span>
                           {!offer.isLowestPrice && offer.priceDiffFromLowest > 0 && (
-                            <span className="text-[10px] text-muted-foreground block">
+                            <span className="text-[10px] text-neutral-400 block">
                               +₹{offer.priceDiffFromLowest}
                             </span>
                           )}
@@ -204,34 +205,34 @@ export function ProductDetailModal({
                           href={offer.productUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-1.5 rounded border border-border hover:border-primary/60 text-muted-foreground hover:text-primary transition-colors"
+                          className="p-1 border border-neutral-200 hover:border-black text-neutral-600 hover:text-black transition-colors"
                           title={`View at ${offer.storeName}`}
                         >
-                          <ArrowUpRight className="size-3.5" />
+                          <ArrowUpRight className="size-3.5 stroke-[1.5]" />
                         </a>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-2.5 pt-2 border-t border-border/60 flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                  <Clock className="size-3 text-muted-foreground" />
-                  <span>Prices synced today. Final checkout verified on merchant site.</span>
+                <div className="mt-2.5 pt-2 border-t border-neutral-200 flex items-center gap-1.5 text-[10px] text-neutral-400 uppercase tracking-wider">
+                  <Clock className="size-3 stroke-[1.5]" />
+                  <span>Prices verified today. Direct merchant checkout.</span>
                 </div>
               </div>
             )}
 
             {/* Sizes */}
             {product.sizes && product.sizes.length > 0 && (
-              <div className="mb-5">
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+              <div className="mb-6">
+                <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-400 mb-2">
                   Sizes at {product.store.replace(/_/g, " ")}
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {product.sizes.map((size) => (
                     <span
                       key={size}
-                      className="text-xs uppercase font-semibold px-2.5 py-1 rounded border border-border bg-card text-foreground"
+                      className="size-7 grid place-items-center text-[10px] uppercase font-medium border border-neutral-200 text-black"
                     >
                       {size}
                     </span>
@@ -240,38 +241,19 @@ export function ProductDetailModal({
               </div>
             )}
 
-            {/* Tags */}
-            {product.tags && product.tags.length > 0 && (
-              <div className="mb-6">
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                  Tags & Details
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {product.tags.slice(0, 6).map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[11px] font-medium text-muted-foreground bg-secondary/80 px-2 py-0.5 rounded"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Store Security Note */}
-            <div className="space-y-2 py-3 border-y border-border text-xs text-muted-foreground">
+            {/* Store Authenticity Note */}
+            <div className="space-y-2 py-3 border-y border-neutral-200 text-[11px] text-neutral-500 uppercase tracking-wider">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="size-4 text-primary" />
-                <span>Verified boutique catalog in India</span>
+                <ShieldCheck className="size-3.5 stroke-[1.5] text-black" />
+                <span>Verified Independent Retailer</span>
               </div>
               <div className="flex items-center gap-2">
-                <Truck className="size-4 text-primary" />
-                <span>Direct delivery via {product.store.replace(/_/g, " ")}</span>
+                <Truck className="size-3.5 stroke-[1.5] text-black" />
+                <span>Direct dispatch from {product.store.replace(/_/g, " ")}</span>
               </div>
               <div className="flex items-center gap-2">
-                <RotateCcw className="size-4 text-primary" />
-                <span>Live catalog monitoring across 22+ stores</span>
+                <RotateCcw className="size-3.5 stroke-[1.5] text-black" />
+                <span>Synchronized with 22+ active stores</span>
               </div>
             </div>
           </div>
@@ -282,23 +264,23 @@ export function ProductDetailModal({
               href={product.productUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 px-6 rounded-md bg-primary text-primary-foreground hover:brightness-110 transition-all text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-primary/20"
+              className="w-full py-4 px-6 bg-black text-white hover:bg-neutral-800 transition-colors text-[11px] font-medium uppercase tracking-[0.25em] flex items-center justify-center gap-2"
             >
-              <span>View at {product.store.replace(/_/g, " ")}</span>
-              <ExternalLink className="size-4" />
+              <span>Purchase at {product.store.replace(/_/g, " ")}</span>
+              <ExternalLink className="size-3.5 stroke-[1.5]" />
             </a>
 
             <button
               type="button"
               onClick={() => toggleFavorite(product)}
-              className="w-full py-3 px-6 rounded-md border border-border bg-secondary hover:bg-secondary/80 transition-colors text-xs font-semibold uppercase tracking-wider text-foreground flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-6 border border-neutral-200 hover:border-black transition-colors text-[11px] font-medium uppercase tracking-[0.22em] text-black flex items-center justify-center gap-2"
             >
               <Heart
-                className={`size-4 ${
-                  favorite ? "fill-primary text-primary" : "text-muted-foreground"
+                className={`size-3.5 stroke-[1.5] ${
+                  favorite ? "fill-black text-black" : "text-neutral-500"
                 }`}
               />
-              <span>{favorite ? "Saved to Favorites" : "Add to Favorites"}</span>
+              <span>{favorite ? "Saved to Wishlist" : "Save to Wishlist"}</span>
             </button>
           </div>
         </div>

@@ -3,27 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #0b0d13;
-  --foreground: #f3f5f8;
-  --card: #15181f;
-  --card-foreground: #f3f5f8;
-  --primary: #aaff22;
-  --primary-foreground: #0d1406;
-  --secondary: #23262e;
-  --secondary-foreground: #f3f5f8;
-  --muted: #1e2229;
-  --muted-foreground: #979fab;
-  --border: #2c3039;
-  --sale: #ff8443;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #111111;
+  --muted: #fafafa;
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --sale: #b91c1c;
 }
 
 @layer base {
   * {
-    border-color: #2c3039;
+    border-color: #e5e5e5;
   }
   body {
-    background-color: #0b0d13;
-    color: #f3f5f8;
+    background-color: #ffffff;
+    color: #0a0a0a;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -31,33 +31,40 @@
 }
 
 .display-title {
-  font-family: var(--font-barlow-condensed), sans-serif;
-  letter-spacing: -0.01em;
+  font-family: var(--font-bodoni), Didot, "Bodoni MT", serif;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-::selection {
-  background-color: #aaff22;
-  color: #0d1406;
+.brand-wordmark {
+  font-family: var(--font-bodoni), Didot, "Bodoni MT", serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
-/* Custom dark scrollbar */
+::selection {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Minimalist luxury scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0d13;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #232838;
-  border-radius: 3px;
+  background: #d4d4d4;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4259;
+  background: #a3a3a3;
 }
 
 @keyframes fadeIn {
@@ -72,5 +79,5 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

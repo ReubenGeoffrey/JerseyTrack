@@ -23,81 +23,78 @@ export function EditorialSections({
   const { isFavorite, toggleFavorite } = useFavorites();
 
   return (
-    <div className="w-full bg-background text-foreground py-8 divide-y divide-border/60">
+    <div className="w-full bg-white text-black divide-y divide-neutral-200/80">
       {/* 01 — THE CLUB COLLECTION */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
-              01 — Curated Selection
-            </div>
-            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+            <span className="text-[10px] tracking-[0.28em] text-neutral-400 uppercase font-medium block mb-2">
+              01 · CURATED SELECTION
+            </span>
+            <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
               The Club Collection
             </h2>
           </div>
           <Link
             href="/?category=player#catalog"
-            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-black hover:opacity-60 transition-opacity flex items-center gap-1.5 w-fit"
           >
             <span>View All Club Kits</span>
-            <ArrowUpRight className="size-4" />
+            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
           </Link>
         </div>
 
         {/* 4 Cards Grid */}
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {collections.clubs.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
+              onClick={() => onSelectProduct?.(product)}
+              className="group flex flex-col cursor-pointer"
             >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+              <div className="relative shrink-0 overflow-hidden bg-neutral-100 aspect-square w-full mb-3">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
                   type="button"
-                  onClick={() => toggleFavorite(product)}
-                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product);
+                  }}
+                  className="size-8 grid place-items-center rounded-full bg-white/80 hover:bg-white backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
                   aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`size-4 ${
+                    className={`size-3.5 stroke-[1.5] ${
                       isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground"
+                        ? "fill-black text-black"
+                        : "text-neutral-500 hover:text-black"
                     }`}
                   />
                 </button>
               </div>
-              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
-                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
-                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
-                    {product.store.replace(/_/g, " ")}
-                  </span>
-                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
-                    {product.category.replace(/_/g, " ")}
-                  </span>
+
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
+                  <span className="text-neutral-900">{product.category.replace(/_/g, " ")}</span>
                 </div>
-                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                <h3 className="line-clamp-1 text-xs font-normal text-neutral-900 tracking-wide group-hover:text-black transition-colors">
                   {product.name}
                 </h3>
-                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-                  <span className="font-display text-xl font-bold leading-none text-foreground">
+                <div className="flex items-baseline gap-2 pt-0.5">
+                  <span className="text-xs font-medium text-black">
                     ₹{product.discountedPrice ?? product.price}
                   </span>
-                  <a
-                    href={product.productUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
-                  >
-                    <span>View</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
+                  {product.discountedPrice && product.discountedPrice < product.price && (
+                    <span className="text-[11px] text-neutral-400 line-through">
+                      ₹{product.price}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -106,78 +103,75 @@ export function EditorialSections({
       </section>
 
       {/* 02 — ARCHIVE / RETRO */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
-              02 — The Historic Vault
-            </div>
-            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+            <span className="text-[10px] tracking-[0.28em] text-neutral-400 uppercase font-medium block mb-2">
+              02 · HISTORIC VAULT
+            </span>
+            <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
               Archive & Retro Classics
             </h2>
           </div>
           <Link
             href="/?category=retro#catalog"
-            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-black hover:opacity-60 transition-opacity flex items-center gap-1.5 w-fit"
           >
             <span>Explore Vintage Kits</span>
-            <ArrowUpRight className="size-4" />
+            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
           </Link>
         </div>
 
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {collections.archive.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
+              onClick={() => onSelectProduct?.(product)}
+              className="group flex flex-col cursor-pointer"
             >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+              <div className="relative shrink-0 overflow-hidden bg-neutral-100 aspect-square w-full mb-3">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
                   type="button"
-                  onClick={() => toggleFavorite(product)}
-                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product);
+                  }}
+                  className="size-8 grid place-items-center rounded-full bg-white/80 hover:bg-white backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
                   aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`size-4 ${
+                    className={`size-3.5 stroke-[1.5] ${
                       isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground"
+                        ? "fill-black text-black"
+                        : "text-neutral-500 hover:text-black"
                     }`}
                   />
                 </button>
               </div>
-              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
-                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
-                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
-                    {product.store.replace(/_/g, " ")}
-                  </span>
-                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
-                    RETRO
-                  </span>
+
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
+                  <span className="text-neutral-900">RETRO</span>
                 </div>
-                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                <h3 className="line-clamp-1 text-xs font-normal text-neutral-900 tracking-wide group-hover:text-black transition-colors">
                   {product.name}
                 </h3>
-                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-                  <span className="font-display text-xl font-bold leading-none text-foreground">
+                <div className="flex items-baseline gap-2 pt-0.5">
+                  <span className="text-xs font-medium text-black">
                     ₹{product.discountedPrice ?? product.price}
                   </span>
-                  <a
-                    href={product.productUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
-                  >
-                    <span>View</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
+                  {product.discountedPrice && product.discountedPrice < product.price && (
+                    <span className="text-[11px] text-neutral-400 line-through">
+                      ₹{product.price}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -186,78 +180,75 @@ export function EditorialSections({
       </section>
 
       {/* 03 — INTERNATIONAL */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="text-xs font-semibold tracking-wider text-primary uppercase mb-1">
-              03 — Global Tournaments
-            </div>
-            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+            <span className="text-[10px] tracking-[0.28em] text-neutral-400 uppercase font-medium block mb-2">
+              03 · GLOBAL TOURNAMENTS
+            </span>
+            <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
               International Federations
             </h2>
           </div>
           <Link
             href="/?category=international#catalog"
-            className="text-xs font-bold uppercase tracking-wider text-primary hover:underline flex items-center gap-1 w-fit"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-black hover:opacity-60 transition-opacity flex items-center gap-1.5 w-fit"
           >
             <span>View All National Teams</span>
-            <ArrowUpRight className="size-4" />
+            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
           </Link>
         </div>
 
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {collections.international.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/60"
+              onClick={() => onSelectProduct?.(product)}
+              className="group flex flex-col cursor-pointer"
             >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+              <div className="relative shrink-0 overflow-hidden bg-neutral-100 aspect-square w-full mb-3">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
                   type="button"
-                  onClick={() => toggleFavorite(product)}
-                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-primary/60 hover:bg-background/90 absolute top-2 right-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product);
+                  }}
+                  className="size-8 grid place-items-center rounded-full bg-white/80 hover:bg-white backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
                   aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`size-4 ${
+                    className={`size-3.5 stroke-[1.5] ${
                       isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground"
+                        ? "fill-black text-black"
+                        : "text-neutral-500 hover:text-black"
                     }`}
                   />
                 </button>
               </div>
-              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
-                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
-                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
-                    {product.store.replace(/_/g, " ")}
-                  </span>
-                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-primary/12 text-primary">
-                    NATIONAL
-                  </span>
+
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
+                  <span className="text-neutral-900">NATIONAL</span>
                 </div>
-                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                <h3 className="line-clamp-1 text-xs font-normal text-neutral-900 tracking-wide group-hover:text-black transition-colors">
                   {product.name}
                 </h3>
-                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-                  <span className="font-display text-xl font-bold leading-none text-foreground">
+                <div className="flex items-baseline gap-2 pt-0.5">
+                  <span className="text-xs font-medium text-black">
                     ₹{product.discountedPrice ?? product.price}
                   </span>
-                  <a
-                    href={product.productUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-primary flex items-center gap-0.5"
-                  >
-                    <span>View</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
+                  {product.discountedPrice && product.discountedPrice < product.price && (
+                    <span className="text-[11px] text-neutral-400 line-through">
+                      ₹{product.price}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -265,86 +256,76 @@ export function EditorialSections({
         </div>
       </section>
 
-      {/* 04 — THE LAST CHANCE (Clearance) */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      {/* 04 — THE ARCHIVE SALE (Clearance) */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="text-xs font-semibold tracking-wider text-sale uppercase mb-1">
-              04 — Markdown Deals
-            </div>
-            <h2 className="display-title text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-              The Last Chance Clearance
+            <span className="text-[10px] tracking-[0.28em] text-sale uppercase font-medium block mb-2">
+              04 · MARKDOWN ARCHIVE
+            </span>
+            <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
+              Seasonal Clearance
             </h2>
           </div>
           <Link
             href="/clearance"
-            className="text-xs font-bold uppercase tracking-wider text-sale hover:underline flex items-center gap-1 w-fit"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-sale hover:opacity-60 transition-opacity flex items-center gap-1.5 w-fit"
           >
-            <span>View All Clearance Deals</span>
-            <ArrowUpRight className="size-4" />
+            <span>View All Markdowns</span>
+            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
           </Link>
         </div>
 
-        <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {collections.clearance.slice(0, 4).map((product) => (
             <div
               key={product.id}
-              className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-sale/60"
+              onClick={() => onSelectProduct?.(product)}
+              className="group flex flex-col cursor-pointer"
             >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full">
+              <div className="relative shrink-0 overflow-hidden bg-neutral-100 aspect-square w-full mb-3">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
                 <button
                   type="button"
-                  onClick={() => toggleFavorite(product)}
-                  className="grid size-8 shrink-0 place-items-center rounded-md border border-border bg-background/70 backdrop-blur transition-colors hover:border-sale/60 hover:bg-background/90 absolute top-2 right-2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(product);
+                  }}
+                  className="size-8 grid place-items-center rounded-full bg-white/80 hover:bg-white backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
                   aria-label="Add to favorites"
                 >
                   <Heart
-                    className={`size-4 ${
+                    className={`size-3.5 stroke-[1.5] ${
                       isFavorite(product.id)
-                        ? "fill-sale text-sale"
-                        : "text-muted-foreground"
+                        ? "fill-black text-black"
+                        : "text-neutral-500 hover:text-black"
                     }`}
                   />
                 </button>
               </div>
-              <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
-                <div className="flex flex-wrap items-center gap-1.5 text-[0.68rem] uppercase tracking-wider">
-                  <span className="rounded-xs bg-secondary px-2 py-0.5 font-semibold text-secondary-foreground truncate max-w-[120px]">
-                    {product.store.replace(/_/g, " ")}
-                  </span>
-                  <span className="rounded-xs px-2 py-0.5 font-semibold bg-sale/15 text-sale">
-                    CLEARANCE
-                  </span>
+
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-sale font-medium">
+                  <span className="truncate max-w-[140px] text-neutral-400">{product.store.replace(/_/g, " ")}</span>
+                  <span>SALE</span>
                 </div>
-                <h3 className="line-clamp-2 text-sm font-semibold text-card-foreground group-hover:text-sale transition-colors">
+                <h3 className="line-clamp-1 text-xs font-normal text-neutral-900 tracking-wide group-hover:text-black transition-colors">
                   {product.name}
                 </h3>
-                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-display text-xl font-bold leading-none text-sale">
-                      ₹{product.discountedPrice ?? product.price}
+                <div className="flex items-baseline gap-2 pt-0.5">
+                  <span className="text-xs font-medium text-sale">
+                    ₹{product.discountedPrice ?? product.price}
+                  </span>
+                  {product.discountedPrice && product.discountedPrice < product.price && (
+                    <span className="text-[11px] text-neutral-400 line-through">
+                      ₹{product.price}
                     </span>
-                    {product.discountedPrice && (
-                      <span className="text-xs text-muted-foreground line-through">
-                        ₹{product.price}
-                      </span>
-                    )}
-                  </div>
-                  <a
-                    href={product.productUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs uppercase font-semibold text-muted-foreground hover:text-sale flex items-center gap-0.5"
-                  >
-                    <span>View</span>
-                    <ArrowUpRight className="size-3" />
-                  </a>
+                  )}
                 </div>
               </div>
             </div>

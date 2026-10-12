@@ -1,56 +1,55 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Archivo } from "next/font/google";
+import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const barlowCondensed = Barlow_Condensed({
+const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-barlow-condensed",
+  variable: "--font-bodoni",
   display: "swap",
 });
 
-const archivo = Archivo({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-archivo",
+  variable: "--font-inter",
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0b0d13",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
 export const metadata: Metadata = {
-  title: "KitScout — Compare Football Jersey Prices & Stock",
+  title: "Football Tracking Kit — The Football Collection | 22+ Stores",
   description:
-    "Compare football jersey prices and stock across 22+ stores in India. Player versions, fan editions, retro shirts, and clearance markdowns in one catalog.",
+    "An editorial football jersey discovery index and price-comparison platform. Curating player issues, fan versions, archival retros, and live prices across 22+ stores in India.",
   keywords: [
+    "Football Tracking Kit",
     "football jerseys",
-    "football kits",
-    "jersey price comparison India",
-    "player version jersey",
+    "football shirts India",
+    "jersey price comparison",
+    "authentic football shirts",
+    "player issue jersey",
     "fan version jersey",
-    "retro kits",
-    "KitScouts",
+    "archive football shirts",
     "Goal Thread",
+    "The Third Store",
     "Full Time Store",
     "Thayyil Sports",
     "Shopezzy",
-    "Store 1914",
-    "The Football Frenzy",
     "MS Retro",
-    "KitKrew",
-    "House of Goat",
-    "Jaihind Sports",
+    "Sansiro Sports",
+    "Football Monk",
   ],
-  authors: [{ name: "KitScouts" }],
+  authors: [{ name: "Football Tracking Kit" }],
 };
 
 export default function RootLayout({
@@ -61,9 +60,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark h-full antialiased ${barlowCondensed.variable} ${archivo.variable}`}
+      className={`h-full antialiased ${bodoniModa.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-black selection:text-white">
         <FavoritesProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

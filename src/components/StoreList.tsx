@@ -61,25 +61,25 @@ export function StoreList({ initialStores }: StoreListProps) {
   return (
     <div className="w-full">
       {/* Status Filter Tabs */}
-      <div className="flex items-center gap-6 overflow-x-auto pb-3 mb-6 border-b border-border text-xs">
+      <div className="flex items-center gap-8 overflow-x-auto pb-3 mb-8 border-b border-neutral-200 text-xs">
         <button
           type="button"
           onClick={() => setStatusFilter("ALL")}
-          className={`pb-2 tracking-wider uppercase transition-colors relative whitespace-nowrap font-semibold ${
+          className={`pb-2 tracking-[0.2em] uppercase transition-colors relative whitespace-nowrap font-medium ${
             statusFilter === "ALL"
-              ? "text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
-              : "text-muted-foreground hover:text-foreground"
+              ? "text-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
           }`}
         >
-          All Stores ({initialStores.length})
+          All Boutiques ({initialStores.length})
         </button>
         <button
           type="button"
           onClick={() => setStatusFilter("ACTIVE")}
-          className={`pb-2 tracking-wider uppercase transition-colors relative whitespace-nowrap font-semibold ${
+          className={`pb-2 tracking-[0.2em] uppercase transition-colors relative whitespace-nowrap font-medium ${
             statusFilter === "ACTIVE"
-              ? "text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
-              : "text-muted-foreground hover:text-foreground"
+              ? "text-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
           }`}
         >
           Live Catalogs ({activeCount})
@@ -87,32 +87,32 @@ export function StoreList({ initialStores }: StoreListProps) {
         <button
           type="button"
           onClick={() => setStatusFilter("PENDING")}
-          className={`pb-2 tracking-wider uppercase transition-colors relative whitespace-nowrap font-semibold ${
+          className={`pb-2 tracking-[0.2em] uppercase transition-colors relative whitespace-nowrap font-medium ${
             statusFilter === "PENDING"
-              ? "text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary"
-              : "text-muted-foreground hover:text-foreground"
+              ? "text-black after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
           }`}
         >
-          Feed Onboarding Pending ({pendingCount})
+          Feed Pending ({pendingCount})
         </button>
       </div>
 
       {/* Control Bar: Search and Sort */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 py-4 mb-8 border-y border-border text-xs">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 py-4 mb-8 border-y border-neutral-200 text-xs">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground stroke-[1.5]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-400 stroke-[1.5]" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search stores, locations..."
-            className="w-full pl-9 pr-8 py-2 text-xs tracking-wider uppercase rounded-md border border-border bg-card text-foreground focus:border-primary focus:outline-none placeholder:text-muted-foreground"
+            placeholder="SEARCH BOUTIQUES, CITIES..."
+            className="w-full pl-9 pr-8 py-2 text-xs tracking-wider uppercase border border-neutral-200 bg-white text-black focus:border-black focus:outline-none placeholder:text-neutral-400"
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
-              aria-label="Clear store search"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-neutral-400 hover:text-black"
+              aria-label="Clear boutique search"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -120,21 +120,21 @@ export function StoreList({ initialStores }: StoreListProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
             Order by:
           </span>
           <div className="relative">
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as any)}
-              className="appearance-none bg-card border border-border rounded-md px-3 py-2 pr-8 text-xs font-semibold tracking-wider uppercase text-foreground focus:outline-none focus:border-primary cursor-pointer"
+              className="appearance-none bg-white border border-neutral-200 px-3 py-2 pr-8 text-[11px] font-medium tracking-[0.16em] uppercase text-black focus:outline-none focus:border-black cursor-pointer"
             >
-              <option value="recommend">Most Recommended</option>
-              <option value="rating">Highest Score</option>
-              <option value="products">Largest Catalog</option>
-              <option value="name">Alphabetical (A-Z)</option>
+              <option value="recommend">MOST RECOMMENDED</option>
+              <option value="rating">HIGHEST SCORE</option>
+              <option value="products">LARGEST CATALOG</option>
+              <option value="name">ALPHABETICAL (A-Z)</option>
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 text-neutral-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none stroke-[1.5]" />
           </div>
         </div>
       </div>
@@ -147,18 +147,18 @@ export function StoreList({ initialStores }: StoreListProps) {
           ))}
         </div>
       ) : (
-        <div className="py-20 text-center border border-border rounded-lg bg-card/40">
-          <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-semibold">
-            No store found matching &quot;{query}&quot;
+        <div className="py-24 text-center border border-neutral-200 bg-neutral-50/50">
+          <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-3 font-medium">
+            No boutique found matching &quot;{query}&quot;
           </p>
           <button
             onClick={() => {
               setQuery("");
               setStatusFilter("ALL");
             }}
-            className="text-xs font-semibold tracking-wider uppercase text-primary underline hover:opacity-80"
+            className="text-[11px] font-medium tracking-[0.2em] uppercase text-black underline hover:opacity-60"
           >
-            Show All Stores
+            Show All Boutiques
           </button>
         </div>
       )}
