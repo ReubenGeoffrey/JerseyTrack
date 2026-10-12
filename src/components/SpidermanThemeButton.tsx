@@ -1,36 +1,59 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
+import { SpiderInsigniaIcon, SpiderMaskIcon } from "./SpiderIcons";
 
 interface SpidermanThemeButtonProps {
-  variant?: "pill" | "banner" | "compact";
+  variant?: "pill" | "banner" | "compact" | "stealth";
   className?: string;
+  onClick?: () => void;
 }
 
 export function SpidermanThemeButton({
   variant = "pill",
   className = "",
+  onClick,
 }: SpidermanThemeButtonProps) {
-  const { theme, toggleTheme, isSpiderman } = useTheme();
+  const { triggerSpiderPulse } = useTheme();
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handleClick = () => {
+    setIsPressed(true);
+    triggerSpiderPulse();
+    if (onClick) onClick();
+    setTimeout(() => setIsPressed(false), 600);
+  };
 
   if (variant === "compact") {
     return (
       <button
         type="button"
-        onClick={toggleTheme}
-        aria-label="Toggle Dark Spider-Man theme"
-        title={isSpiderman ? "Switch to Zara Luxury White" : "Switch to Dark Spider-Man Mode"}
-        className={`relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${
-          isSpiderman
-            ? "bg-rose-600 text-white shadow-[0_0_15px_rgba(225,29,72,0.6)] border border-rose-400"
-            : "bg-neutral-900 text-neutral-200 hover:text-white border border-rose-600/40 hover:border-rose-500 hover:shadow-[0_0_12px_rgba(225,29,72,0.4)]"
+        onClick={handleClick}
+        aria-label="Dark Spider-Man Suit Pulse"
+        title="Dark Spider-Man Mode Active"
+        className={`relative inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 min-h-[44px] min-w-[44px] touch-manipulation select-none active:scale-95 bg-card/90 text-primary border border-primary/50 shadow-spider-glow ${
+          isPressed ? "scale-95 ring-2 ring-primary animate-spiderPulse" : "hover:border-primary hover:shadow-spider-glow-lg"
         } ${className}`}
       >
-        <span className="text-xs">🕷️</span>
-        <span className="hidden sm:inline">
-          {isSpiderman ? "SPIDER-MODE ON" : "DARK SPIDER"}
+        <SpiderInsigniaIcon size={16} className="text-primary animate-spiderFloat" />
+        <span className="hidden sm:inline font-mono tracking-widest text-foreground">
+          SYMBIOTE
         </span>
+        <span className="size-1.5 rounded-full bg-primary animate-ping" />
+      </button>
+    );
+  }
+
+  if (variant === "stealth") {
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        className={`btn-spider-stealth ${isPressed ? "scale-95 ring-1 ring-primary" : ""} ${className}`}
+      >
+        <SpiderMaskIcon size={18} className="text-primary" />
+        <span>SPIDER PROTOCOL</span>
       </button>
     );
   }
@@ -39,45 +62,35 @@ export function SpidermanThemeButton({
     return (
       <button
         type="button"
-        onClick={toggleTheme}
-        className={`group relative overflow-hidden inline-flex items-center justify-between gap-3 px-5 py-3 rounded-md text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-          isSpiderman
-            ? "btn-spiderman-active"
-            : "btn-spiderman"
+        onClick={handleClick}
+        className={`btn-spider-primary group relative overflow-hidden inline-flex items-center justify-between gap-3 px-6 py-4 rounded-md text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 min-h-[48px] touch-manipulation select-none active:scale-98 ${
+          isPressed ? "ring-2 ring-white scale-98 shadow-spider-glow-lg" : ""
         } ${className}`}
       >
         <div className="flex items-center gap-2.5">
-          <span className="text-base animate-pulse">🕷️</span>
-          <span>{isSpiderman ? "DARK SPIDER-MAN MODE ACTIVE" : "ACTIVATE DARK SPIDER-MAN THEME"}</span>
+          <SpiderInsigniaIcon size={20} className="text-white animate-spiderFloat" />
+          <span className="tracking-[0.25em]">DARK SPIDER-MAN SUIT</span>
         </div>
-        <span className="text-[10px] uppercase font-semibold text-rose-300 tracking-widest px-2 py-0.5 rounded bg-black/40 border border-rose-500/30">
-          {isSpiderman ? "SWITCH TO ZARA" : "SYMBIOTE SUIT"}
+        <span className="text-[10px] uppercase font-mono font-bold text-white/90 tracking-widest px-2.5 py-1 rounded bg-black/50 border border-white/20">
+          ONLINE
         </span>
       </button>
     );
   }
 
-  // Default: Sleek pill button
+  // Default: Sleek glowing pill button
   return (
     <button
       type="button"
-      onClick={toggleTheme}
-      aria-label="Toggle Dark Spider-Man theme"
-      className={`group relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.16em] transition-all duration-300 cursor-pointer ${
-        isSpiderman
-          ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-[0_0_18px_rgba(225,29,72,0.65)] border border-rose-400 scale-[1.02]"
-          : "bg-neutral-950 text-neutral-200 hover:text-white border border-red-600/50 hover:border-red-500 hover:shadow-[0_0_15px_rgba(225,29,72,0.5)]"
+      onClick={handleClick}
+      aria-label="Dark Spider-Man Pulse"
+      className={`btn-spider-primary ${
+        isPressed ? "scale-95 ring-2 ring-primary" : ""
       } ${className}`}
     >
-      <span className="text-xs transition-transform duration-300 group-hover:scale-125">
-        🕷️
-      </span>
-      <span>{isSpiderman ? "SPIDER-MAN DARK" : "DARK SPIDERMAN"}</span>
-      <span
-        className={`size-1.5 rounded-full ${
-          isSpiderman ? "bg-white animate-ping" : "bg-red-500"
-        }`}
-      />
+      <SpiderInsigniaIcon size={16} className="text-white group-hover:scale-110 transition-transform" />
+      <span className="tracking-[0.2em]">SPIDER-MAN DARK</span>
+      <span className="size-1.5 rounded-full bg-white animate-ping" />
     </button>
   );
 }

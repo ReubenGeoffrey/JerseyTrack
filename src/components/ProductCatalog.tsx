@@ -4,9 +4,9 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Product, Store } from "@/types";
 import { ProductCard } from "./ProductCard";
 import { ProductDetailModal } from "./ProductDetailModal";
-import { Search, X, ChevronDown, Info, RotateCcw } from "lucide-react";
+import { Search, X, ChevronDown, Info, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useTheme } from "@/context/ThemeContext";
+import { SpiderInsigniaIcon } from "./SpiderIcons";
 
 interface ProductCatalogProps {
   initialProducts: Product[];
@@ -21,12 +21,11 @@ export function ProductCatalog({
   stores,
   defaultCategory = "all",
   title = "The Complete Catalogue",
-  subtitle = "6,500+ authentic football shirts curated across 22+ verified boutiques.",
+  subtitle = "6,569+ authentic football shirts curated across 22+ verified boutiques.",
 }: ProductCatalogProps) {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const urlStore = searchParams.get("store");
-  const { isSpiderman } = useTheme();
 
   // State
   const [query, setQuery] = useState<string>("");
@@ -278,12 +277,15 @@ export function ProductCatalog({
     sort !== "featured";
 
   return (
-    <section id="catalog" className="w-full py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-background text-foreground transition-colors duration-200">
+    <section id="catalog" className="w-full py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-background text-foreground transition-colors duration-200">
       {/* Header */}
-      <header className="mb-8">
-        <span className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-medium block mb-2">
-          {isSpiderman ? "SPIDER-SUIT INDEX · 22+ MONITORED STORES" : "LIVE INDEX · 22+ MONITORED STORES"}
-        </span>
+      <header className="mb-6 sm:mb-8">
+        <div className="flex items-center gap-2 mb-2">
+          <SpiderInsigniaIcon size={14} className="text-primary animate-spiderFloat" />
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-primary font-mono font-semibold">
+            DARK SYMBIOTE INDEX · 22+ STORES MONITORED
+          </span>
+        </div>
         <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
           {title}
         </h2>
@@ -291,11 +293,11 @@ export function ProductCatalog({
       </header>
 
       {/* EASY-ACCESS FILTER CONSOLE */}
-      <div className="border-y border-border py-6 mb-8 space-y-5 bg-card/60 transition-colors duration-200">
+      <div className="border border-border/70 rounded-sm p-4 sm:p-5 mb-8 space-y-4 sm:space-y-5 bg-card/80 backdrop-blur-sm transition-colors duration-200 shadow-spider-glow">
         {/* ROW 1: Search & Sort Combobox */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground stroke-[1.5]" />
+            <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground stroke-[1.5]" />
             <input
               type="text"
               value={query}
@@ -306,15 +308,15 @@ export function ProductCatalog({
               placeholder="SEARCH SHIRTS, CLUBS, SEASONS, BOUTIQUES..."
               aria-label="Search products"
               autoComplete="off"
-              className="h-10 w-full min-w-0 border border-border bg-card pl-9 pr-9 py-2 text-xs tracking-wider uppercase text-foreground outline-none focus:border-primary placeholder:text-muted-foreground transition-colors"
+              className="h-11 w-full min-w-0 border border-border bg-background pl-10 pr-10 py-2 text-xs tracking-wider uppercase text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground transition-all rounded-xs min-h-[44px]"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground touch-manipulation"
                 aria-label="Clear search"
               >
-                <X className="size-3.5" />
+                <X className="size-4" />
               </button>
             )}
           </div>
@@ -327,7 +329,7 @@ export function ProductCatalog({
                   setSort(e.target.value);
                   setPage(1);
                 }}
-                className="h-10 w-full appearance-none border border-border bg-card px-3 pr-8 text-[11px] font-medium tracking-[0.18em] uppercase text-foreground outline-none focus:border-primary cursor-pointer transition-colors"
+                className="h-11 w-full appearance-none border border-border bg-background px-3.5 pr-8 text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-foreground outline-none focus:border-primary cursor-pointer transition-colors rounded-xs min-h-[44px]"
               >
                 <option value="featured">ORDER: FEATURED</option>
                 <option value="price-asc">PRICE: LOW TO HIGH</option>
@@ -335,7 +337,7 @@ export function ProductCatalog({
                 <option value="discount">BIGGEST MARKDOWNS</option>
                 <option value="newest">NEWEST ARRIVALS</option>
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground stroke-[1.5]" />
+              <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground stroke-[1.5]" />
             </div>
           </div>
         </div>
@@ -344,10 +346,10 @@ export function ProductCatalog({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
           {/* VERSION Pills */}
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
+            <span className="text-[10px] uppercase tracking-[0.2em] font-mono text-muted-foreground font-medium">
               Edition:
             </span>
-            <div className="inline-flex w-fit items-center gap-1">
+            <div className="inline-flex w-fit items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               {[
                 { key: "ALL", label: "ALL" },
                 { key: "PLAYER", label: "PLAYER ISSUE" },
@@ -363,10 +365,10 @@ export function ProductCatalog({
                       setVersion(key);
                       setPage(1);
                     }}
-                    className={`px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-all ${
+                    className={`px-3 py-1.5 min-h-[38px] text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] transition-all touch-manipulation select-none active:scale-95 rounded-xs ${
                       isActive
-                        ? "bg-primary text-primary-foreground shadow-sm"
-                        : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
+                        ? "bg-primary text-white font-bold shadow-spider-glow border border-primary"
+                        : "border border-border/80 bg-background text-muted-foreground hover:border-foreground hover:text-foreground"
                     }`}
                   >
                     {label}
@@ -377,7 +379,7 @@ export function ProductCatalog({
           </div>
 
           {/* Toggle: JERSEYS ONLY */}
-          <div className="flex items-center gap-2 select-none">
+          <div className="flex items-center gap-2 select-none min-h-[44px]">
             <button
               type="button"
               role="switch"
@@ -386,23 +388,23 @@ export function ProductCatalog({
                 setJerseysOnly(!jerseysOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                jerseysOnly ? "bg-primary" : "bg-muted"
+              className={`relative inline-flex h-[20px] w-[36px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer touch-manipulation ${
+                jerseysOnly ? "bg-primary shadow-spider-glow" : "bg-muted"
               }`}
             >
               <span
-                className={`pointer-events-none block size-3.5 rounded-full bg-background transition-transform ${
-                  jerseysOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
+                className={`pointer-events-none block size-4 rounded-full bg-white transition-transform ${
+                  jerseysOnly ? "translate-x-[18px]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-foreground">
+            <span className="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-foreground">
               Jerseys only
             </span>
           </div>
 
           {/* Toggle: IN STOCK ONLY */}
-          <div className="flex items-center gap-2 select-none">
+          <div className="flex items-center gap-2 select-none min-h-[44px]">
             <button
               type="button"
               role="switch"
@@ -411,17 +413,17 @@ export function ProductCatalog({
                 setInStockOnly(!inStockOnly);
                 setPage(1);
               }}
-              className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                inStockOnly ? "bg-primary" : "bg-muted"
+              className={`relative inline-flex h-[20px] w-[36px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer touch-manipulation ${
+                inStockOnly ? "bg-primary shadow-spider-glow" : "bg-muted"
               }`}
             >
               <span
-                className={`pointer-events-none block size-3.5 rounded-full bg-background transition-transform ${
-                  inStockOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
+                className={`pointer-events-none block size-4 rounded-full bg-white transition-transform ${
+                  inStockOnly ? "translate-x-[18px]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-foreground">
+            <span className="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-foreground">
               In stock only
             </span>
           </div>
@@ -430,63 +432,67 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={resetAllFilters}
-              className="ml-auto inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
+              className="ml-auto inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] font-mono text-muted-foreground hover:text-primary transition-colors min-h-[44px] touch-manipulation"
             >
-              <RotateCcw className="size-3 stroke-[1.5]" />
+              <RotateCcw className="size-3.5 stroke-[1.5]" />
               <span>Reset</span>
             </button>
           )}
         </div>
 
-        {/* ROW 3: ALL STORES PILLS */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border/50">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium mr-1">
-            Boutiques:
-          </span>
-          <button
-            type="button"
-            onClick={() => toggleStore("ALL")}
-            className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-all ${
-              selectedStores.length === 0
-                ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
-            }`}
-          >
-            All Stores
-          </button>
-
-          {visibleStores.map((st) => {
-            const isSelected = selectedStores.includes(st);
-            return (
+        {/* ROW 3: ALL STORES PILLS (Horizontal Scroll on Mobile) */}
+        <div className="pt-2 border-t border-border/50">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] uppercase tracking-[0.2em] font-mono text-muted-foreground font-medium">
+              Boutiques ({allStoreLabels.length}):
+            </span>
+            {allStoreLabels.length > 14 && (
               <button
-                key={st}
                 type="button"
-                onClick={() => toggleStore(st)}
-                className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-all ${
-                  isSelected
-                    ? "bg-primary text-primary-foreground font-medium shadow-sm"
-                    : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
-                }`}
+                onClick={() => setShowAllStores(!showAllStores)}
+                className="text-[10px] uppercase tracking-[0.16em] font-mono text-primary hover:underline touch-manipulation"
               >
-                {st}
+                {showAllStores ? "− Show Less" : `+ View All ${allStoreLabels.length}`}
               </button>
-            );
-          })}
-
-          {allStoreLabels.length > 14 && (
+            )}
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-1.5 max-h-36 overflow-y-auto pr-1">
             <button
               type="button"
-              onClick={() => setShowAllStores(!showAllStores)}
-              className="px-3 py-1 text-[11px] uppercase tracking-[0.16em] border border-dashed border-border text-foreground hover:border-primary transition-colors"
+              onClick={() => toggleStore("ALL")}
+              className={`px-3 py-1.5 min-h-[36px] text-[10px] font-mono uppercase tracking-[0.16em] transition-all touch-manipulation active:scale-95 rounded-xs ${
+                selectedStores.length === 0
+                  ? "bg-primary text-white font-bold shadow-spider-glow border border-primary"
+                  : "border border-border/80 bg-background text-muted-foreground hover:border-foreground hover:text-foreground"
+              }`}
             >
-              {showAllStores ? "− Fewer stores" : `+ ${allStoreLabels.length - 14} more boutiques`}
+              All Boutiques
             </button>
-          )}
+
+            {visibleStores.map((st) => {
+              const isSelected = selectedStores.includes(st);
+              return (
+                <button
+                  key={st}
+                  type="button"
+                  onClick={() => toggleStore(st)}
+                  className={`px-2.5 py-1.5 min-h-[36px] text-[10px] font-mono uppercase tracking-[0.14em] transition-all touch-manipulation active:scale-95 rounded-xs ${
+                    isSelected
+                      ? "bg-primary text-white font-bold shadow-spider-glow border border-primary"
+                      : "border border-border/80 bg-background text-muted-foreground hover:border-foreground hover:text-foreground"
+                  }`}
+                >
+                  {st}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* ROW 4: SIZE FILTER PILLS */}
         <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border/50">
-          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium mr-2">
+          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] font-mono text-muted-foreground font-medium mr-2">
             Size:
             <Info className="size-3 stroke-[1.5]" />
           </span>
@@ -498,10 +504,10 @@ export function ProductCatalog({
                 key={sz}
                 type="button"
                 onClick={() => toggleSize(sz)}
-                className={`size-7 grid place-items-center text-[11px] font-medium uppercase transition-all ${
+                className={`min-h-[36px] min-w-[36px] grid place-items-center text-[11px] font-mono uppercase transition-all touch-manipulation active:scale-95 rounded-xs ${
                   isSizeActive
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
+                    ? "bg-primary text-white font-bold shadow-spider-glow border border-primary"
+                    : "border border-border/80 bg-background text-muted-foreground hover:border-foreground hover:text-foreground"
                 }`}
               >
                 {sz}
@@ -513,7 +519,7 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setSelectedSizes([])}
-              className="text-[10px] text-muted-foreground hover:text-primary underline ml-2 uppercase tracking-widest"
+              className="text-[10px] font-mono text-muted-foreground hover:text-primary underline ml-2 uppercase tracking-widest min-h-[36px] inline-flex items-center"
             >
               Clear sizes
             </button>
@@ -522,13 +528,16 @@ export function ProductCatalog({
       </div>
 
       {/* Product Results Count Banner */}
-      <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-6 font-medium">
-        {filteredProducts.length.toLocaleString()} SHIRTS FOUND ACROSS BOUTIQUES
-      </p>
+      <div className="flex items-center justify-between mb-6">
+        <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground font-mono font-medium flex items-center gap-2">
+          <span className="size-2 rounded-full bg-primary animate-pulse" />
+          <span>{filteredProducts.length.toLocaleString()} SHIRTS MONITORED</span>
+        </p>
+      </div>
 
       {/* Product Grid: 2 columns on mobile, 3 on tablet, 4 on desktop */}
       {displayedProducts.length > 0 ? (
-        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {displayedProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -538,13 +547,14 @@ export function ProductCatalog({
           ))}
         </div>
       ) : (
-        <div className="py-24 text-center border border-border bg-secondary/30">
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-3 font-medium">
-            No shirts found matching your search and filter criteria
+        <div className="py-24 text-center border border-border bg-card/40 rounded-sm">
+          <SpiderInsigniaIcon size={32} className="text-primary/40 mx-auto mb-3" />
+          <p className="text-xs uppercase tracking-[0.22em] font-mono text-muted-foreground mb-3 font-medium">
+            No shirts found matching your filter criteria
           </p>
           <button
             onClick={resetAllFilters}
-            className="text-[11px] font-medium tracking-[0.2em] uppercase text-primary underline hover:opacity-80"
+            className="text-[11px] font-mono font-medium tracking-[0.2em] uppercase text-primary underline hover:opacity-80"
           >
             Clear filters and reset catalogue
           </button>
@@ -553,16 +563,17 @@ export function ProductCatalog({
 
       {/* Load More Button */}
       {hasMore && (
-        <div className="mt-16 text-center pt-8 border-t border-border">
-          <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-4 font-medium">
+        <div className="mt-16 text-center pt-8 border-t border-border flex flex-col items-center">
+          <p className="text-[11px] tracking-[0.2em] uppercase font-mono text-muted-foreground mb-4 font-medium">
             Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} shirts
           </p>
           <button
             type="button"
             onClick={() => setPage((prev) => prev + 1)}
-            className="px-10 py-4 bg-primary text-primary-foreground hover:opacity-90 text-[11px] font-medium uppercase tracking-[0.25em] transition-all shadow-md"
+            className="btn-spider-primary"
           >
-            Load More Shirts
+            <SpiderInsigniaIcon size={16} className="text-white" />
+            <span>Load More Shirts</span>
           </button>
         </div>
       )}

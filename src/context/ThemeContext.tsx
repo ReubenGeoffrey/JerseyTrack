@@ -2,76 +2,50 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type ThemeMode = "zara" | "spiderman";
+type ThemeMode = "spiderman";
 
 interface ThemeContextType {
   theme: ThemeMode;
   toggleTheme: () => void;
   setTheme: (theme: ThemeMode) => void;
   isSpiderman: boolean;
+  pulseTrigger: number;
+  triggerSpiderPulse: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: "zara",
+  theme: "spiderman",
   toggleTheme: () => {},
   setTheme: () => {},
-  isSpiderman: false,
+  isSpiderman: true,
+  pulseTrigger: 0,
+  triggerSpiderPulse: () => {},
 });
 
-const STORAGE_KEY = "ftk_theme_mode_v1";
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeMode>("zara");
-  const [mounted, setMounted] = useState(false);
+  const [pulseTrigger, setPulseTrigger] = useState(0);
 
   useEffect(() => {
-    setMounted(true);
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
-      if (saved === "spiderman" || saved === "zara") {
-        setThemeState(saved);
-        applyThemeClass(saved);
-      }
-    } catch (e) {
-      console.error("Failed to load theme preference", e);
+    if (typeof document !== "undefined") {
+      const root = document.documentElement;
+      root.classList.add("dark", "theme-spiderman");
+      root.classList.remove("theme-zara");
     }
   }, []);
 
-  const applyThemeClass = (newTheme: ThemeMode) => {
-    if (typeof document !== "undefined") {
-      const root = document.documentElement;
-      if (newTheme === "spiderman") {
-        root.classList.add("theme-spiderman");
-        root.classList.remove("theme-zara");
-      } else {
-        root.classList.remove("theme-spiderman");
-        root.classList.add("theme-zara");
-      }
-    }
-  };
-
-  const setTheme = (newTheme: ThemeMode) => {
-    setThemeState(newTheme);
-    applyThemeClass(newTheme);
-    try {
-      localStorage.setItem(STORAGE_KEY, newTheme);
-    } catch (e) {
-      console.error("Failed to save theme preference", e);
-    }
-  };
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "spiderman" ? "zara" : "spiderman";
-    setTheme(nextTheme);
+  const triggerSpiderPulse = () => {
+    setPulseTrigger((prev) => prev + 1);
   };
 
   return (
     <ThemeContext.Provider
       value={{
-        theme,
-        toggleTheme,
-        setTheme,
-        isSpiderman: theme === "spiderman",
+        theme: "spiderman",
+        toggleTheme: triggerSpiderPulse,
+        setTheme: () => {},
+        isSpiderman: true,
+        pulseTrigger,
+        triggerSpiderPulse,
       }}
     >
       {children}

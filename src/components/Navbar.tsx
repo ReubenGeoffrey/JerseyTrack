@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search, Heart, Menu, X, ArrowRight } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
-import { SpidermanThemeButton } from "./SpidermanThemeButton";
+import { SpiderInsigniaIcon, SpiderMaskIcon } from "./SpiderIcons";
 
 interface NavbarProps {
   onSearchClick?: () => void;
@@ -29,6 +29,18 @@ export function Navbar({ onSearchClick }: NavbarProps) {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileMenuOpen]);
+
   const navLinks = [
     { label: "Collection", href: "/" },
     { label: "Clearance", href: "/clearance" },
@@ -39,23 +51,29 @@ export function Navbar({ onSearchClick }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b border-border bg-background/95 backdrop-blur-md ${
-          scrolled ? "py-3 shadow-xs" : "py-4"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 border-b border-border/80 bg-background/95 backdrop-blur-md ${
+          scrolled ? "py-2.5 shadow-lg shadow-black/40" : "py-3.5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Brand Wordmark: FOOTBALL TRACKING KIT */}
-          <div className="flex items-center gap-6">
+          {/* Spider-Man SVG Brand Wordmark: FOOTBALL TRACKING KIT */}
+          <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="display-title shrink-0 text-base sm:text-lg md:text-xl font-bold tracking-[0.22em] uppercase text-foreground hover:opacity-75 transition-opacity flex items-center gap-2"
+              className="display-title shrink-0 text-base sm:text-lg md:text-xl font-bold tracking-[0.2em] uppercase text-foreground hover:text-primary transition-colors flex items-center gap-2.5 group"
             >
-              <span>FOOTBALL TRACKING KIT</span>
+              {/* Spider-Man SVG Insignia */}
+              <div className="relative size-7 sm:size-8 grid place-items-center rounded-full bg-primary/10 border border-primary/40 group-hover:border-primary group-hover:shadow-spider-glow transition-all">
+                <SpiderInsigniaIcon className="size-4 sm:size-5 text-primary transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,23,68,0.7)]" />
+              </div>
+              <span className="tracking-[0.18em]">
+                FOOTBALL <span className="text-primary drop-shadow-[0_0_10px_rgba(255,23,68,0.6)]">TRACKING</span> KIT
+              </span>
             </Link>
           </div>
 
-          {/* Minimalist Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
+          {/* Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
@@ -67,7 +85,7 @@ export function Navbar({ onSearchClick }: NavbarProps) {
                   href={link.href}
                   className={`text-[11px] uppercase tracking-[0.2em] font-medium transition-colors relative py-1 ${
                     isActive
-                      ? "text-foreground after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-primary"
+                      ? "text-primary font-bold after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-primary after:shadow-[0_0_8px_#ff1744]"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -77,57 +95,62 @@ export function Navbar({ onSearchClick }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Actions: Dark Spider-Man Button + Search + Wishlist */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            {/* Dark Spider-Man Theme Toggle Button */}
-            <SpidermanThemeButton />
-
+          {/* Right Action Icons: Touch-optimized for Mobile Safari & Chrome */}
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/#catalog"
-              className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 active:scale-95"
               aria-label="Search Collection"
             >
-              <Search className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Search className="w-4 h-4 stroke-[1.8]" />
               <span className="hidden sm:inline">Search</span>
             </Link>
 
             <Link
               href="/favorites"
-              className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors relative"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 relative active:scale-95"
               aria-label="Wishlist"
             >
-              <Heart className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Heart className="w-4 h-4 stroke-[1.8]" />
               <span className="hidden sm:inline">Saved</span>
               {count > 0 && (
-                <span className="text-[10px] font-semibold text-primary-foreground bg-primary px-1.5 py-0.5 rounded-full leading-none">
+                <span className="text-[10px] font-bold text-white bg-primary px-1.5 py-0.2 rounded-full leading-none shadow-[0_0_8px_rgba(255,23,68,0.8)] animate-pulse">
                   {count}
                 </span>
               )}
             </Link>
 
-            {/* Mobile Hamburger */}
+            {/* Mobile Hamburger (min 44x44px tap target for iOS Safari & Chrome Mobile) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 text-foreground hover:text-muted-foreground transition-colors"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center lg:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md active:bg-secondary"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5 stroke-[1.5]" />
+                <X className="w-6 h-6 stroke-[2]" />
               ) : (
-                <Menu className="w-5 h-5 stroke-[1.5]" />
+                <Menu className="w-6 h-6 stroke-[2]" />
               )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Menu: Cross-browser iOS Safari, Chrome Mobile & Firefox */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/98 pt-24 pb-8 px-6 flex flex-col justify-between overflow-y-auto lg:hidden animate-fade-in border-b border-border">
-          <div className="flex flex-col gap-2 pt-2">
-            {/* Mobile Spider-Man Theme Switcher Banner */}
-            <div className="pb-3 border-b border-border">
-              <SpidermanThemeButton variant="banner" className="w-full" />
+        <div className="fixed inset-0 z-40 bg-[#07080c]/98 backdrop-blur-xl pt-20 pb-8 px-6 flex flex-col justify-between overflow-y-auto lg:hidden animate-fade-in border-b border-border spider-web-bg safe-bottom">
+          <div className="flex flex-col gap-2 pt-4">
+            {/* Spider-Man Mobile Hero Badge */}
+            <div className="flex items-center gap-3 p-3.5 rounded-lg bg-card border border-border/80 mb-2">
+              <SpiderMaskIcon size={34} />
+              <div>
+                <span className="text-xs font-bold tracking-wider uppercase text-foreground block">
+                  Dark Spider Edition
+                </span>
+                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">
+                  6,500+ shirts · 22 stores live
+                </span>
+              </div>
             </div>
 
             {navLinks.map((link) => {
@@ -140,21 +163,26 @@ export function Navbar({ onSearchClick }: NavbarProps) {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`display-title text-2xl py-3 border-b border-border/50 flex items-center justify-between tracking-[0.14em] uppercase ${
-                    isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground font-normal"
+                  className={`display-title min-h-[48px] text-xl py-3.5 px-3 rounded-lg border-b border-border/50 flex items-center justify-between tracking-[0.14em] uppercase transition-colors active:bg-secondary ${
+                    isActive
+                      ? "text-primary font-bold bg-primary/10 border-primary/30 shadow-[0_0_12px_rgba(255,23,68,0.2)]"
+                      : "text-foreground hover:text-primary font-normal"
                   }`}
                 >
-                  <span>{link.label}</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="size-1.5 rounded-full bg-primary" />
+                    <span>{link.label}</span>
+                  </div>
                   <ArrowRight className="w-4 h-4 text-muted-foreground stroke-[1.5]" />
                 </Link>
               );
             })}
           </div>
 
-          <div className="pt-8 border-t border-border mt-auto text-xs text-muted-foreground space-y-2 uppercase tracking-widest">
+          <div className="pt-6 border-t border-border mt-auto text-xs text-muted-foreground space-y-2 uppercase tracking-widest safe-bottom">
             <div className="flex justify-between">
-              <span>Index Curation</span>
-              <span className="text-foreground font-medium">22+ Indian Stores</span>
+              <span>Sync Network</span>
+              <span className="text-primary font-medium">22+ Indian Stores</span>
             </div>
             <div className="flex justify-between">
               <span>Currency</span>

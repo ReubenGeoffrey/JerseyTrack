@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Product } from "@/types";
 import { Heart, ArrowUpRight } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
+import { SpiderInsigniaIcon } from "./SpiderIcons";
+import { ProductDetailModal } from "./ProductDetailModal";
 
 interface EditorialSectionsProps {
   collections: {
@@ -21,317 +23,219 @@ export function EditorialSections({
   onSelectProduct,
 }: EditorialSectionsProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+
+  const handleCardClick = (product: Product) => {
+    if (onSelectProduct) {
+      onSelectProduct(product);
+    } else {
+      setModalProduct(product);
+    }
+  };
+
+  const renderProductItem = (product: Product, badgeText: string, isSale: boolean = false) => {
+    const favorite = isFavorite(product.id);
+    const hasDiscount =
+      product.discountedPrice !== null &&
+      product.discountedPrice < product.price;
+
+    return (
+      <article
+        key={product.id}
+        onClick={() => handleCardClick(product)}
+        className="group spider-card flex flex-col cursor-pointer transition-all duration-300 touch-manipulation select-none p-2 sm:p-2.5 rounded-sm"
+      >
+        <div className="relative shrink-0 overflow-hidden bg-card/80 aspect-square w-full mb-2.5 sm:mb-3 rounded-xs border border-border/50">
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            loading="lazy"
+          />
+          {/* Wishlist button - Min 44px touch target */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(product);
+            }}
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-background/85 hover:bg-background border border-border/80 backdrop-blur-md transition-all active:scale-90 absolute top-1.5 right-1.5 sm:top-2 sm:right-2 z-10 touch-manipulation"
+            aria-label="Add to favorites"
+          >
+            <Heart
+              className={`size-4 stroke-[1.8] ${
+                favorite
+                  ? "fill-primary text-primary filter drop-shadow-[0_0_6px_rgba(255,23,68,0.7)]"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
+            />
+          </button>
+
+          {isSale && (
+            <div className="absolute top-2 left-2 z-10 bg-primary/95 text-white font-mono text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 shadow-spider-glow flex items-center gap-1">
+              <SpiderInsigniaIcon size={10} className="text-white" />
+              <span>SALE</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-1 flex-col gap-1">
+          <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.18em] text-muted-foreground font-medium">
+            <span className="truncate max-w-[130px]">{product.store.replace(/_/g, " ")}</span>
+            <span className={`font-semibold ${isSale ? "text-primary" : "text-foreground"}`}>
+              {badgeText}
+            </span>
+          </div>
+          <h3 className="line-clamp-2 text-xs font-normal text-foreground tracking-wide group-hover:text-primary transition-colors leading-snug">
+            {product.name}
+          </h3>
+          <div className="mt-auto flex items-baseline justify-between gap-1.5 pt-1.5 border-t border-border/30">
+            <div className="flex items-baseline gap-1.5 font-mono">
+              <span className={`text-xs sm:text-sm font-bold ${isSale || hasDiscount ? "text-primary" : "text-foreground"}`}>
+                ₹{product.discountedPrice ?? product.price}
+              </span>
+              {hasDiscount && (
+                <span className="text-[10px] text-muted-foreground line-through">
+                  ₹{product.price}
+                </span>
+              )}
+            </div>
+            <span className="text-[9px] uppercase font-mono tracking-wider text-muted-foreground">
+              {product.inStock ? "IN STOCK" : "SOLD OUT"}
+            </span>
+          </div>
+        </div>
+      </article>
+    );
+  };
 
   return (
-    <div className="w-full bg-background text-foreground divide-y divide-border transition-colors duration-200">
+    <div className="w-full bg-background text-foreground divide-y divide-border/70 transition-colors duration-200">
       {/* 01 — THE CLUB COLLECTION */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.28em] text-muted-foreground uppercase font-medium block mb-2">
-              01 · CURATED SELECTION
-            </span>
+            <div className="flex items-center gap-2 mb-2">
+              <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
+              <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
+                01 · CURATED SELECTION · SYMBIOTE LOCKER
+              </span>
+            </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               The Club Collection
             </h2>
           </div>
           <Link
             href="/?category=player#catalog"
-            className="text-[11px] font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit"
+            className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
             <span>View All Club Kits</span>
-            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
+            <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
 
-        {/* 4 Cards Grid */}
-        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {collections.clubs.slice(0, 4).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => onSelectProduct?.(product)}
-              className="group flex flex-col cursor-pointer"
-            >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full mb-3 rounded-xs">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(product);
-                  }}
-                  className="size-8 grid place-items-center rounded-full bg-background/80 hover:bg-background border border-border backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
-                  aria-label="Add to favorites"
-                >
-                  <Heart
-                    className={`size-3.5 stroke-[1.5] ${
-                      isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
-                  <span className="text-foreground">{product.category.replace(/_/g, " ")}</span>
-                </div>
-                <h3 className="line-clamp-1 text-xs font-normal text-foreground tracking-wide group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-                <div className="flex items-baseline gap-2 pt-0.5">
-                  <span className="text-xs font-semibold text-foreground">
-                    ₹{product.discountedPrice ?? product.price}
-                  </span>
-                  {product.discountedPrice && product.discountedPrice < product.price && (
-                    <span className="text-[11px] text-muted-foreground line-through">
-                      ₹{product.price}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {collections.clubs.slice(0, 4).map((product) =>
+            renderProductItem(product, product.category?.replace(/_/g, " ") || "PLAYER")
+          )}
         </div>
       </section>
 
       {/* 02 — ARCHIVE / RETRO */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.28em] text-muted-foreground uppercase font-medium block mb-2">
-              02 · HISTORIC VAULT
-            </span>
+            <div className="flex items-center gap-2 mb-2">
+              <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
+              <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
+                02 · HISTORIC VAULT · RETRO CLASSICS
+              </span>
+            </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               Archive & Retro Classics
             </h2>
           </div>
           <Link
             href="/?category=retro#catalog"
-            className="text-[11px] font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit"
+            className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
             <span>Explore Vintage Kits</span>
-            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
+            <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {collections.archive.slice(0, 4).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => onSelectProduct?.(product)}
-              className="group flex flex-col cursor-pointer"
-            >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full mb-3 rounded-xs">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(product);
-                  }}
-                  className="size-8 grid place-items-center rounded-full bg-background/80 hover:bg-background border border-border backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
-                  aria-label="Add to favorites"
-                >
-                  <Heart
-                    className={`size-3.5 stroke-[1.5] ${
-                      isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
-                  <span className="text-foreground">RETRO</span>
-                </div>
-                <h3 className="line-clamp-1 text-xs font-normal text-foreground tracking-wide group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-                <div className="flex items-baseline gap-2 pt-0.5">
-                  <span className="text-xs font-semibold text-foreground">
-                    ₹{product.discountedPrice ?? product.price}
-                  </span>
-                  {product.discountedPrice && product.discountedPrice < product.price && (
-                    <span className="text-[11px] text-muted-foreground line-through">
-                      ₹{product.price}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {collections.archive.slice(0, 4).map((product) =>
+            renderProductItem(product, "RETRO")
+          )}
         </div>
       </section>
 
       {/* 03 — INTERNATIONAL */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.28em] text-muted-foreground uppercase font-medium block mb-2">
-              03 · GLOBAL TOURNAMENTS
-            </span>
+            <div className="flex items-center gap-2 mb-2">
+              <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
+              <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
+                03 · GLOBAL TOURNAMENTS
+              </span>
+            </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               International Federations
             </h2>
           </div>
           <Link
             href="/?category=international#catalog"
-            className="text-[11px] font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit"
+            className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
             <span>View All National Teams</span>
-            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
+            <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {collections.international.slice(0, 4).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => onSelectProduct?.(product)}
-              className="group flex flex-col cursor-pointer"
-            >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full mb-3 rounded-xs">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(product);
-                  }}
-                  className="size-8 grid place-items-center rounded-full bg-background/80 hover:bg-background border border-border backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
-                  aria-label="Add to favorites"
-                >
-                  <Heart
-                    className={`size-3.5 stroke-[1.5] ${
-                      isFavorite(product.id)
-                        ? "fill-primary text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-                  <span className="truncate max-w-[140px]">{product.store.replace(/_/g, " ")}</span>
-                  <span className="text-foreground">NATIONAL</span>
-                </div>
-                <h3 className="line-clamp-1 text-xs font-normal text-foreground tracking-wide group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-                <div className="flex items-baseline gap-2 pt-0.5">
-                  <span className="text-xs font-semibold text-foreground">
-                    ₹{product.discountedPrice ?? product.price}
-                  </span>
-                  {product.discountedPrice && product.discountedPrice < product.price && (
-                    <span className="text-[11px] text-muted-foreground line-through">
-                      ₹{product.price}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {collections.international.slice(0, 4).map((product) =>
+            renderProductItem(product, "NATIONAL")
+          )}
         </div>
       </section>
 
       {/* 04 — THE ARCHIVE SALE (Clearance) */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.28em] text-sale uppercase font-medium block mb-2">
-              04 · MARKDOWN ARCHIVE
-            </span>
+            <div className="flex items-center gap-2 mb-2">
+              <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
+              <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
+                04 · MARKDOWN ARCHIVE
+              </span>
+            </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               Seasonal Clearance
             </h2>
           </div>
           <Link
             href="/clearance"
-            className="text-[11px] font-medium uppercase tracking-[0.22em] text-sale hover:opacity-80 transition-opacity flex items-center gap-1.5 w-fit"
+            className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-primary hover:opacity-80 transition-opacity flex items-center gap-1.5 w-fit min-h-[44px]"
           >
             <span>View All Markdowns</span>
-            <ArrowUpRight className="size-3.5 stroke-[1.5]" />
+            <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
 
-        <div className="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {collections.clearance.slice(0, 4).map((product) => (
-            <div
-              key={product.id}
-              onClick={() => onSelectProduct?.(product)}
-              className="group flex flex-col cursor-pointer"
-            >
-              <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full mb-3 rounded-xs">
-                <img
-                  src={product.imageUrl}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  loading="lazy"
-                />
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(product);
-                  }}
-                  className="size-8 grid place-items-center rounded-full bg-background/80 hover:bg-background border border-border backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
-                  aria-label="Add to favorites"
-                >
-                  <Heart
-                    className={`size-3.5 stroke-[1.5] ${
-                      isFavorite(product.id)
-                        ? "fill-sale text-sale"
-                        : "text-muted-foreground hover:text-sale"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-sale font-medium">
-                  <span className="truncate max-w-[140px] text-muted-foreground">{product.store.replace(/_/g, " ")}</span>
-                  <span>SALE</span>
-                </div>
-                <h3 className="line-clamp-1 text-xs font-normal text-foreground tracking-wide group-hover:text-sale transition-colors">
-                  {product.name}
-                </h3>
-                <div className="flex items-baseline gap-2 pt-0.5">
-                  <span className="text-xs font-semibold text-sale">
-                    ₹{product.discountedPrice ?? product.price}
-                  </span>
-                  {product.discountedPrice && product.discountedPrice < product.price && (
-                    <span className="text-[11px] text-muted-foreground line-through">
-                      ₹{product.price}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-3 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {collections.clearance.slice(0, 4).map((product) =>
+            renderProductItem(product, "MARKDOWN", true)
+          )}
         </div>
       </section>
+
+      {/* Modal for detail view if clicked from editorial section */}
+      <ProductDetailModal
+        product={modalProduct}
+        onClose={() => setModalProduct(null)}
+      />
     </div>
   );
 }

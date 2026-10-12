@@ -10,36 +10,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#07080c",
+        foreground: "#f4f5f9",
         card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+          DEFAULT: "#0f1118",
+          foreground: "#ffffff",
         },
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          DEFAULT: "#ff1744", // Electric Spider-Crimson Red
+          foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
+          DEFAULT: "#161824",
+          foreground: "#f4f5f9",
         },
         muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
+          DEFAULT: "#11131c",
+          foreground: "#8e93a6",
         },
-        border: "var(--border)",
-        sale: "var(--sale)",
+        border: "#222638",
+        sale: "#ff2a5f",
         spider: {
+          red: "#ff1744",
           crimson: "#e11d48",
-          neon: "#ff1744",
-          black: "#07080c",
+          darkRed: "#9f1239",
+          neon: "#ff003c",
+          blue: "#00e5ff",
+          dark: "#07080c",
           card: "#0f1118",
-          blue: "#00b4d8",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
         serif: ["var(--font-bodoni)", "Didot", "Bodoni MT", "serif"],
         display: ["var(--font-bodoni)", "Didot", "Bodoni MT", "serif"],
       },
@@ -50,8 +52,9 @@ const config: Config = {
         tighter: "-0.04em",
       },
       boxShadow: {
-        "spider-glow": "0 0 20px rgba(225, 29, 72, 0.45)",
-        "spider-glow-lg": "0 0 35px rgba(225, 29, 72, 0.65)",
+        "spider-glow": "0 0 20px rgba(255, 23, 68, 0.45)",
+        "spider-glow-lg": "0 0 35px rgba(255, 23, 68, 0.75)",
+        "spider-blue": "0 0 20px rgba(0, 229, 255, 0.45)",
       },
     },
   },

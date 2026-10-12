@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductDetailModal } from "@/components/ProductDetailModal";
 import { Product } from "@/types";
 import { ArrowLeft, Heart, ShoppingBag } from "lucide-react";
+import { SpiderInsigniaIcon } from "@/components/SpiderIcons";
 
 export default function FavoritesPage() {
   const { favorites, count } = useFavorites();
@@ -18,30 +19,33 @@ export default function FavoritesPage() {
         {/* Navigation Breadcrumb */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-primary mb-8 transition-colors font-medium"
+          className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-muted-foreground hover:text-primary mb-8 transition-colors font-medium min-h-[44px]"
         >
-          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.8]" />
           <span>Return to Collection</span>
         </Link>
 
         {/* Page Header */}
-        <div className="border-b border-border pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="border-b border-border pb-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground font-medium block mb-2">
-              SAVED PIECES
-            </span>
+            <div className="flex items-center gap-2 mb-2">
+              <SpiderInsigniaIcon size={14} className="text-primary animate-spiderFloat" />
+              <span className="text-[10px] tracking-[0.25em] font-mono uppercase text-primary font-bold block">
+                SAVED PIECES · SYMBIOTE LOCKER
+              </span>
+            </div>
             <h1 className="display-title text-4xl sm:text-6xl font-normal tracking-[0.06em] uppercase text-foreground">
               YOUR WISHLIST
             </h1>
           </div>
-          <div className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground font-medium">
-            <span>{count} {count === 1 ? "piece" : "pieces"} saved</span>
+          <div className="text-[11px] tracking-[0.2em] uppercase font-mono text-muted-foreground font-medium">
+            <span>{count} {count === 1 ? "shirt" : "shirts"} saved</span>
           </div>
         </div>
 
         {/* Content */}
         {favorites.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {favorites.map((product) => (
               <ProductCard
                 key={product.id}
@@ -51,8 +55,8 @@ export default function FavoritesPage() {
             ))}
           </div>
         ) : (
-          <div className="py-28 text-center max-w-md mx-auto">
-            <Heart className="w-8 h-8 stroke-[1] text-muted-foreground/40 mx-auto mb-4" />
+          <div className="py-24 text-center max-w-md mx-auto">
+            <Heart className="w-10 h-10 stroke-[1.5] text-primary/40 mx-auto mb-4 animate-spiderPulse" />
             <h3 className="display-title text-2xl font-normal uppercase text-foreground mb-2 tracking-[0.06em]">
               Your wishlist is empty
             </h3>
@@ -61,10 +65,11 @@ export default function FavoritesPage() {
             </p>
             <Link
               href="/#catalog"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:opacity-90 transition-all text-[11px] font-medium tracking-[0.25em] uppercase shadow-md"
+              className="btn-spider-primary"
             >
+              <SpiderInsigniaIcon size={16} className="text-white" />
               <span>Explore Collection</span>
-              <ShoppingBag className="w-3.5 h-3.5 stroke-[1.5]" />
+              <ShoppingBag className="w-3.5 h-3.5 stroke-[2]" />
             </Link>
           </div>
         )}

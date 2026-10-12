@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
-import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -21,17 +20,18 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: "#07080c",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
   title: "Football Tracking Kit — The Football Collection | 22+ Stores",
   description:
-    "An editorial football jersey discovery index and price-comparison platform. Curating player issues, fan versions, archival retros, and live prices across 22+ stores in India.",
+    "An editorial football jersey discovery index and multi-boutique price-comparison engine. Dark Spider-Man edition tracking player issues, fan versions, archival retros, and live prices across 22+ stores in India.",
   keywords: [
     "Football Tracking Kit",
     "football jerseys",
@@ -61,16 +61,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${bodoniModa.variable} ${inter.variable}`}
+      className={`dark theme-spiderman h-full antialiased ${bodoniModa.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-        <ThemeProvider>
-          <FavoritesProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </FavoritesProvider>
-        </ThemeProvider>
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-primary selection:text-white spider-web-bg">
+        <FavoritesProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </FavoritesProvider>
       </body>
     </html>
   );
