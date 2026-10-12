@@ -19,15 +19,15 @@ export function HeroCampaign() {
 
       {/* Top Tagline */}
       <div className="relative z-10 pt-4 flex items-center justify-between border-b border-white/15 pb-4 text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-neutral-400">
-        <span>EDITORIAL ISSUE 2025 — V.01</span>
-        <span className="hidden sm:inline">AUTHENTIC FOOTBALL APPAREL</span>
-        <span>INDEXED IN REAL-TIME</span>
+        <span>EDITORIAL ISSUE 2025 — V.02</span>
+        <span className="hidden sm:inline">CROSS-STORE PRICE COMPARISON INDEX</span>
+        <span>22+ STORES LIVE</span>
       </div>
 
       {/* Center Campaign Title & Typography */}
       <div className="relative z-10 my-auto py-16 sm:py-24 max-w-5xl">
         <span className="inline-block text-[11px] sm:text-xs tracking-[0.3em] uppercase text-neutral-400 mb-4">
-          CURATED ARCHIVE & NEW RELEASES
+          CURATED ARCHIVE & ALL-STORE DISCOVERY
         </span>
         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-[0.14em] uppercase text-white leading-[1.05] sm:leading-[1] mb-6">
           THE FOOTBALL
@@ -37,7 +37,7 @@ export function HeroCampaign() {
         <p className="text-sm sm:text-base md:text-lg text-neutral-300 font-light tracking-wide max-w-xl leading-relaxed mb-10">
           Iconic shirts. Timeless colours. Your next favourite kit.
           <span className="block text-neutral-400 text-xs sm:text-sm mt-1">
-            Compare live prices and verified stock across India&apos;s finest independent football boutiques.
+            Compare live prices, sizes, and verified inventory across India&apos;s premier independent football retailers.
           </span>
         </p>
 
@@ -50,10 +50,10 @@ export function HeroCampaign() {
             <span className="group-hover:translate-x-1.5 transition-transform">→</span>
           </Link>
           <Link
-            href="/clearance"
+            href="/stores"
             className="inline-flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-neutral-400 hover:text-white transition-colors pb-1.5 w-fit"
           >
-            <span>VIEW CLEARANCE MARKDOWNS</span>
+            <span>BROWSE 22+ STORES DIRECTORY</span>
           </Link>
         </div>
       </div>
@@ -62,16 +62,16 @@ export function HeroCampaign() {
       <div className="relative z-10 pt-6 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-neutral-400">
         <div className="flex items-center gap-8">
           <div>
-            <span className="text-white block font-medium text-xs">5,900+</span>
+            <span className="text-white block font-medium text-xs">6,500+</span>
             <span>INDEXED KITS</span>
           </div>
           <div>
-            <span className="text-white block font-medium text-xs">13</span>
+            <span className="text-white block font-medium text-xs">22+</span>
             <span>VERIFIED BOUTIQUES</span>
           </div>
           <div>
-            <span className="text-white block font-medium text-xs">₹249+</span>
-            <span>CLEARANCE ARCHIVE</span>
+            <span className="text-white block font-medium text-xs">MULTI-STORE</span>
+            <span>PRICE COMPARISON</span>
           </div>
         </div>
 

@@ -7,7 +7,7 @@ import { ArrowLeft, ShieldCheck, CheckCircle2 } from "lucide-react";
 export const metadata = {
   title: "Store Directory & Verified Ratings | KitScouts",
   description:
-    "Ratings and reviews for 13+ independent jersey stores across India. Verified delivery speeds, customer support ratings, and jersey quality scores.",
+    "Ratings, live product feeds, and verified reviews for 26 independent football jersey stores across India.",
 };
 
 export default function StoresPage() {

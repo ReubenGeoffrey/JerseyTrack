@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { Store } from "@/types";
 import { StoreCard } from "./StoreCard";
-import { Search, X, ChevronDown } from "lucide-react";
+import { Search, X, ChevronDown, CheckCircle2 } from "lucide-react";
 
 interface StoreListProps {
   initialStores: Store[];
@@ -11,11 +11,20 @@ interface StoreListProps {
 
 export function StoreList({ initialStores }: StoreListProps) {
   const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<"recommend" | "rating" | "reviews" | "name">("recommend");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | "ACTIVE" | "PENDING">("ALL");
+  const [sort, setSort] = useState<"recommend" | "rating" | "products" | "name">("recommend");
 
   const filteredStores = useMemo(() => {
     let result = [...initialStores];
 
+    // Status filter
+    if (statusFilter === "ACTIVE") {
+      result = result.filter((s: any) => s.status === "ACTIVE" || (s.stats?.productCount && s.stats.productCount > 0));
+    } else if (statusFilter === "PENDING") {
+      result = result.filter((s: any) => s.status !== "ACTIVE" && (!s.stats?.productCount || s.stats.productCount === 0));
+    }
+
+    // Search query
     if (query.trim() !== "") {
       const q = query.toLowerCase().trim();
       result = result.filter(
@@ -25,6 +34,7 @@ export function StoreList({ initialStores }: StoreListProps) {
       );
     }
 
+    // Sorting
     if (sort === "rating") {
       result.sort((a, b) => (b.stats.avgOverall ?? 0) - (a.stats.avgOverall ?? 0));
     } else if (sort === "recommend") {
@@ -34,17 +44,59 @@ export function StoreList({ initialStores }: StoreListProps) {
           b.stats.reviewCount - a.stats.reviewCount ||
           (b.stats.avgOverall ?? 0) - (a.stats.avgOverall ?? 0)
       );
-    } else if (sort === "reviews") {
-      result.sort((a, b) => b.stats.reviewCount - a.stats.reviewCount);
+    } else if (sort === "products") {
+      result.sort((a: any, b: any) => (b.stats.productCount || 0) - (a.stats.productCount || 0));
     } else if (sort === "name") {
       result.sort((a, b) => a.meta.label.localeCompare(b.meta.label));
     }
 
     return result;
-  }, [initialStores, query, sort]);
+  }, [initialStores, query, statusFilter, sort]);
+
+  const activeCount = initialStores.filter(
+    (s: any) => s.status === "ACTIVE" || (s.stats?.productCount && s.stats.productCount > 0)
+  ).length;
+  const pendingCount = initialStores.length - activeCount;
 
   return (
     <div className="w-full">
+      {/* Status Filter Tabs */}
+      <div className="flex items-center gap-6 overflow-x-auto pb-3 mb-6 border-b border-neutral-100 text-xs">
+        <button
+          type="button"
+          onClick={() => setStatusFilter("ALL")}
+          className={`pb-2 tracking-[0.18em] uppercase transition-colors relative whitespace-nowrap ${
+            statusFilter === "ALL"
+              ? "text-black font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
+          }`}
+        >
+          ALL STORES ({initialStores.length})
+        </button>
+        <button
+          type="button"
+          onClick={() => setStatusFilter("ACTIVE")}
+          className={`pb-2 tracking-[0.18em] uppercase transition-colors relative whitespace-nowrap ${
+            statusFilter === "ACTIVE"
+              ? "text-black font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
+          }`}
+        >
+          ACTIVE LIVE CATALOGS ({activeCount})
+        </button>
+        <button
+          type="button"
+          onClick={() => setStatusFilter("PENDING")}
+          className={`pb-2 tracking-[0.18em] uppercase transition-colors relative whitespace-nowrap ${
+            statusFilter === "PENDING"
+              ? "text-black font-medium after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-black"
+              : "text-neutral-400 hover:text-black"
+          }`}
+        >
+          FEED ONBOARDING PENDING ({pendingCount})
+        </button>
+      </div>
+
       {/* Control Bar: Search and Sort */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 py-4 mb-8 border-y border-neutral-100 text-xs">
         <div className="relative flex-1 max-w-md">
@@ -79,7 +131,7 @@ export function StoreList({ initialStores }: StoreListProps) {
             >
               <option value="recommend">MOST RECOMMENDED</option>
               <option value="rating">HIGHEST OVERALL SCORE</option>
-              <option value="reviews">MOST REVIEWED</option>
+              <option value="products">LARGEST CATALOG</option>
               <option value="name">ALPHABETICAL (A-Z)</option>
             </select>
             <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -100,7 +152,10 @@ export function StoreList({ initialStores }: StoreListProps) {
             NO BOUTIQUE FOUND MATCHING &quot;{query}&quot;
           </p>
           <button
-            onClick={() => setQuery("")}
+            onClick={() => {
+              setQuery("");
+              setStatusFilter("ALL");
+            }}
             className="text-xs font-medium tracking-[0.2em] uppercase underline hover:text-neutral-500"
           >
             SHOW ALL BOUTIQUES

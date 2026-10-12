@@ -16,8 +16,10 @@
       "avgSupport": 7.3,
       "avgValue": 9.3,
       "recommendPercent": 77,
-      "reviewCount": 13
-    }
+      "reviewCount": 13,
+      "productCount": 252
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -36,8 +38,10 @@
       "avgSupport": 6.5,
       "avgValue": 9.8,
       "recommendPercent": 83,
-      "reviewCount": 6
-    }
+      "reviewCount": 6,
+      "productCount": 434
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -56,8 +60,10 @@
       "avgSupport": 7,
       "avgValue": 9.5,
       "recommendPercent": 100,
-      "reviewCount": 4
-    }
+      "reviewCount": 4,
+      "productCount": 309
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -77,8 +83,10 @@
       "avgSupport": 5,
       "avgValue": 9,
       "recommendPercent": 100,
-      "reviewCount": 3
-    }
+      "reviewCount": 3,
+      "productCount": 304
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -98,8 +106,10 @@
       "avgSupport": null,
       "avgValue": 10,
       "recommendPercent": 100,
-      "reviewCount": 1
-    }
+      "reviewCount": 1,
+      "productCount": 225
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -118,8 +128,10 @@
       "avgSupport": null,
       "avgValue": 9,
       "recommendPercent": 100,
-      "reviewCount": 1
-    }
+      "reviewCount": 1,
+      "productCount": 656
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -139,8 +151,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 240
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -160,8 +174,10 @@
       "avgSupport": 8,
       "avgValue": 8,
       "recommendPercent": 100,
-      "reviewCount": 1
-    }
+      "reviewCount": 1,
+      "productCount": 543
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -180,8 +196,10 @@
       "avgSupport": null,
       "avgValue": 10,
       "recommendPercent": 100,
-      "reviewCount": 1
-    }
+      "reviewCount": 1,
+      "productCount": 342
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -200,8 +218,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 80
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -220,8 +240,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 182
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -241,8 +263,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 425
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -262,8 +286,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 1915
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -274,7 +300,7 @@
       "location": "Bangalore",
       "websiteUrl": "https://championskit.in/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": null,
@@ -283,8 +309,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 100
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -304,8 +332,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 0
+    },
+    "status": "TEMPORARILY_UNAVAILABLE"
   },
   {
     "meta": {
@@ -315,7 +345,7 @@
       "location": "Kavanur, Kerala",
       "websiteUrl": "https://jcclub.in/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": 9,
@@ -324,8 +354,10 @@
       "avgSupport": 7,
       "avgValue": 8,
       "recommendPercent": 100,
-      "reviewCount": 1
-    }
+      "reviewCount": 1,
+      "productCount": 80
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -335,7 +367,7 @@
       "location": "Mumbai",
       "websiteUrl": "https://zealevince.in/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": null,
@@ -344,8 +376,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 80
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -365,8 +399,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 0
+    },
+    "status": "MANUAL_FEED_REQUIRED"
   },
   {
     "meta": {
@@ -376,7 +412,7 @@
       "location": "Kochi, Kerala",
       "websiteUrl": "https://fanaacs.com/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": null,
@@ -385,8 +421,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 100
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -396,7 +434,7 @@
       "location": null,
       "websiteUrl": "https://footballmonk.in/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": 7.5,
@@ -405,8 +443,10 @@
       "avgSupport": 5,
       "avgValue": 8.5,
       "recommendPercent": 50,
-      "reviewCount": 2
-    }
+      "reviewCount": 2,
+      "productCount": 80
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -417,7 +457,7 @@
       "location": null,
       "websiteUrl": "https://www.copycatz.in/",
       "description": null,
-      "hasCatalog": false
+      "hasCatalog": true
     },
     "stats": {
       "avgOverall": null,
@@ -426,8 +466,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 80
+    },
+    "status": "ACTIVE"
   },
   {
     "meta": {
@@ -446,8 +488,10 @@
       "avgSupport": null,
       "avgValue": null,
       "recommendPercent": null,
-      "reviewCount": 0
-    }
+      "reviewCount": 0,
+      "productCount": 0
+    },
+    "status": "MANUAL_FEED_REQUIRED"
   },
   {
     "meta": {
@@ -466,7 +510,75 @@
       "avgSupport": 9.8,
       "avgValue": 9.6,
       "recommendPercent": 100,
-      "reviewCount": 7
-    }
+      "reviewCount": 7,
+      "productCount": 0
+    },
+    "status": "MANUAL_FEED_REQUIRED"
+  },
+  {
+    "meta": {
+      "id": "THIRD_STORE",
+      "label": "THE THIRD STORE",
+      "logoUrl": "/stores/thirdstore.webp",
+      "location": "Delhi NCR",
+      "websiteUrl": "https://thirdstore.in/",
+      "description": "Premier Indian football shirt stockist with deep player version and retro catalog.",
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8.5,
+      "avgShipping": 8.2,
+      "avgQuality": 8.9,
+      "avgSupport": 8,
+      "avgValue": 9,
+      "recommendPercent": 88,
+      "reviewCount": 9,
+      "productCount": 46
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "meta": {
+      "id": "RAGEFITS",
+      "label": "RAGEFITS",
+      "logoUrl": "/stores/ragefits.webp",
+      "location": "Jaipur",
+      "websiteUrl": "https://ragefits.com/",
+      "description": "Street-inspired football fashion and oversized retro jersey collections.",
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8.4,
+      "avgShipping": 8,
+      "avgQuality": 8.8,
+      "avgSupport": 7.9,
+      "avgValue": 8.9,
+      "recommendPercent": 84,
+      "reviewCount": 5,
+      "productCount": 19
+    },
+    "status": "ACTIVE"
+  },
+  {
+    "meta": {
+      "id": "SANSIRO_SPORTS",
+      "label": "SANSIRO SPORTS",
+      "logoUrl": "/stores/sansiro.webp",
+      "location": "Malappuram, Kerala",
+      "websiteUrl": "https://sansirosports.in/",
+      "description": "Grassroots football kit stockist from the football heartland of Kerala.",
+      "hasCatalog": true
+    },
+    "stats": {
+      "avgOverall": 8.2,
+      "avgShipping": 7.9,
+      "avgQuality": 8.5,
+      "avgSupport": 8.1,
+      "avgValue": 8.7,
+      "recommendPercent": 80,
+      "reviewCount": 4,
+      "productCount": 77
+    },
+    "status": "ACTIVE"
   }
 ]

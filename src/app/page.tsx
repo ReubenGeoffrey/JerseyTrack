@@ -30,7 +30,7 @@ export default function HomePage() {
           stores={stores}
           defaultCategory="all"
           title="THE COMPLETE CATALOGUE"
-          subtitle="Explore 5,900+ authentic football shirts across 13 verified stockists."
+          subtitle="Compare 6,500+ authentic football shirts and live prices across 22+ verified stockists."
         />
       </Suspense>
     </div>

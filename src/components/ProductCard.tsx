@@ -78,7 +78,7 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
 
         {/* Discreet Quick View Overlay on Desktop Hover */}
         <div className="absolute inset-x-0 bottom-0 py-2.5 px-3 bg-white/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-black border-t border-neutral-100 hidden sm:flex">
-          <span>INSPECT PIECE</span>
+          <span>INSPECT & COMPARE PRICES</span>
           <ArrowUpRight className="w-3 h-3 text-neutral-500" />
         </div>
       </div>
