@@ -74,7 +74,7 @@ export function EditorialSections({
           {isSale && (
             <div className="absolute top-2 left-2 z-10 bg-primary/95 text-white font-mono text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 shadow-spider-glow flex items-center gap-1">
               <SpiderInsigniaIcon size={10} className="text-white" />
-              <span>SALE</span>
+              <span>MARKDOWN</span>
             </div>
           )}
         </div>
@@ -118,18 +118,21 @@ export function EditorialSections({
             <div className="flex items-center gap-2 mb-2">
               <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
               <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
-                01 · CURATED SELECTION · SYMBIOTE LOCKER
+                01 · STARK SUIT GRADE · BATTLE ARMOR
               </span>
             </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               The Club Collection
             </h2>
+            <p className="mt-2 text-xs font-serif italic text-muted-foreground">
+              &ldquo;Whatever comes our way, whatever battle we have raging inside us, we always have a choice.&rdquo; — Peter Parker
+            </p>
           </div>
           <Link
             href="/?category=player#catalog"
             className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
-            <span>View All Club Kits</span>
+            <span>Scan All Club Suits</span>
             <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
@@ -148,18 +151,21 @@ export function EditorialSections({
             <div className="flex items-center gap-2 mb-2">
               <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
               <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
-                02 · HISTORIC VAULT · RETRO CLASSICS
+                02 · HISTORIC VAULT · CLASSIC 1962 ARCHIVE
               </span>
             </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               Archive & Retro Classics
             </h2>
+            <p className="mt-2 text-xs font-serif italic text-muted-foreground">
+              &ldquo;It&apos;s a leap of faith into football history. That&apos;s all it is — a leap of faith.&rdquo; — Peter B. Parker
+            </p>
           </div>
           <Link
             href="/?category=retro#catalog"
             className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
-            <span>Explore Vintage Kits</span>
+            <span>Explore Vintage Vault</span>
             <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
@@ -178,18 +184,21 @@ export function EditorialSections({
             <div className="flex items-center gap-2 mb-2">
               <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
               <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
-                03 · GLOBAL TOURNAMENTS
+                03 · SPIDER-VERSE FEDERATIONS · GLOBAL CRESTS
               </span>
             </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               International Federations
             </h2>
+            <p className="mt-2 text-xs font-serif italic text-muted-foreground">
+              &ldquo;In every universe, the passion is the same. Across dimensions, one crest.&rdquo; — Miles Morales
+            </p>
           </div>
           <Link
             href="/?category=international#catalog"
             className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-foreground hover:text-primary transition-colors flex items-center gap-1.5 w-fit min-h-[44px]"
           >
-            <span>View All National Teams</span>
+            <span>View All Dimensions</span>
             <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>
@@ -208,18 +217,21 @@ export function EditorialSections({
             <div className="flex items-center gap-2 mb-2">
               <SpiderInsigniaIcon size={12} className="text-primary animate-spiderFloat" />
               <span className="text-[10px] tracking-[0.28em] font-mono text-primary uppercase font-bold block">
-                04 · MARKDOWN ARCHIVE
+                04 · SHADOW STEALTH DROPS · SYMBIOTE LOCKER
               </span>
             </div>
             <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
               Seasonal Clearance
             </h2>
+            <p className="mt-2 text-xs font-serif italic text-muted-foreground">
+              &ldquo;With great markdowns comes great responsibility to strike before they vanish into the shadows.&rdquo;
+            </p>
           </div>
           <Link
             href="/clearance"
             className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-primary hover:opacity-80 transition-opacity flex items-center gap-1.5 w-fit min-h-[44px]"
           >
-            <span>View All Markdowns</span>
+            <span>Sweep Markdowns</span>
             <ArrowUpRight className="size-3.5 stroke-[2]" />
           </Link>
         </div>

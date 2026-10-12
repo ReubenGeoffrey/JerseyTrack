@@ -13,6 +13,24 @@ export function Footer() {
       <SpiderWebGraphic className="absolute -bottom-16 -left-16 w-80 h-80 text-primary/5 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Iconic Spider-Man Quote Callout Card */}
+        <div className="border border-border/80 bg-background/80 p-5 sm:p-7 rounded-sm mb-12 sm:mb-14 shadow-spider-glow relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <SpiderWebGraphic className="absolute -right-8 -bottom-8 w-36 h-36 text-primary/10 pointer-events-none" />
+          <div className="relative z-10 max-w-3xl">
+            <div className="flex items-center gap-2 mb-2 font-mono text-[10px] text-primary uppercase font-bold tracking-widest">
+              <SpiderInsigniaIcon size={14} className="text-primary animate-spiderFloat" />
+              <span>THE LEGACY · PETER PARKER &amp; MILES MORALES</span>
+            </div>
+            <p className="font-serif italic text-base sm:text-lg text-foreground leading-relaxed">
+              &ldquo;Whatever life holds in store for me, I will never forget these words: With great power comes great responsibility. This is my gift. This is my curse.&rdquo;
+            </p>
+          </div>
+          <div className="shrink-0 text-left md:text-right font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
+            <span className="text-primary font-bold block">SPIDER-VERSE RADAR</span>
+            <span>22+ MONITORED STORES</span>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 sm:gap-12 mb-14">
           {/* Brand Philosophy */}
           <div className="space-y-4">
@@ -35,7 +53,7 @@ export function Footer() {
           {/* Collections */}
           <div className="space-y-4">
             <h4 className="text-[11px] font-mono font-bold tracking-[0.22em] uppercase text-foreground">
-              Collections
+              Suit Archives
             </h4>
             <ul className="space-y-3 text-xs tracking-wider text-muted-foreground">
               <li>
@@ -43,7 +61,7 @@ export function Footer() {
                   href="/?category=player#catalog"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Player Issue
+                  Stark Tech (Player Issue)
                 </Link>
               </li>
               <li>
@@ -51,7 +69,7 @@ export function Footer() {
                   href="/?category=fan#catalog"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Fan Version
+                  Fan Armor (Fan Version)
                 </Link>
               </li>
               <li>
@@ -59,7 +77,7 @@ export function Footer() {
                   href="/?category=retro#catalog"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Archive & Retro
+                  1962 Vault (Archive &amp; Retro)
                 </Link>
               </li>
               <li>
@@ -67,7 +85,7 @@ export function Footer() {
                   href="/?category=international#catalog"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  National Teams
+                  Spider-Verse Federations
                 </Link>
               </li>
               <li>
@@ -75,7 +93,7 @@ export function Footer() {
                   href="/clearance"
                   className="hover:text-primary transition-colors uppercase text-primary font-bold min-h-[36px] inline-flex items-center"
                 >
-                  Clearance Markdowns
+                  Shadow Markdowns
                 </Link>
               </li>
             </ul>
@@ -84,7 +102,7 @@ export function Footer() {
           {/* Directory & Intel */}
           <div className="space-y-4">
             <h4 className="text-[11px] font-mono font-bold tracking-[0.22em] uppercase text-foreground">
-              Index & Directory
+              Spider-Verse Intel
             </h4>
             <ul className="space-y-3 text-xs tracking-wider text-muted-foreground">
               <li>
@@ -92,7 +110,7 @@ export function Footer() {
                   href="/stores"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Verified Boutique Reviews
+                  Boutique Recon &amp; Reviews
                 </Link>
               </li>
               <li>
@@ -100,7 +118,7 @@ export function Footer() {
                   href="/stores"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Store Ratings & Speed
+                  Dispatch Velocity &amp; Score
                 </Link>
               </li>
               <li>
@@ -108,7 +126,7 @@ export function Footer() {
                   href="/#catalog"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Price Comparison
+                  Spider-Sense Price Radar
                 </Link>
               </li>
               <li>
@@ -116,7 +134,7 @@ export function Footer() {
                   href="/favorites"
                   className="hover:text-primary transition-colors uppercase min-h-[36px] inline-flex items-center"
                 >
-                  Saved Wishlist
+                  Symbiote Locker (Saved)
                 </Link>
               </li>
             </ul>
@@ -125,7 +143,7 @@ export function Footer() {
           {/* Specifications & GitHub */}
           <div className="space-y-4">
             <h4 className="text-[11px] font-mono font-bold tracking-[0.22em] uppercase text-foreground">
-              Suit & Specifications
+              Suit Tech &amp; Specs
             </h4>
             <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               All prices displayed in Indian Rupees (₹). Listings synchronize directly with verified partner inventories.

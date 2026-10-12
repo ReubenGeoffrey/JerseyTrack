@@ -35,26 +35,26 @@ export function HeroCampaign() {
           <SpiderInsigniaIcon size={14} className="text-primary animate-spiderFloat" />
           <span className="font-mono text-foreground font-semibold">SYMBIOTE SUIT · MILES MORALES ARCHIVE</span>
         </div>
-        <span className="hidden sm:inline">22+ VERIFIED INDIAN STOCKISTS</span>
-        <div className="flex items-center gap-2">
+        <span className="hidden sm:inline font-mono text-primary/90">SPIDER-SENSE RADAR: 22+ STORES LIVE</span>
+        <div className="flex items-center gap-2 font-mono">
           <span className="text-primary font-bold">●</span>
           <span className="tracking-widest">FOOTBALL TRACKING KIT</span>
         </div>
       </div>
 
       {/* Center Campaign Title with Zara Editorial / Spider-Man Typography */}
-      <div className="relative z-10 my-auto py-10 sm:py-16 lg:py-20 max-w-5xl">
-        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
+      <div className="relative z-10 my-auto py-8 sm:py-14 lg:py-16 max-w-5xl">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-4 sm:mb-5">
           <span className="text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-muted-foreground font-mono font-medium block">
             DARK SYMBIOTE CURATION · 22 STORES
           </span>
           <span className="inline-flex items-center gap-1.5 text-[9px] sm:text-[10px] uppercase font-bold tracking-widest text-primary border border-primary/40 px-2.5 py-0.5 rounded-full bg-primary/10 shadow-spider-glow">
             <SpiderMaskIcon size={12} />
-            <span>Spider-Man Edition</span>
+            <span>Spider-Verse Protocol Active</span>
           </span>
         </div>
 
-        <h1 className="display-title text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-normal text-foreground tracking-[0.05em] leading-[0.95] mb-6 select-none">
+        <h1 className="display-title text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-normal text-foreground tracking-[0.05em] leading-[0.95] mb-5 select-none">
           THE FOOTBALL
           <br />
           <span className="text-primary drop-shadow-[0_0_25px_rgba(255,23,68,0.55)]">
@@ -62,9 +62,19 @@ export function HeroCampaign() {
           </span>
         </h1>
 
-        <p className="text-sm sm:text-base text-muted-foreground font-light max-w-xl leading-relaxed mb-8 sm:mb-10 tracking-wide">
-          An editorial discovery platform and live price-comparison index.
-          Aggregating player issues, fan cuts, and rare archival shirts across 22+ verified independent stores in India.
+        {/* Iconic Spider-Man Quote Callout */}
+        <div className="mb-6 border-l-2 border-primary pl-4 py-1 max-w-2xl bg-primary/5 rounded-r">
+          <p className="font-serif italic text-sm sm:text-base text-foreground/90 tracking-wide">
+            &ldquo;Anyone can wear the mask. Anyone can wear the colours. It&apos;s a leap of faith.&rdquo;
+          </p>
+          <span className="text-[10px] font-mono tracking-widest uppercase text-primary font-semibold block mt-1">
+            — Miles Morales &amp; Peter Parker · Spider-Verse Editorial
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-muted-foreground font-light max-w-xl leading-relaxed mb-8 tracking-wide">
+          An editorial discovery platform and Spider-Sense price-comparison engine.
+          Aggregating player issues, fan cuts, and rare archival shirts across 22+ verified independent stockists in India.
         </p>
 
         {/* Action Buttons with Dark Spider-Man Theme styling */}
@@ -74,14 +84,14 @@ export function HeroCampaign() {
             className="btn-spider-primary justify-center w-full sm:w-auto"
           >
             <SpiderInsigniaIcon size={18} className="text-white" />
-            <span>Explore Collection</span>
+            <span>Launch Spider-Sense</span>
           </Link>
 
           <Link
             href="/clearance"
             className="btn-spider-stealth justify-center w-full sm:w-auto"
           >
-            <span>Clearance Markdowns</span>
+            <span>Shadow Markdowns</span>
           </Link>
 
           {/* Interactive Dark Spider-Man Theme Button */}
@@ -96,13 +106,13 @@ export function HeroCampaign() {
             <span className="font-serif text-lg sm:text-xl font-normal text-foreground block leading-none">
               6,569+
             </span>
-            <span className="text-[9px] sm:text-[10px] text-muted-foreground font-mono">INDEXED SHIRTS</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground font-mono">TRACKED SHIRTS</span>
           </div>
           <div>
             <span className="font-serif text-lg sm:text-xl font-normal text-primary block leading-none">
               22+
             </span>
-            <span className="text-[9px] sm:text-[10px] text-muted-foreground font-mono">ACTIVE BOUTIQUES</span>
+            <span className="text-[9px] sm:text-[10px] text-muted-foreground font-mono">ALLIED BOUTIQUES</span>
           </div>
           <div>
             <span className="font-serif text-lg sm:text-xl font-normal text-foreground block leading-none">
@@ -117,7 +127,7 @@ export function HeroCampaign() {
           className="inline-flex items-center gap-2 text-foreground hover:text-primary transition-colors font-medium min-h-[44px] touch-manipulation py-2"
           aria-label="Scroll to collection"
         >
-          <span className="tracking-[0.2em] text-[10px] sm:text-[11px]">VIEW FULL CATALOGUE</span>
+          <span className="tracking-[0.2em] font-mono text-[10px] sm:text-[11px]">ENTER THE SPIDER-VAULT</span>
           <ArrowDown className="size-3.5 stroke-[2] text-primary animate-bounce" />
         </Link>
       </div>

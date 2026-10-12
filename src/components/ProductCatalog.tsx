@@ -20,8 +20,8 @@ export function ProductCatalog({
   initialProducts,
   stores,
   defaultCategory = "all",
-  title = "The Complete Catalogue",
-  subtitle = "6,569+ authentic football shirts curated across 22+ verified boutiques.",
+  title = "The Spider-Verse Catalogue",
+  subtitle = "6,569+ authentic football shirts monitored via Spider-Sense across 22+ verified boutiques.",
 }: ProductCatalogProps) {
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
@@ -305,7 +305,7 @@ export function ProductCatalog({
                 setQuery(e.target.value);
                 setPage(1);
               }}
-              placeholder="SEARCH SHIRTS, CLUBS, SEASONS, BOUTIQUES..."
+              placeholder="ACTIVATE SPIDER-SENSE: SCAN CLUBS, SEASONS, BOUTIQUES..."
               aria-label="Search products"
               autoComplete="off"
               className="h-11 w-full min-w-0 border border-border bg-background pl-10 pr-10 py-2 text-xs tracking-wider uppercase text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground transition-all rounded-xs min-h-[44px]"
@@ -331,7 +331,7 @@ export function ProductCatalog({
                 }}
                 className="h-11 w-full appearance-none border border-border bg-background px-3.5 pr-8 text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-foreground outline-none focus:border-primary cursor-pointer transition-colors rounded-xs min-h-[44px]"
               >
-                <option value="featured">ORDER: FEATURED</option>
+                <option value="featured">ORDER: FEATURED SUITS</option>
                 <option value="price-asc">PRICE: LOW TO HIGH</option>
                 <option value="price-desc">PRICE: HIGH TO LOW</option>
                 <option value="discount">BIGGEST MARKDOWNS</option>
@@ -347,14 +347,14 @@ export function ProductCatalog({
           {/* VERSION Pills */}
           <div className="flex items-center gap-2">
             <span className="text-[10px] uppercase tracking-[0.2em] font-mono text-muted-foreground font-medium">
-              Edition:
+              Suit Tech:
             </span>
             <div className="inline-flex w-fit items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               {[
-                { key: "ALL", label: "ALL" },
-                { key: "PLAYER", label: "PLAYER ISSUE" },
-                { key: "FAN", label: "FAN VERSION" },
-                { key: "RETRO", label: "ARCHIVE RETRO" },
+                { key: "ALL", label: "ALL SUITS" },
+                { key: "PLAYER", label: "STARK SUIT (PLAYER)" },
+                { key: "FAN", label: "FAN ARMOR" },
+                { key: "RETRO", label: "1962 VAULT (RETRO)" },
               ].map(({ key, label }) => {
                 const isActive = version === key;
                 return (
