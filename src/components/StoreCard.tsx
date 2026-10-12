@@ -13,19 +13,19 @@ export function StoreCard({ store }: StoreCardProps) {
   const storeStatus = status || (meta.hasCatalog ? "ACTIVE" : "MANUAL_FEED_REQUIRED");
 
   return (
-    <div className="border border-neutral-200 bg-white p-6 flex flex-col justify-between hover:border-black transition-colors">
+    <div className="border border-border bg-card p-6 flex flex-col justify-between hover:border-primary transition-all duration-200">
       <div>
         {/* Top Header & Status Badge */}
-        <div className="flex items-start justify-between gap-4 mb-5 border-b border-neutral-100 pb-4">
+        <div className="flex items-start justify-between gap-4 mb-5 border-b border-border/60 pb-4">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
                 {meta.location || "INDIA"}
               </span>
-              <span className="text-neutral-300">·</span>
+              <span className="text-muted-foreground/60">·</span>
               {storeStatus === "ACTIVE" ? (
-                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-medium tracking-[0.18em] text-black">
-                  <span className="size-1.5 rounded-full bg-black" />
+                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-medium tracking-[0.18em] text-primary">
+                  <span className="size-1.5 rounded-full bg-primary" />
                   Live Feed
                 </span>
               ) : storeStatus === "TEMPORARILY_UNAVAILABLE" ? (
@@ -34,24 +34,24 @@ export function StoreCard({ store }: StoreCardProps) {
                   Maintenance
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-medium tracking-[0.18em] text-neutral-400">
-                  <span className="size-1.5 rounded-full bg-neutral-300" />
+                <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-medium tracking-[0.18em] text-muted-foreground">
+                  <span className="size-1.5 rounded-full bg-muted-foreground/50" />
                   Feed Pending
                 </span>
               )}
             </div>
 
-            <h3 className="display-title text-2xl font-normal text-black tracking-[0.04em]">
+            <h3 className="display-title text-2xl font-normal text-foreground tracking-[0.04em]">
               {meta.label}
             </h3>
           </div>
 
           {stats.recommendPercent > 0 && (
             <div className="text-right">
-              <span className="font-serif text-2xl font-normal text-black leading-none block">
+              <span className="font-serif text-2xl font-normal text-primary leading-none block">
                 {stats.recommendPercent}%
               </span>
-              <span className="text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+              <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
                 Recommend
               </span>
             </div>
@@ -59,23 +59,23 @@ export function StoreCard({ store }: StoreCardProps) {
         </div>
 
         {/* Rating Metrics Display */}
-        <div className="grid grid-cols-2 gap-4 py-3 px-4 mb-5 bg-neutral-50 border border-neutral-100 text-xs">
+        <div className="grid grid-cols-2 gap-4 py-3 px-4 mb-5 bg-secondary border border-border/70 text-xs">
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-medium block mb-0.5">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-medium block mb-0.5">
               Overall Score
             </span>
             <div className="flex items-baseline gap-1">
-              <span className="font-serif text-2xl font-normal text-black leading-none">
+              <span className="font-serif text-2xl font-normal text-foreground leading-none">
                 {stats.avgOverall ? stats.avgOverall.toFixed(1) : "—"}
               </span>
-              <span className="text-[10px] text-neutral-400">/ 10</span>
+              <span className="text-[10px] text-muted-foreground">/ 10</span>
             </div>
           </div>
           <div>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-neutral-400 font-medium block mb-0.5">
+            <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-medium block mb-0.5">
               Indexed Shirts
             </span>
-            <span className="font-serif text-2xl font-normal text-black leading-none block">
+            <span className="font-serif text-2xl font-normal text-foreground leading-none block">
               {productCount > 0 ? productCount : "—"}
             </span>
           </div>
@@ -83,21 +83,21 @@ export function StoreCard({ store }: StoreCardProps) {
 
         {/* Sub-Score Breakdown */}
         <div className="py-1 space-y-2 text-xs">
-          <div className="flex justify-between items-center text-neutral-500">
+          <div className="flex justify-between items-center text-muted-foreground">
             <span className="text-[11px] uppercase tracking-wider">Quality Grade</span>
-            <span className="font-medium text-black">
+            <span className="font-medium text-foreground">
               {stats.avgQuality ? stats.avgQuality.toFixed(1) : "—"} / 10
             </span>
           </div>
-          <div className="flex justify-between items-center text-neutral-500">
+          <div className="flex justify-between items-center text-muted-foreground">
             <span className="text-[11px] uppercase tracking-wider">Fulfillment Speed</span>
-            <span className="font-medium text-black">
+            <span className="font-medium text-foreground">
               {stats.avgShipping ? stats.avgShipping.toFixed(1) : "—"} / 10
             </span>
           </div>
-          <div className="flex justify-between items-center text-neutral-500">
+          <div className="flex justify-between items-center text-muted-foreground">
             <span className="text-[11px] uppercase tracking-wider">Price-to-Value</span>
-            <span className="font-medium text-black">
+            <span className="font-medium text-foreground">
               {stats.avgValue ? stats.avgValue.toFixed(1) : "—"} / 10
             </span>
           </div>
@@ -105,16 +105,16 @@ export function StoreCard({ store }: StoreCardProps) {
       </div>
 
       {/* Actions */}
-      <div className="pt-5 border-t border-neutral-100 flex items-center gap-2 mt-5">
+      <div className="pt-5 border-t border-border/60 flex items-center gap-2 mt-5">
         {productCount > 0 ? (
           <Link
             href={`/?store=${encodeURIComponent(meta.label)}#catalog`}
-            className="flex-1 py-3 px-3 border border-neutral-200 hover:border-black text-[11px] font-medium uppercase tracking-[0.18em] text-center text-black transition-colors truncate"
+            className="flex-1 py-3 px-3 border border-border hover:border-foreground text-[11px] font-medium uppercase tracking-[0.18em] text-center text-foreground transition-colors truncate"
           >
             View Shirts ({productCount})
           </Link>
         ) : (
-          <div className="flex-1 py-3 px-3 border border-neutral-100 bg-neutral-50 text-[11px] uppercase tracking-[0.18em] text-center text-neutral-400 cursor-not-allowed">
+          <div className="flex-1 py-3 px-3 border border-border bg-secondary text-[11px] uppercase tracking-[0.18em] text-center text-muted-foreground cursor-not-allowed">
             Feed Pending
           </div>
         )}
@@ -122,7 +122,7 @@ export function StoreCard({ store }: StoreCardProps) {
           href={meta.websiteUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="py-3 px-4 bg-black text-white hover:bg-neutral-800 transition-colors text-[11px] font-medium uppercase tracking-[0.2em] flex items-center justify-center gap-1.5 shrink-0"
+          className="py-3 px-4 bg-primary text-primary-foreground hover:opacity-90 transition-all text-[11px] font-medium uppercase tracking-[0.2em] flex items-center justify-center gap-1.5 shrink-0 shadow-sm"
         >
           <span>Visit</span>
           <ExternalLink className="size-3 stroke-[1.5]" />

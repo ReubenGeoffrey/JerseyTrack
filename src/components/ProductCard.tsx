@@ -28,7 +28,7 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
       className="group flex flex-col cursor-pointer transition-all duration-200"
     >
       {/* Product Image Box */}
-      <div className="relative shrink-0 overflow-hidden bg-neutral-100 aspect-square w-full mb-3">
+      <div className="relative shrink-0 overflow-hidden bg-muted aspect-square w-full mb-3 rounded-xs">
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -43,20 +43,20 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
             e.stopPropagation();
             toggleFavorite(product);
           }}
-          className="size-8 grid place-items-center rounded-full bg-white/80 hover:bg-white backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
+          className="size-8 grid place-items-center rounded-full bg-background/80 hover:bg-background border border-border backdrop-blur transition-all absolute top-2.5 right-2.5 z-10"
           aria-label={favorite ? "Remove from wishlist" : "Add to wishlist"}
         >
           <Heart
             className={`size-3.5 stroke-[1.5] transition-colors ${
               favorite
-                ? "fill-black text-black"
-                : "text-neutral-500 hover:text-black"
+                ? "fill-primary text-primary"
+                : "text-muted-foreground hover:text-primary"
             }`}
           />
         </button>
 
         {/* Quick Compare Hover Badge */}
-        <div className="absolute bottom-2.5 left-2.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-[9px] font-medium uppercase tracking-[0.2em] px-2.5 py-1 flex items-center gap-1.5">
+        <div className="absolute bottom-2.5 left-2.5 z-10 opacity-0 group-hover:opacity-100 transition-opacity bg-primary text-primary-foreground text-[9px] font-medium uppercase tracking-[0.2em] px-2.5 py-1 flex items-center gap-1.5 shadow-sm">
           <Scale className="size-2.5" />
           <span>Compare Stores</span>
         </div>
@@ -65,15 +65,15 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
       {/* Product Details Area */}
       <div className="flex flex-1 flex-col gap-1">
         {/* Store & Edition Header */}
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-medium text-neutral-400">
-          <span className="truncate max-w-[140px] text-neutral-500">
+        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] font-medium text-muted-foreground">
+          <span className="truncate max-w-[140px] text-muted-foreground/80">
             {product.store.replace(/_/g, " ")}
           </span>
-          <span className="text-neutral-900 font-semibold">{editionLabel}</span>
+          <span className="text-foreground font-semibold">{editionLabel}</span>
         </div>
 
         {/* Product Title */}
-        <h3 className="line-clamp-1 text-xs font-normal text-neutral-900 tracking-wide group-hover:text-black transition-colors">
+        <h3 className="line-clamp-1 text-xs font-normal text-foreground tracking-wide group-hover:text-primary transition-colors">
           {product.name}
         </h3>
 
@@ -82,19 +82,19 @@ export function ProductCard({ product, onOpenDetails }: ProductCardProps) {
           <div className="flex items-baseline gap-2">
             <span
               className={`text-xs font-semibold ${
-                hasDiscount ? "text-sale" : "text-black"
+                hasDiscount ? "text-sale" : "text-foreground"
               }`}
             >
               ₹{product.discountedPrice ?? product.price}
             </span>
             {hasDiscount && (
-              <span className="text-[11px] text-neutral-400 line-through">
+              <span className="text-[11px] text-muted-foreground line-through">
                 ₹{product.price}
               </span>
             )}
           </div>
 
-          <span className="text-[10px] uppercase tracking-wider text-neutral-400 font-medium">
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
             {product.inStock ? "In stock" : "Sold out"}
           </span>
         </div>

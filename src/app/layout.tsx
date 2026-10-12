@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/context/FavoritesContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
@@ -62,12 +63,14 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased ${bodoniModa.variable} ${inter.variable}`}
     >
-      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-black selection:text-white">
-        <FavoritesProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </FavoritesProvider>
+      <body className="min-h-screen flex flex-col font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+        <ThemeProvider>
+          <FavoritesProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </FavoritesProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

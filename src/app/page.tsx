@@ -10,7 +10,7 @@ export default function HomePage() {
   const collections = getEditorialCollections();
 
   return (
-    <div className="w-full flex flex-col bg-white text-black">
+    <div className="w-full flex flex-col bg-background text-foreground transition-colors duration-200">
       {/* 1. Full-Screen Zara-Inspired Campaign Hero */}
       <HeroCampaign />
 

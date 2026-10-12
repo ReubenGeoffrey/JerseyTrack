@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 1. DEFAULT ZARA LUXURY WHITE PALETTE */
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
@@ -15,18 +16,38 @@
   --muted-foreground: #737373;
   --border: #e5e5e5;
   --sale: #b91c1c;
+  --spider-glow: rgba(0, 0, 0, 0.1);
+}
+
+/* 2. DARK SPIDER-MAN (SYMBIOTE / MILES MORALES) PALETTE */
+html.theme-spiderman,
+.theme-spiderman {
+  --background: #07080c;
+  --foreground: #f4f5f8;
+  --card: #0f1118;
+  --card-foreground: #ffffff;
+  --primary: #e11d48; /* Vibrant Spider-Crimson Red */
+  --primary-foreground: #ffffff;
+  --secondary: #161822;
+  --secondary-foreground: #f4f5f8;
+  --muted: #12141c;
+  --muted-foreground: #8e93a6;
+  --border: #222634;
+  --sale: #ff2a5f;
+  --spider-glow: rgba(225, 29, 72, 0.45);
 }
 
 @layer base {
   * {
-    border-color: #e5e5e5;
+    border-color: var(--border);
   }
   body {
-    background-color: #ffffff;
-    color: #0a0a0a;
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
@@ -44,8 +65,39 @@
 }
 
 ::selection {
-  background-color: #000000;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Dark Spider-Man Signature Button */
+.btn-spiderman {
+  background: linear-gradient(135deg, #0d0f17 0%, #171924 100%);
+  border: 1px solid rgba(225, 29, 72, 0.6);
   color: #ffffff;
+  box-shadow: 0 0 15px rgba(225, 29, 72, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-spiderman:hover {
+  background: linear-gradient(135deg, #141622 0%, #201a28 100%);
+  border-color: #ff1744;
+  box-shadow: 0 0 25px rgba(255, 23, 68, 0.55), 0 0 10px rgba(225, 29, 72, 0.8);
+  transform: translateY(-1px);
+}
+
+.btn-spiderman-active {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  border: 1px solid #ff2a5f;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
+}
+
+/* Spider web texture overlay when Spider-Man theme is active */
+.theme-spiderman .spiderman-web-overlay {
+  background-image: radial-gradient(circle at 50% 50%, rgba(225, 29, 72, 0.03) 0%, transparent 80%),
+    linear-gradient(rgba(225, 29, 72, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225, 29, 72, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
 }
 
 /* Minimalist luxury scrollbar */
@@ -55,16 +107,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #a3a3a3;
   border-radius: 2px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+.theme-spiderman ::-webkit-scrollbar-thumb {
+  background: #2a2d3d;
+}
+
+.theme-spiderman ::-webkit-scrollbar-thumb:hover {
+  background: #e11d48;
 }
 
 @keyframes fadeIn {

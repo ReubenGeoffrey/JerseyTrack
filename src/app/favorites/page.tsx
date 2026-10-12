@@ -13,28 +13,28 @@ export default function FavoritesPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
-    <div className="pt-24 sm:pt-28 pb-24 bg-white text-black min-h-screen">
+    <div className="pt-24 sm:pt-28 pb-24 bg-background text-foreground min-h-screen transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation Breadcrumb */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-neutral-400 hover:text-black mb-8 transition-colors font-medium"
+          className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-primary mb-8 transition-colors font-medium"
         >
           <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
           <span>Return to Collection</span>
         </Link>
 
         {/* Page Header */}
-        <div className="border-b border-neutral-200 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="border-b border-border pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <span className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-medium block mb-2">
+            <span className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground font-medium block mb-2">
               SAVED PIECES
             </span>
-            <h1 className="display-title text-4xl sm:text-6xl font-normal tracking-[0.06em] uppercase text-black">
+            <h1 className="display-title text-4xl sm:text-6xl font-normal tracking-[0.06em] uppercase text-foreground">
               YOUR WISHLIST
             </h1>
           </div>
-          <div className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 font-medium">
+          <div className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground font-medium">
             <span>{count} {count === 1 ? "piece" : "pieces"} saved</span>
           </div>
         </div>
@@ -52,16 +52,16 @@ export default function FavoritesPage() {
           </div>
         ) : (
           <div className="py-28 text-center max-w-md mx-auto">
-            <Heart className="w-8 h-8 stroke-[1] text-neutral-300 mx-auto mb-4" />
-            <h3 className="display-title text-2xl font-normal uppercase text-black mb-2 tracking-[0.06em]">
+            <Heart className="w-8 h-8 stroke-[1] text-muted-foreground/40 mx-auto mb-4" />
+            <h3 className="display-title text-2xl font-normal uppercase text-foreground mb-2 tracking-[0.06em]">
               Your wishlist is empty
             </h3>
-            <p className="text-xs text-neutral-500 leading-relaxed mb-8 tracking-wide font-light">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-8 tracking-wide font-light">
               Explore the football collection, save shirts you love, and track price changes across 22+ stores.
             </p>
             <Link
               href="/#catalog"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white hover:bg-neutral-800 transition-colors text-[11px] font-medium tracking-[0.25em] uppercase"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:opacity-90 transition-all text-[11px] font-medium tracking-[0.25em] uppercase shadow-md"
             >
               <span>Explore Collection</span>
               <ShoppingBag className="w-3.5 h-3.5 stroke-[1.5]" />

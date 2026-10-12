@@ -6,6 +6,7 @@ import { ProductCard } from "./ProductCard";
 import { ProductDetailModal } from "./ProductDetailModal";
 import { Search, X, ChevronDown, Info, RotateCcw } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { useTheme } from "@/context/ThemeContext";
 
 interface ProductCatalogProps {
   initialProducts: Product[];
@@ -25,6 +26,7 @@ export function ProductCatalog({
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const urlStore = searchParams.get("store");
+  const { isSpiderman } = useTheme();
 
   // State
   const [query, setQuery] = useState<string>("");
@@ -276,24 +278,24 @@ export function ProductCatalog({
     sort !== "featured";
 
   return (
-    <section id="catalog" className="w-full py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white text-black">
-      {/* Header with Zara Editorial Typography */}
+    <section id="catalog" className="w-full py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-background text-foreground transition-colors duration-200">
+      {/* Header */}
       <header className="mb-8">
-        <span className="text-[10px] uppercase tracking-[0.28em] text-neutral-400 font-medium block mb-2">
-          LIVE INDEX · 22+ MONITORED STORES
+        <span className="text-[10px] uppercase tracking-[0.28em] text-muted-foreground font-medium block mb-2">
+          {isSpiderman ? "SPIDER-SUIT INDEX · 22+ MONITORED STORES" : "LIVE INDEX · 22+ MONITORED STORES"}
         </span>
-        <h2 className="display-title text-3xl sm:text-5xl font-normal text-black tracking-[0.06em]">
+        <h2 className="display-title text-3xl sm:text-5xl font-normal text-foreground tracking-[0.06em]">
           {title}
         </h2>
-        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-neutral-500 font-normal">{subtitle}</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground font-normal">{subtitle}</p>
       </header>
 
-      {/* ZARA MINIMALIST EASY-ACCESS FILTER CONSOLE */}
-      <div className="border-y border-neutral-200 py-6 mb-8 space-y-5 bg-white">
+      {/* EASY-ACCESS FILTER CONSOLE */}
+      <div className="border-y border-border py-6 mb-8 space-y-5 bg-card/60 transition-colors duration-200">
         {/* ROW 1: Search & Sort Combobox */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-neutral-400 stroke-[1.5]" />
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground stroke-[1.5]" />
             <input
               type="text"
               value={query}
@@ -304,12 +306,12 @@ export function ProductCatalog({
               placeholder="SEARCH SHIRTS, CLUBS, SEASONS, BOUTIQUES..."
               aria-label="Search products"
               autoComplete="off"
-              className="h-10 w-full min-w-0 border border-neutral-200 bg-white pl-9 pr-9 py-2 text-xs tracking-wider uppercase text-black outline-none focus:border-black placeholder:text-neutral-400 transition-colors"
+              className="h-10 w-full min-w-0 border border-border bg-card pl-9 pr-9 py-2 text-xs tracking-wider uppercase text-foreground outline-none focus:border-primary placeholder:text-muted-foreground transition-colors"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-black"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 aria-label="Clear search"
               >
                 <X className="size-3.5" />
@@ -325,7 +327,7 @@ export function ProductCatalog({
                   setSort(e.target.value);
                   setPage(1);
                 }}
-                className="h-10 w-full appearance-none border border-neutral-200 bg-white px-3 pr-8 text-[11px] font-medium tracking-[0.18em] uppercase text-black outline-none focus:border-black cursor-pointer transition-colors"
+                className="h-10 w-full appearance-none border border-border bg-card px-3 pr-8 text-[11px] font-medium tracking-[0.18em] uppercase text-foreground outline-none focus:border-primary cursor-pointer transition-colors"
               >
                 <option value="featured">ORDER: FEATURED</option>
                 <option value="price-asc">PRICE: LOW TO HIGH</option>
@@ -333,7 +335,7 @@ export function ProductCatalog({
                 <option value="discount">BIGGEST MARKDOWNS</option>
                 <option value="newest">NEWEST ARRIVALS</option>
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-neutral-400 stroke-[1.5]" />
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground stroke-[1.5]" />
             </div>
           </div>
         </div>
@@ -342,7 +344,7 @@ export function ProductCatalog({
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-1">
           {/* VERSION Pills */}
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
               Edition:
             </span>
             <div className="inline-flex w-fit items-center gap-1">
@@ -361,10 +363,10 @@ export function ProductCatalog({
                       setVersion(key);
                       setPage(1);
                     }}
-                    className={`px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-colors ${
+                    className={`px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] transition-all ${
                       isActive
-                        ? "bg-black text-white"
-                        : "border border-neutral-200 text-neutral-600 hover:border-black hover:text-black"
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
                     }`}
                   >
                     {label}
@@ -385,16 +387,16 @@ export function ProductCatalog({
                 setPage(1);
               }}
               className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                jerseysOnly ? "bg-black" : "bg-neutral-200"
+                jerseysOnly ? "bg-primary" : "bg-muted"
               }`}
             >
               <span
-                className={`pointer-events-none block size-3.5 rounded-full bg-white transition-transform ${
+                className={`pointer-events-none block size-3.5 rounded-full bg-background transition-transform ${
                   jerseysOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-neutral-800">
+            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-foreground">
               Jerseys only
             </span>
           </div>
@@ -410,16 +412,16 @@ export function ProductCatalog({
                 setPage(1);
               }}
               className={`relative inline-flex h-[18px] w-[32px] shrink-0 items-center rounded-full border border-transparent transition-colors outline-none cursor-pointer ${
-                inStockOnly ? "bg-black" : "bg-neutral-200"
+                inStockOnly ? "bg-primary" : "bg-muted"
               }`}
             >
               <span
-                className={`pointer-events-none block size-3.5 rounded-full bg-white transition-transform ${
+                className={`pointer-events-none block size-3.5 rounded-full bg-background transition-transform ${
                   inStockOnly ? "translate-x-[calc(100%-1px)]" : "translate-x-[2px]"
                 }`}
               />
             </button>
-            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-neutral-800">
+            <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-foreground">
               In stock only
             </span>
           </div>
@@ -428,7 +430,7 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={resetAllFilters}
-              className="ml-auto inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors"
+              className="ml-auto inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors"
             >
               <RotateCcw className="size-3 stroke-[1.5]" />
               <span>Reset</span>
@@ -437,17 +439,17 @@ export function ProductCatalog({
         </div>
 
         {/* ROW 3: ALL STORES PILLS */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-neutral-100">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium mr-1">
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border/50">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium mr-1">
             Boutiques:
           </span>
           <button
             type="button"
             onClick={() => toggleStore("ALL")}
-            className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-colors ${
+            className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-all ${
               selectedStores.length === 0
-                ? "bg-black text-white font-medium"
-                : "border border-neutral-200 bg-white text-neutral-600 hover:border-black hover:text-black"
+                ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
             }`}
           >
             All Stores
@@ -460,10 +462,10 @@ export function ProductCatalog({
                 key={st}
                 type="button"
                 onClick={() => toggleStore(st)}
-                className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-colors ${
+                className={`px-3 py-1 text-[11px] uppercase tracking-[0.16em] transition-all ${
                   isSelected
-                    ? "bg-black text-white font-medium"
-                    : "border border-neutral-200 bg-white text-neutral-600 hover:border-black hover:text-black"
+                    ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                    : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
                 }`}
               >
                 {st}
@@ -475,7 +477,7 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setShowAllStores(!showAllStores)}
-              className="px-3 py-1 text-[11px] uppercase tracking-[0.16em] border border-dashed border-neutral-300 text-neutral-800 hover:border-black transition-colors"
+              className="px-3 py-1 text-[11px] uppercase tracking-[0.16em] border border-dashed border-border text-foreground hover:border-primary transition-colors"
             >
               {showAllStores ? "− Fewer stores" : `+ ${allStoreLabels.length - 14} more boutiques`}
             </button>
@@ -483,8 +485,8 @@ export function ProductCatalog({
         </div>
 
         {/* ROW 4: SIZE FILTER PILLS */}
-        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-neutral-100">
-          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-medium mr-2">
+        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border/50">
+          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium mr-2">
             Size:
             <Info className="size-3 stroke-[1.5]" />
           </span>
@@ -496,10 +498,10 @@ export function ProductCatalog({
                 key={sz}
                 type="button"
                 onClick={() => toggleSize(sz)}
-                className={`size-7 grid place-items-center text-[11px] font-medium uppercase transition-colors ${
+                className={`size-7 grid place-items-center text-[11px] font-medium uppercase transition-all ${
                   isSizeActive
-                    ? "bg-black text-white"
-                    : "border border-neutral-200 text-neutral-600 hover:border-black hover:text-black"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "border border-border bg-card text-muted-foreground hover:border-foreground hover:text-foreground"
                 }`}
               >
                 {sz}
@@ -511,7 +513,7 @@ export function ProductCatalog({
             <button
               type="button"
               onClick={() => setSelectedSizes([])}
-              className="text-[10px] text-neutral-400 hover:text-black underline ml-2 uppercase tracking-widest"
+              className="text-[10px] text-muted-foreground hover:text-primary underline ml-2 uppercase tracking-widest"
             >
               Clear sizes
             </button>
@@ -520,7 +522,7 @@ export function ProductCatalog({
       </div>
 
       {/* Product Results Count Banner */}
-      <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-400 mb-6 font-medium">
+      <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-6 font-medium">
         {filteredProducts.length.toLocaleString()} SHIRTS FOUND ACROSS BOUTIQUES
       </p>
 
@@ -536,13 +538,13 @@ export function ProductCatalog({
           ))}
         </div>
       ) : (
-        <div className="py-24 text-center border border-neutral-200 bg-neutral-50/50">
-          <p className="text-xs uppercase tracking-[0.22em] text-neutral-500 mb-3 font-medium">
+        <div className="py-24 text-center border border-border bg-secondary/30">
+          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-3 font-medium">
             No shirts found matching your search and filter criteria
           </p>
           <button
             onClick={resetAllFilters}
-            className="text-[11px] font-medium tracking-[0.2em] uppercase text-black underline hover:opacity-60"
+            className="text-[11px] font-medium tracking-[0.2em] uppercase text-primary underline hover:opacity-80"
           >
             Clear filters and reset catalogue
           </button>
@@ -551,14 +553,14 @@ export function ProductCatalog({
 
       {/* Load More Button */}
       {hasMore && (
-        <div className="mt-16 text-center pt-8 border-t border-neutral-200">
-          <p className="text-[11px] tracking-[0.2em] uppercase text-neutral-400 mb-4 font-medium">
+        <div className="mt-16 text-center pt-8 border-t border-border">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-4 font-medium">
             Showing {displayedProducts.length} of {filteredProducts.length.toLocaleString()} shirts
           </p>
           <button
             type="button"
             onClick={() => setPage((prev) => prev + 1)}
-            className="px-10 py-4 bg-black text-white hover:bg-neutral-800 text-[11px] font-medium uppercase tracking-[0.25em] transition-colors"
+            className="px-10 py-4 bg-primary text-primary-foreground hover:opacity-90 text-[11px] font-medium uppercase tracking-[0.25em] transition-all shadow-md"
           >
             Load More Shirts
           </button>

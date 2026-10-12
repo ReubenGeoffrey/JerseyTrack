@@ -10,27 +10,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#ffffff",
-        foreground: "#0a0a0a",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         card: {
-          DEFAULT: "#ffffff",
-          foreground: "#0a0a0a",
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
         },
         primary: {
-          DEFAULT: "#000000", // Zara bold black
-          foreground: "#ffffff",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "#f5f5f5",
-          foreground: "#111111",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
         },
         muted: {
-          DEFAULT: "#fafafa",
-          foreground: "#737373",
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
         },
-        border: "#e5e5e5",
-        input: "#ffffff",
-        sale: "#b91c1c", // High-fashion refined crimson
+        border: "var(--border)",
+        sale: "var(--sale)",
+        spider: {
+          crimson: "#e11d48",
+          neon: "#ff1744",
+          black: "#07080c",
+          card: "#0f1118",
+          blue: "#00b4d8",
+        },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
@@ -42,6 +48,10 @@ const config: Config = {
         wider: "0.15em",
         tight: "-0.02em",
         tighter: "-0.04em",
+      },
+      boxShadow: {
+        "spider-glow": "0 0 20px rgba(225, 29, 72, 0.45)",
+        "spider-glow-lg": "0 0 35px rgba(225, 29, 72, 0.65)",
       },
     },
   },
