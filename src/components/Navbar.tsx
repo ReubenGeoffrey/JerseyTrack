@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Heart, Menu, X, ArrowRight } from "lucide-react";
+import { Search, Heart, Menu, X, ArrowRight, Github } from "lucide-react";
 import { useFavorites } from "@/context/FavoritesContext";
 import { SpiderInsigniaIcon, SpiderMaskIcon } from "./SpiderIcons";
 
@@ -96,10 +96,10 @@ export function Navbar({ onSearchClick }: NavbarProps) {
           </nav>
 
           {/* Right Action Icons: Touch-optimized for Mobile Safari & Chrome */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <Link
               href="/#catalog"
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 active:scale-95"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 active:scale-95 touch-manipulation"
               aria-label="Search Collection"
             >
               <Search className="w-4 h-4 stroke-[1.8]" />
@@ -108,7 +108,7 @@ export function Navbar({ onSearchClick }: NavbarProps) {
 
             <Link
               href="/favorites"
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 relative active:scale-95"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md hover:bg-secondary/60 relative active:scale-95 touch-manipulation"
               aria-label="Wishlist"
             >
               <Heart className="w-4 h-4 stroke-[1.8]" />
@@ -120,10 +120,23 @@ export function Navbar({ onSearchClick }: NavbarProps) {
               )}
             </Link>
 
+            {/* GitHub Link */}
+            <a
+              href="https://github.com/reubengeoffrey/JerseyTrack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5 text-[11px] uppercase tracking-[0.18em] font-medium text-muted-foreground hover:text-primary transition-colors p-2 rounded-md hover:bg-secondary/60 active:scale-95 touch-manipulation"
+              aria-label="GitHub Repository"
+              title="GitHub Repository"
+            >
+              <Github className="w-4 h-4 stroke-[1.8]" />
+              <span className="hidden xl:inline">GitHub</span>
+            </a>
+
             {/* Mobile Hamburger (min 44x44px tap target for iOS Safari & Chrome Mobile) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center lg:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md active:bg-secondary"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center lg:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md active:bg-secondary touch-manipulation"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
@@ -148,7 +161,7 @@ export function Navbar({ onSearchClick }: NavbarProps) {
                   Dark Spider Edition
                 </span>
                 <span className="text-[10px] text-muted-foreground tracking-widest uppercase">
-                  6,500+ shirts · 22 stores live
+                  6,569+ shirts · 22 stores live
                 </span>
               </div>
             </div>
@@ -177,6 +190,21 @@ export function Navbar({ onSearchClick }: NavbarProps) {
                 </Link>
               );
             })}
+
+            {/* Mobile GitHub Button */}
+            <a
+              href="https://github.com/reubengeoffrey/JerseyTrack"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="display-title min-h-[48px] text-base py-3 px-3.5 rounded-lg border border-border/80 bg-card/70 flex items-center justify-between tracking-[0.14em] uppercase transition-all text-foreground hover:text-primary active:scale-98 mt-2 shadow-spider-glow"
+            >
+              <div className="flex items-center gap-2.5">
+                <Github className="w-5 h-5 text-primary" />
+                <span>GitHub Repository</span>
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground stroke-[1.5]" />
+            </a>
           </div>
 
           <div className="pt-6 border-t border-border mt-auto text-xs text-muted-foreground space-y-2 uppercase tracking-widest safe-bottom">

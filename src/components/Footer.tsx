@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { SpiderInsigniaIcon, SpiderWebGraphic } from "./SpiderIcons";
 import { SpidermanThemeButton } from "./SpidermanThemeButton";
+import { Github } from "lucide-react";
 
 export function Footer() {
   return (
@@ -121,7 +122,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Specifications */}
+          {/* Specifications & GitHub */}
           <div className="space-y-4">
             <h4 className="text-[11px] font-mono font-bold tracking-[0.22em] uppercase text-foreground">
               Suit & Specifications
@@ -129,8 +130,19 @@ export function Footer() {
             <p className="text-xs text-muted-foreground leading-relaxed tracking-wide">
               All prices displayed in Indian Rupees (₹). Listings synchronize directly with verified partner inventories.
             </p>
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <SpidermanThemeButton variant="compact" />
+
+              <a
+                href="https://github.com/reubengeoffrey/JerseyTrack"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-border/80 bg-background/80 hover:border-primary text-xs font-mono text-muted-foreground hover:text-white transition-all shadow-spider-glow min-h-[44px] touch-manipulation active:scale-95"
+                title="View on GitHub"
+              >
+                <Github className="size-4 text-primary" />
+                <span>GitHub Source</span>
+              </a>
             </div>
           </div>
         </div>
@@ -140,7 +152,7 @@ export function Footer() {
           <div>
             © {new Date().getFullYear()} FOOTBALL TRACKING KIT. ALL RIGHTS RESERVED.
           </div>
-          <div className="flex items-center gap-6 text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-6 text-muted-foreground">
             <Link href="/" className="hover:text-primary transition-colors min-h-[36px] inline-flex items-center">
               Collection
             </Link>
@@ -153,6 +165,15 @@ export function Footer() {
             <Link href="/favorites" className="hover:text-primary transition-colors min-h-[36px] inline-flex items-center">
               Wishlist
             </Link>
+            <a
+              href="https://github.com/reubengeoffrey/JerseyTrack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors min-h-[36px] inline-flex items-center gap-1.5"
+            >
+              <Github className="size-3.5 text-primary" />
+              <span>GitHub</span>
+            </a>
           </div>
         </div>
       </div>
